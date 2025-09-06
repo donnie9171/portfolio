@@ -1,3 +1,8 @@
+.cube-thumb {
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+}
 .book-scroll {
   width: 100%;
   overflow-x: auto;
@@ -34,7 +39,7 @@ main {
 .book-thumb {
   border: 1px solid lightgray;
   box-shadow: 0 0px 4px 1px rgba(0, 0, 0, 0.359);
-  width: 350px;
+  width: 200px;
   border-radius: 5px;
   transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
 }
