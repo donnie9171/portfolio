@@ -5,12 +5,11 @@ body {
   background: #fafafa;
   color: #222;
   perspective: 800px; /* Perspective effect */
-
 }
 header {
   background: #fff;
   padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
 }
@@ -25,46 +24,66 @@ main {
   position: relative;
   width: 200px;
   height: 200px;
-  transform-style: preserve-3d; 
+  transform-style: preserve-3d;
   touch-action: none;
   -webkit-user-select: none;
   user-select: none;
-    }
+  cursor: grab;
+}
 
-    .cube div {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      box-sizing: border-box;
-    }
+.cube:hover {
+  cursor: grab;
+}
 
-    /* Position each face of the cube */
-    .front {
-      transform: translateZ(100px);
-      background: #00b7ffb0;
-    }
+.cube.grabbing {
+  cursor: grabbing;
+}
 
-    .back {
-      transform: rotateY(180deg) translateZ(100px);
-      background: #00b7ffb0
-    }
+.cube:active {
+  cursor: grabbing;
+}
 
-    .left {
-      transform: rotateY(-90deg) translateZ(100px);
-      background: #e51effb0;
-    }
+.cube div {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  box-sizing: border-box;
 
-    .right {
-      transform: rotateY(90deg) translateZ(100px);
-      background: #e51effb0;
-    }
+  font-size: 80px;
+  font-weight: 900;
+  color: white;
+  line-height: 0.8;
+  padding-top: 0%;
+  overflow: hidden;
+}
 
-    .top {
-      transform: rotateX(90deg) translateZ(100px);
-      background: #fff566b0;
-    }
+/* Position each face of the cube */
+.front {
+  transform: translateZ(100px);
+  background: #00b7ffb0;
+}
 
-    .bottom {
-      transform: rotateX(-90deg) translateZ(100px);
-      background: #fff566b0;
-    }
+.back {
+  transform: rotateY(180deg) translateZ(100px);
+  background: #00b7ffb0;
+}
+
+.left {
+  transform: rotateY(-90deg) translateZ(100px);
+  background: #e51effb0;
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(100px);
+  background: #e51effb0;
+}
+
+.top {
+  transform: rotateX(90deg) translateZ(100px);
+  background: #fff566b0;
+}
+
+.bottom {
+  transform: rotateX(-90deg) translateZ(100px);
+  background: #fff566b0;
+}
