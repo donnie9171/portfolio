@@ -49,13 +49,18 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    cube.addEventListener('pointermove', updateRotation);
-    cube.addEventListener('pointerleave', () => {
+    cube.addEventListener('pointermove', function(e) {
+      e.preventDefault();
+      updateRotation(e);
+    });
+    cube.addEventListener('pointerleave', function(e) {
+      e.preventDefault();
       spinning = true;
       requestAnimationFrame(spinCube);
       rect = null;
     });
-    cube.addEventListener('pointerenter', () => {
+    cube.addEventListener('pointerenter', function(e) {
+      e.preventDefault();
       spinning = false;
       velocityX = 0;
       velocityY = 0;
