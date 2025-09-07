@@ -18,6 +18,21 @@ body {
   color: #222;
   perspective: 800px; /* Perspective effect */
 }
+
+
+.noscroll{
+  margin: 0; 
+  height: 100%; 
+  overflow: hidden;
+  touch-action: none;
+}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
 header {
   background: #fff;
   padding: 1rem;
