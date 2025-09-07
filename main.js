@@ -1,6 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
+  function triggerDizzy() {
+    shakeAccumulator = 0;
+    isDizzy = true;
+    setTimeout(() => {
+      isDizzy = false;
+      setTransform();
+    }, 1800);
+  }
+  // Dizzy threshold and state
+  const DIZZY_THRESHOLD = 30;
+  let shakeAccumulator = 0;
+  let isDizzy = false;
   // Pointer-based cube rotation with inertia
   const cube = document.querySelector('.cube');
+  const pupilLeft = document.querySelector('.pupil-left');
+  const pupilRight = document.querySelector('.pupil-right');
   if (cube) {
     let rect = null;
     // Set random starting rotation
@@ -16,6 +30,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function setTransform() {
       cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+      // Animate pupils based on velocity (rattle effect)
+      if (pupilLeft && pupilRight) {
+        // Map velocity to pupil offset (max 8px from center)
+        const maxOffset = 20;
+        // Add a little randomness for rattle
+        const shakeX = velocityY * -2;
+        const shakeY = velocityX * 2;
+        const offsetX = Math.max(-maxOffset, Math.min(maxOffset, shakeX));
+        const offsetY = Math.max(-maxOffset, Math.min(maxOffset, shakeY));
+        pupilLeft.setAttribute('cx', 15 + offsetX);
+        pupilLeft.setAttribute('cy', 15 + offsetY);
+        pupilRight.setAttribute('cx', 45 + offsetX);
+        pupilRight.setAttribute('cy', 15 + offsetY);
+      }
+        // Check for dizzy effect
+        if (isDizzy) {
+          // Dizzy: spin pupils in circles
+          const t = performance.now() / 200;
+          pupilLeft.setAttribute('cx', 15 + Math.cos(t) * 7);
+          pupilLeft.setAttribute('cy', 15 + Math.sin(t) * 7);
+          pupilRight.setAttribute('cx', 45 + Math.cos(t + 1) * 7);
+          pupilRight.setAttribute('cy', 15 + Math.sin(t + 1) * 7);
+        }
     }
 
     // Set initial transform and start spinning on page load
@@ -46,6 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
       // Apply inertia
       rotationY += velocityY * 0.1;
       rotationX += velocityX * 0.1;
+      // Accumulate shake
+      shakeAccumulator += Math.abs(velocityX) + Math.abs(velocityY);
       setTransform();
       // Gradually slow down
       velocityX *= 0.95;
@@ -54,24 +93,26 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(spinCube);
       } else {
         spinning = false;
+        shakeAccumulator = 0;
       }
     }
 
-    let isPointerDown = false;
+    let pointerActive = false;
 
     cube.addEventListener('pointerdown', function(e) {
       e.preventDefault();
-      isPointerDown = true;
+      pointerActive = true;
       cube.classList.add('grabbing');
       spinning = false;
       velocityX = 0;
       velocityY = 0;
       lastPointerX = e.clientX;
       lastPointerY = e.clientY;
+      shakeAccumulator = 0;
     });
 
     cube.addEventListener('pointermove', function(e) {
-      if (!isPointerDown) return;
+      if (e.buttons === 0 && !pointerActive) return;
       e.preventDefault();
       if (lastPointerX !== null && lastPointerY !== null) {
         const dx = e.clientX - lastPointerX;
@@ -89,16 +130,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     cube.addEventListener('pointerup', function(e) {
       e.preventDefault();
-      isPointerDown = false;
+      pointerActive = false;
       cube.classList.remove('grabbing');
+      // Check for dizzy on release
+      if (shakeAccumulator > DIZZY_THRESHOLD) {
+        triggerDizzy();
+      }
       spinning = true;
       requestAnimationFrame(spinCube);
     });
 
     cube.addEventListener('pointerleave', function(e) {
       e.preventDefault();
-      isPointerDown = false;
+      pointerActive = false;
       cube.classList.remove('grabbing');
+      // Check for dizzy on leave
+      if (shakeAccumulator > DIZZY_THRESHOLD) {
+        triggerDizzy();
+      }
       spinning = true;
       requestAnimationFrame(spinCube);
       rect = null;

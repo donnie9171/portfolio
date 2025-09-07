@@ -1,3 +1,15 @@
+main {
+  position: relative;
+}
+.googly-eyes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.pupil {
+  transition: cx 0.1s, cy 0.1s;
+}
 /* Minimal CSS for fast loading */
 body {
   margin: 0;
