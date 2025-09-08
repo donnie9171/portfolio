@@ -1,3 +1,66 @@
+
+
+const sideLength = 200; // Length of the cube side in pixels
+
+function verticalSideLengthOnScreen(rotationX) {
+    const radiansX = rotationX * (Math.PI / 180);
+    return sideLength * Math.abs(Math.cos(radiansX));
+}
+
+function artSideArea(rotationX) {
+    const verticalLength = verticalSideLengthOnScreen(rotationX);
+    const bounds = document.getElementById('artSide').getBoundingClientRect();
+    return verticalLength * bounds.width;
+}
+
+function techSideArea(rotationX) {
+    const verticalLength = verticalSideLengthOnScreen(rotationX);
+    const bounds = document.getElementById('techSide').getBoundingClientRect();
+    return verticalLength * bounds.width;
+}
+
+function eduSideArea(rotationX) {
+    const verticalLength = verticalSideLengthOnScreen(rotationX);
+    const edubounds = document.getElementById('eduSide').getBoundingClientRect();
+    const artbounds = document.getElementById('artSide').getBoundingClientRect();
+    const techbounds = document.getElementById('techSide').getBoundingClientRect();
+    const w = edubounds.width;
+    const h = edubounds.height;
+    const a1 = artbounds.height - verticalLength;
+    const a2 = artbounds.width;
+    const b1 = techbounds.height - verticalLength;
+    const b2 = techbounds.width;
+    return w*h-(a1*a2 + b1*b2);
+}
+
+function getSideAreas(rotationX) {
+    const artArea = artSideArea(rotationX);
+    const techArea = techSideArea(rotationX);
+    const eduArea = eduSideArea(rotationX);
+    const totalArea = artArea + techArea + eduArea;
+    return {
+        art: artArea / totalArea,
+        tech: techArea / totalArea,
+        edu: eduArea / totalArea
+    };
+}
+
+function updateSideAreasBar(rotationX) {
+  if (!window._lastBarUpdate) window._lastBarUpdate = 0;
+  const now = performance.now();
+  if (now - window._lastBarUpdate < 100) return;
+  window._lastBarUpdate = now;
+  const sideAreas = getSideAreas(rotationX);
+  const techDiv = document.getElementById('techSlider');
+  const artDiv = document.getElementById('artSlider');
+  const eduDiv = document.getElementById('eduSlider');
+  if (techDiv && artDiv && eduDiv) {
+    techDiv.style.width = `${(sideAreas.tech * 100)}%`;
+    artDiv.style.width = `${(sideAreas.art * 100)}%`;
+    eduDiv.style.width = `${(sideAreas.edu * 100)}%`;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   function triggerDizzy() {
     shakeAccumulator = 0;
@@ -21,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let rotationX = 0;
     let rotationY = 0;
     // Set slight random starting velocity
-    let velocityX = -10 + Math.random() * 5;
+    let velocityX = -20 + Math.random() * 5;
     let velocityY = 20 + Math.random() * 5;
     let lastX = 0;
     let lastY = 0;
@@ -95,6 +158,8 @@ document.addEventListener('DOMContentLoaded', function() {
         spinning = false;
         shakeAccumulator = 0;
       }
+      // Update side-areas bar
+      updateSideAreasBar(rotationX);
     }
 
     let pointerActive = false;
@@ -126,6 +191,10 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       lastPointerX = e.clientX;
       lastPointerY = e.clientY;
+
+        // Initial bar update
+        updateSideAreasBar(rotationX);
+
     });
 
     cube.addEventListener('pointerup', function(e) {

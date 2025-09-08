@@ -1,3 +1,35 @@
+.side-areas {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 600px;
+  height: 40px;
+  margin: 2rem auto 0 auto;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.side-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 100%;
+  transition: width 0.3s;
+}
+.side-area.tech {
+  background: #00b7ffb0;
+}
+.side-area.art {
+  background: #e51effb0;
+}
+.side-area.edu {
+  background: #fff01ab0;
+}
 main {
   position: relative;
 }
@@ -16,7 +48,7 @@ body {
   font-family: "Poppins", sans-serif;
   background: #fafafa;
   color: #222;
-  perspective: 800px; /* Perspective effect */
+  perspective: 400px; /* Perspective effect */
 }
 
 
