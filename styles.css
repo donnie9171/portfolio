@@ -48,7 +48,6 @@ body {
   font-family: "Poppins", sans-serif;
   background: #fafafa;
   color: #222;
-  perspective: 400px; /* Perspective effect */
 }
 
 
@@ -123,7 +122,7 @@ main {
 }
 
 .back {
-  transform: rotateY(180deg) translateZ(100px);
+  transform: rotateY(180deg) translateZ(100.5px);
   background: #00b7ffb0;
 }
 
