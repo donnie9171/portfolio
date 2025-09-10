@@ -122,7 +122,7 @@ main {
 }
 
 .back {
-  transform: rotateY(180deg) translateZ(100.5px);
+  transform: rotateY(180deg) translateZ(100.01px);
   background: #00b7ffb0;
 }
 
