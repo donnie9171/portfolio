@@ -1,10 +1,21 @@
 
 
 const sideLength = 200; // Length of the cube side in pixels
+function getCubeSideLength() {
+  const cube = document.querySelector('.cube');
+  if (!cube) return 200;
+  const style = getComputedStyle(cube);
+  const size = style.getPropertyValue('--cubeSize');
+  if (size) {
+    // Remove 'px' and parse as float
+    return parseFloat(size);
+  }
+  return 200;
+}
 
 function verticalSideLengthOnScreen(rotationX) {
     const radiansX = rotationX * (Math.PI / 180);
-    return sideLength * Math.abs(Math.cos(radiansX));
+    return getCubeSideLength() * Math.abs(Math.cos(radiansX));
 }
 
 function artSideArea(rotationX) {
@@ -123,24 +134,6 @@ document.addEventListener('DOMContentLoaded', function() {
     spinning = true;
     requestAnimationFrame(spinCube);
 
-
-    function updateRotation(e) {
-      if (!rect) rect = cube.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const percentX = (x / rect.width - 0.5) * 2;
-      const percentY = (y / rect.height - 0.5) * 2;
-      // Calculate velocity based on pointer movement
-      velocityY = (percentX * 45 - rotationY);
-      velocityX = (-percentY * 45 - rotationX);
-      rotationY = percentX * 45;
-      rotationX = -percentY * 45;
-      setTransform();
-      lastX = percentX * 45;
-      lastY = -percentY * 45;
-      lastTime = performance.now();
-    }
-
     function spinCube(ts) {
       if (!spinning) return;
       // Apply inertia
@@ -164,7 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let pointerActive = false;
 
-    cube.addEventListener('pointerdown', function(e) {
+    const cubeHitbox = document.querySelector('.cubehitbox');
+
+    cubeHitbox.addEventListener('pointerdown', function(e) {
       e.preventDefault();
       pointerActive = true;
       cube.classList.add('grabbing');
@@ -176,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
       shakeAccumulator = 0;
     });
 
-    cube.addEventListener('pointermove', function(e) {
+    cubeHitbox.addEventListener('pointermove', function(e) {
       if (e.buttons === 0 && !pointerActive) return;
       e.preventDefault();
       if (lastPointerX !== null && lastPointerY !== null) {
@@ -197,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
-    cube.addEventListener('pointerup', function(e) {
+    cubeHitbox.addEventListener('pointerup', function(e) {
       e.preventDefault();
       pointerActive = false;
       cube.classList.remove('grabbing');
@@ -209,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
       requestAnimationFrame(spinCube);
     });
 
-    cube.addEventListener('pointerleave', function(e) {
+    cubeHitbox.addEventListener('pointerleave', function(e) {
       e.preventDefault();
       pointerActive = false;
       cube.classList.remove('grabbing');

@@ -17,33 +17,45 @@
     <h1>Enoch Kang</h1>
   </header>
   <main>
-  <div class="cube" style="margin-top: 2rem; margin-bottom: 2rem;">
+  <div class="cube-container" id="cubeContainer">
+    <div class="cube">
     <div class="front" id="techSide">
-        Tech
-        no
-        logy
-    </div>
+          Tech
+          no
+          logy
+      </div>
     <div class="back"></div>
     <div class="left" id="artSide">
-        Art
-        <div class="googly-eyes">
-          <svg width="60" height="30" viewBox="0 0 60 30">
-            <g>
-              <ellipse cx="15" cy="15" rx="13" ry="13" fill="#fff"/>
-              <ellipse cx="45" cy="15" rx="13" ry="13" fill="#fff"/>
-              <circle class="pupil pupil-left" cx="15" cy="15" r="5" fill="#222"/>
-              <circle class="pupil pupil-right" cx="45" cy="15" r="5" fill="#222"/>
-            </g>
-          </svg>
-        </div>
-    </div>
+          Art
+          <div class="googly-eyes">
+            <svg class="googly-svg" viewBox="0 0 60 30">
+              <defs>
+                <clipPath id="clipLeft">
+                  <ellipse cx="15" cy="15" rx="13" ry="13" />
+                </clipPath>
+                <clipPath id="clipRight">
+                  <ellipse cx="45" cy="15" rx="13" ry="13" />
+                </clipPath>
+              </defs>
+              <g>
+                <ellipse cx="15" cy="15" rx="13" ry="13" fill="#fff"/>
+                <ellipse cx="45" cy="15" rx="13" ry="13" fill="#fff"/>
+                <circle class="pupil pupil-left" cx="15" cy="15" r="5" fill="#222" clip-path="url(#clipLeft)"/>
+                <circle class="pupil pupil-right" cx="45" cy="15" r="5" fill="#222" clip-path="url(#clipRight)"/>
+              </g>
+            </svg>
+          </div>
+      </div>
     <div class="right"></div>
     <div class="top" id="eduSide">
-        Edu
-        ca
-        tion
+          Edu
+          ca
+          tion
+      </div>
+        <div class="bottom"></div>
+      </div>
+  <div class="cubehitbox"></div>
     </div>
-    <div class="bottom"></div>
   </div>
   <div class="side-areas" id="sideAreas">
   <div class="side-area tech" id="techSlider">Technology</div>
