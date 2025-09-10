@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Matchbox",
+    "description": "Upcycling keyboards to make STEAM toys affordable for everyone!",
+    "thumbnail": "assets/cards/matchbox_cardthumb.png",
+    "page": "portfolio.html",
+    "dna": [60, 5, 35] 
+  },
+    {
+    "title": "Internship at Scratch Foundation",
+    "description": "A fast, minimal portfolio site built with vanilla JS, HTML, and CSS.",
+    "thumbnail": "assets/cards/internship_cardthumb.jpeg",
+    "page": "portfolio.html",
+    "dna": [90, 5, 5]
+  },
+  {
+    "title": "Matchbox",
+    "description": "A fast, minimal portfolio site built with vanilla JS, HTML, and CSS.",
+    "thumbnail": "assets/cards/matchbox_cardthumb.png",
+    "page": "portfolio.html",
+    "dna": [60, 5, 35]
+  },
+    {
+    "title": "Matchbox",
+    "description": "A fast, minimal portfolio site built with vanilla JS, HTML, and CSS.",
+    "thumbnail": "assets/cards/matchbox_cardthumb.png",
+    "page": "portfolio.html",
+    "dna": [60, 5, 35]
+  },
+  {
+    "title": "Matchbox",
+    "description": "A fast, minimal portfolio site built with vanilla JS, HTML, and CSS.",
+    "thumbnail": "assets/cards/matchbox_cardthumb.png",
+    "page": "portfolio.html",
+    "dna": [60, 5, 35]
+  },
+    {
+    "title": "Matchbox",
+    "description": "A fast, minimal portfolio site built with vanilla JS, HTML, and CSS.",
+    "thumbnail": "assets/cards/matchbox_cardthumb.png",
+    "page": "portfolio.html",
+    "dna": [60, 5, 35]
+  }
+]

@@ -1,5 +1,3 @@
-
-
 const sideLength = 200; // Length of the cube side in pixels
 function getCubeSideLength() {
   const cube = document.querySelector('.cube');
@@ -73,6 +71,39 @@ function updateSideAreasBar(rotationX) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Dynamically load and render project cards
+  fetch('project_list.json')
+    .then(res => res.json())
+    .then(projects => {
+      const container = document.querySelector('.card-container');
+      if (!container) return;
+      container.innerHTML = '';
+      projects.forEach(project => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        // Calculate total for normalization
+        const total = project.dna.reduce((a, b) => a + b, 0) || 1;
+        const techPercent = (project.dna[0] / total) * 100;
+        const artPercent = (project.dna[1] / total) * 100;
+        const eduPercent = (project.dna[2] / total) * 100;
+        card.innerHTML = `
+
+                        <div class="card-dna-bar">
+              <div class="card-dna-segment tech" style="width: ${techPercent}%;"></div>
+              <div class="card-dna-segment art" style="width: ${artPercent}%;"></div>
+              <div class="card-dna-segment edu" style="width: ${eduPercent}%;"></div>
+            </div>
+          <a href="${project.page}" class="card-link">
+            <img src="${project.thumbnail}" alt="${project.title}" class="card-thumb" loading="lazy">
+            <div class="card-info">
+              <p class="card-title">${project.title}</p>
+              <p class="card-desc">${project.description}</p>
+            </div>
+          </a>
+        `;
+        container.appendChild(card);
+      });
+    });
   function triggerDizzy() {
     shakeAccumulator = 0;
     isDizzy = true;
