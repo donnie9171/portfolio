@@ -1,8 +1,12 @@
 :root {
-  --cyan: #00b7ffb0;
-  --magenta: #e51effb0;
-  --yellow: #fff01ed3;
-  --cubeSize: 150px;
+  --cyan: #00b7ff;
+  --magenta: #e51eff;
+  --yellow: #fff01e;
+  --cubeSize: 100px;
+
+  --cyan-translucent: #00b7ffb6;
+  --magenta-translucent: #e51effb5;
+  --yellow-translucent: #fff01ebc;
 }
 
 .side-areas {
@@ -177,8 +181,8 @@ header h1 {
     gap: 0;
     display: none;
     z-index: 10;
-    min-width: 120px;
     align-items: flex-end;
+    padding-left: 10px;
     padding-right: 10px;
   }
   .nav-list.open {
@@ -236,32 +240,32 @@ main {
 /* Position each face of the cube */
 .front {
   transform: translateZ(calc(var(--cubeSize)/2));
-  background: var(--cyan);
+  background: var(--cyan-translucent);
 }
 
 .back {
   transform: rotateY(180deg) translateZ(calc(calc(var(--cubeSize)/2) + 0.01px));
-  background: var(--cyan);
+  background: var(--cyan-translucent);
 }
 
 .left {
   transform: rotateY(-90deg) translateZ(calc(var(--cubeSize)/2));
-  background: var(--magenta);
+  background: var(--magenta-translucent);
 }
 
 .right {
   transform: rotateY(90deg) translateZ(calc(var(--cubeSize)/2));
-  background: var(--magenta);
+  background: var(--magenta-translucent);
 }
 
 .top {
   transform: rotateX(90deg) translateZ(calc(var(--cubeSize)/2));
-  background: var(--yellow);
+  background: var(--yellow-translucent);
 }
 
 .bottom {
   transform: rotateX(-90deg) translateZ(calc(var(--cubeSize)/2));
-  background: var(--yellow);
+  background: var(--yellow-translucent);
 }
 
 
@@ -332,6 +336,9 @@ main {
 }
 
 @media (min-width: 700px) {
+  :root{
+    --cubeSize: 150px;
+  }
   .card-container {
     grid-template-columns: 1fr 1fr;
   }
@@ -396,7 +403,6 @@ main {
   width: 100%;
   height: 5px;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
 .card-dna-segment {
   height: 100%;
@@ -410,4 +416,22 @@ main {
 }
 .card-dna-segment.edu {
   background: var(--yellow);
+}
+
+
+.spin-text-circle {
+  width: calc(var(--cubeSize) * 2.3) !important;
+  height: calc(var(--cubeSize) * 2.3) !important;
+  position: absolute;
+  top: calc(var(--cubeSize) * -0.65);
+  left: calc(var(--cubeSize) * -0.65);
+  z-index: -10;
+  font-size: 18px;
+  font-weight: 600;
+  color: #e51eff !important;
+}
+
+.spin-svg{
+  width: calc(var(--cubeSize) * 2.3) !important;
+  height: calc(var(--cubeSize) * 2.3) !important;
 }

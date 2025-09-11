@@ -71,6 +71,17 @@ function updateSideAreasBar(rotationX) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Animate radial spin text
+  const spinTextCircle = document.querySelector('.spin-text-circle svg');
+  let spinAngle = 0;
+  function animateSpinText() {
+    spinAngle += 0.2;
+    if (spinTextCircle) {
+      spinTextCircle.style.transform = `rotate(${spinAngle}deg)`;
+    }
+    requestAnimationFrame(animateSpinText);
+  }
+  animateSpinText();
   // Dynamically load and render project cards
   fetch('project_list.json')
     .then(res => res.json())
