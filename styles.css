@@ -311,8 +311,8 @@ main {
   display: grid;
   grid-template-columns: 1fr;
   justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  gap: 1rem;
+  margin-top: 1rem;
   width: 100%;
   overflow-y: auto;
 }
@@ -371,7 +371,7 @@ main {
   text-decoration: none;
   color: inherit;
   display: flex;
-  height: 100%;
+  height: calc(100% - 5px);
   width: 100%;
 }
 
