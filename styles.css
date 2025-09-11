@@ -319,6 +319,7 @@ main {
   margin-top: 1rem;
   width: 100%;
   overflow-y: auto;
+  padding: 2px;
 }
 
 .card-thumb {
@@ -339,6 +340,11 @@ main {
   :root{
     --cubeSize: 150px;
   }
+
+  .side-areas {
+    margin-top: 45px;
+  }
+
   .card-container {
     grid-template-columns: 1fr 1fr;
   }
@@ -428,7 +434,6 @@ main {
   z-index: -10;
   font-size: 18px;
   font-weight: 600;
-  color: #e51eff !important;
 }
 
 .spin-svg{
