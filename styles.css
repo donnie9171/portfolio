@@ -4,9 +4,9 @@
   --yellow: #fff01e;
   --cubeSize: 100px;
 
-  --cyan-translucent: #00b7ffb6;
-  --magenta-translucent: #e51effb5;
-  --yellow-translucent: #fff01ebc;
+  --cyan-translucent: #00b7ff99;
+  --magenta-translucent: #e51eff63;
+  --yellow-translucent: #fff01e75;
 }
 
 .side-areas {
@@ -235,6 +235,13 @@ main {
   line-height: 0.8;
   padding-top: 0%;
   overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.backface{
+  backface-visibility: visible !important;
+  opacity: 1;
+  z-index: -1;
 }
 
 /* Position each face of the cube */
@@ -264,7 +271,7 @@ main {
 }
 
 .bottom {
-  transform: rotateX(-90deg) translateZ(calc(var(--cubeSize)/2));
+  transform: rotateX(-90deg) translateZ(calc(var(--cubeSize)/2)) rotateZ(90deg);
   background: var(--yellow-translucent);
 }
 
@@ -319,7 +326,7 @@ main {
   margin-top: 1rem;
   width: 100%;
   overflow-y: auto;
-  padding: 2px;
+  padding-bottom: 1px;
 }
 
 .card-thumb {
@@ -439,4 +446,13 @@ main {
 .spin-svg{
   width: calc(var(--cubeSize) * 2.3) !important;
   height: calc(var(--cubeSize) * 2.3) !important;
+}
+
+.chinese-character {
+  font-family: "Noto Sans TC", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+  padding-top: calc(var(--cubeSize)*0.05) !important;
+  font-size: calc(var(--cubeSize)*1) !important;
 }

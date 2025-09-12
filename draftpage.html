@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draft Page</title>
+</head>
+<body>
+<div>
+<div id="svg-morph-container">
+  <svg id="morph-svg" viewBox="0 0 100 100" width="200" height="200">
+    <path id="morph-path" fill="#f90"/>
+  </svg>
+  <button id="morph-btn">Morph!</button>
+</div>
+<script src="https://unpkg.com/flubber"></script>
+<script>
+  async function getSVGPathData(svgUrl) {
+    const res = await fetch(svgUrl);
+    const text = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, "image/svg+xml");
+    const path = doc.querySelector('path');
+    return path ? path.getAttribute('d') : null;
+  }
+
+  const path = document.getElementById('morph-path');
+
+  let asset1 = null;
+  let asset2 = null;
+  let pingpongDirection = 1; // 1: forward, -1: backward
+
+  // Load both SVG paths before enabling morph
+  Promise.all([
+    getSVGPathData('assets/svg/SVG/Asset 1.svg'),
+    getSVGPathData('assets/svg/SVG/Asset 2.svg')
+  ]).then(([d1, d2]) => {
+    asset1 = d1;
+    asset2 = d2;
+    if (asset1) path.setAttribute('d', asset1);
+    startPingPongMorph();
+  });
+
+  function startPingPongMorph() {
+    if (!(asset1 && asset2)) return;
+    const interpolatorForward = flubber.interpolate(asset1, asset2);
+    const interpolatorBackward = flubber.interpolate(asset2, asset1);
+    let frame = 0;
+    const totalFrames = 60;
+    let direction = 1; // 1: forward, -1: backward
+
+    function animate() {
+      let t = frame / totalFrames;
+      if (direction === 1) {
+        path.setAttribute('d', interpolatorForward(t));
+      } else {
+        path.setAttribute('d', interpolatorBackward(t));
+      }
+      frame++;
+      if (frame <= totalFrames) {
+        requestAnimationFrame(animate);
+      } else {
+        // Reverse direction and restart
+        direction *= -1;
+        frame = 0;
+        requestAnimationFrame(animate);
+      }
+    }
+    animate();
+  }
+</script>
+</div>
+</body>
