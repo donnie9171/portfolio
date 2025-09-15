@@ -325,6 +325,9 @@ main {
   gap: 1rem;
   margin-top: 1rem;
   width: 100%;
+  min-width: 0;
+  overflow-y: visible;
+  position: relative;
   padding-bottom: 1px;
 }
 
