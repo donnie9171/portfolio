@@ -71,10 +71,12 @@ function updateSideAreasBar(rotationX) {
 }
 
 // Make rotationX and rotationY public
-let rotationX = 0;
-let rotationY = 0;
+let rotationX = -30;
+let rotationY = 45;
 let didUserDragCube = false;
 let updateId = 0;
+let initialCubeIdleRotation = true;
+let idleStartTime = null;
 
 // Store loaded projects globally
 let loadedProjects = [];
@@ -161,6 +163,18 @@ function updateCardRankOrder() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Idle cube animation before user interacts
+  function idleCubeLoop(ts) {
+    if (!initialCubeIdleRotation) return;
+    if (!idleStartTime) idleStartTime = ts;
+    const t = (ts - idleStartTime) / 1000;
+    rotationX = -30 + Math.sin(t) * 15 - 7.5;
+    rotationY = 45 + Math.cos(t) * 15 - 7.5;
+    setTransform();
+    updateSideAreasBar(rotationX);
+    requestAnimationFrame(idleCubeLoop);
+  }
+  requestAnimationFrame(idleCubeLoop);
   // Animate radial spin text
   const spinTextCircle = document.querySelector('.spin-text-circle svg');
   let spinAngle = 0;
@@ -236,8 +250,8 @@ document.addEventListener('DOMContentLoaded', function() {
   if (cube) {
     let rect = null;
     // Set random starting rotation
-    let velocityX = -20 + Math.random() * 5;
-    let velocityY = 20 + Math.random() * 5;
+    let velocityX = 0;
+    let velocityY = 0;
     let spinning = false;
     shakeAccumulator = 0;
     function setTransform() {
@@ -303,7 +317,8 @@ document.addEventListener('DOMContentLoaded', function() {
     cubeHitbox.addEventListener('pointerdown', function(e) {
       e.preventDefault();
       pointerActive = true;
-      didUserDragCube = true;
+  didUserDragCube = true;
+  initialCubeIdleRotation = false; // Stop idle loop on first interaction
       cube.classList.add('grabbing');
       spinning = false;
       velocityX = 0;

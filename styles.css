@@ -474,3 +474,7 @@ main {
   padding-top: calc(var(--cubeSize)*0.05) !important;
   font-size: calc(var(--cubeSize)*1) !important;
 }
+
+.hidden{
+  display: none !important;
+}
