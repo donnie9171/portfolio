@@ -1,44 +1,44 @@
 [
   {
     "title": "Matchbox",
-    "description": "Upcycling keyboards to make STEAM toys affordable for everyone!",
+    "description": "Affordable STEAM DIY kits made from upcycled keyboards!",
     "thumbnail": "assets/cards/matchbox_cardthumb.png",
     "page": "portfolio.html",
-    "dna": [60, 5, 35] 
+    "dna": [60, 15, 25] 
   },
     {
-    "title": "Internship at Scratch Foundation",
-    "description": "A fast, minimal portfolio site built with vanilla JS, HTML, and CSS.",
+    "title": "Internship at Scratch!",
+    "description": "Prototyped AI related features for Scratch Lab.",
     "thumbnail": "assets/cards/internship_cardthumb.jpeg",
     "page": "portfolio.html",
     "dna": [90, 5, 5]
   },
   {
-    "title": "Matchbox",
-    "description": "A fast, minimal portfolio site built with vanilla JS, HTML, and CSS.",
-    "thumbnail": "assets/cards/matchbox_cardthumb.png",
+    "title": "MEW",
+    "description": "Node based AI as a material for Scratch projects.",
+    "thumbnail": "assets/cards/mew_cardthumb.png",
     "page": "portfolio.html",
-    "dna": [60, 5, 35]
+    "dna": [70, 5, 25]
   },
     {
-    "title": "Matchbox",
-    "description": "A fast, minimal portfolio site built with vanilla JS, HTML, and CSS.",
-    "thumbnail": "assets/cards/matchbox_cardthumb.png",
+    "title": "ScratchGO",
+    "description": "The power of Scratch, in the palm of your hand.",
+    "thumbnail": "assets/cards/scratchgo_cardthumb.png",
     "page": "portfolio.html",
-    "dna": [60, 5, 35]
+    "dna": [70, 25, 5]
   },
   {
-    "title": "Matchbox",
-    "description": "A fast, minimal portfolio site built with vanilla JS, HTML, and CSS.",
-    "thumbnail": "assets/cards/matchbox_cardthumb.png",
+    "title": "Scratch Day Taiwan",
+    "description": "Organized Scratch Day in Taiwan since 2019.",
+    "thumbnail": "assets/cards/scratchdaytaiwan_cardthumb.jpg",
     "page": "portfolio.html",
-    "dna": [60, 5, 35]
+    "dna": [10, 25, 65]
   },
     {
-    "title": "Matchbox",
-    "description": "A fast, minimal portfolio site built with vanilla JS, HTML, and CSS.",
-    "thumbnail": "assets/cards/matchbox_cardthumb.png",
+    "title": "Secrets of Scratch",
+    "description": "Published a book about making Scratch games.",
+    "thumbnail": "assets/cards/scratchbook_cardthumb.png",
     "page": "portfolio.html",
-    "dna": [60, 5, 35]
+    "dna": [30, 30, 40]
   }
 ]
