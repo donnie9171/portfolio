@@ -319,17 +319,24 @@ main {
 }
 
 .card-container {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: stretch;
   gap: 1rem;
-  grid-gap: 1rem;
   margin-top: 1rem;
   width: 100%;
   min-width: 0;
-  overflow-y: visible;
   position: relative;
   padding-bottom: 1px;
+}
+
+.card {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  width: 100%;
+  aspect-ratio: 2.25 / 1;
+  overflow: hidden;
 }
 
 .card-thumb {
@@ -354,9 +361,14 @@ main {
   .side-areas {
     margin-top: 45px;
   }
-
-  .card-container {
-    grid-template-columns: 1fr 1fr;
+    .card-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .card {
+    flex: 1 1 calc(50% - 1rem);
+    max-width: calc(50% - 1rem);
   }
 
     .card-thumb {
@@ -377,16 +389,14 @@ main {
 
 @media (min-width: 1500px) {
   .card-container {
-    grid-template-columns: 1fr 1fr 1fr;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
-}
-
-.card {
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  width: 100%;
-  aspect-ratio: 2.25 / 1;
-  overflow: hidden;
+  .card {
+    flex: 1 1 calc(33.333% - 1rem);
+    max-width: calc(33.333% - 1rem);
+  }
 }
 
 .card-link{
