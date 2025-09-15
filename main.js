@@ -73,7 +73,7 @@ function updateSideAreasBar(rotationX) {
 // Make rotationX and rotationY public
 let rotationX = 0;
 let rotationY = 0;
-let didUserDragCube = true;
+let didUserDragCube = false;
 let updatingCards = false;
 
 // Store loaded projects globally
@@ -174,7 +174,35 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(res => res.json())
     .then(projects => {
       loadedProjects = projects; // Store globally
-      updateCardRankOrder();     // Initial render
+      const container = document.querySelector('.card-container');
+      if (container) {
+        container.innerHTML = '';
+        projects.forEach((project, idx) => {
+          const total = project.dna.reduce((a, b) => a + b, 0) || 1;
+          const techPercent = (project.dna[0] / total) * 100;
+          const artPercent = (project.dna[1] / total) * 100;
+          const eduPercent = (project.dna[2] / total) * 100;
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.style.order = idx;
+          card.innerHTML = `
+            <div class="card-dna-bar">
+              <div class="card-dna-segment tech" style="width: ${techPercent}%;"></div>
+              <div class="card-dna-segment art" style="width: ${artPercent}%;"></div>
+              <div class="card-dna-segment edu" style="width: ${eduPercent}%;"></div>
+            </div>
+            <a href="${project.page}" class="card-link">
+              <img src="${project.thumbnail}" alt="${project.title}" class="card-thumb" loading="lazy">
+              <div class="card-info">
+                <p class="card-title">${project.title}</p>
+                <p class="card-desc">${project.description}</p>
+              </div>
+            </a>
+          `;
+          container.appendChild(card);
+        });
+      }
+      // Do not call updateCardRankOrder on initial load
     });
   function triggerDizzy() {
     shakeAccumulator = 0;

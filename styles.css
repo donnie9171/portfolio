@@ -328,6 +328,7 @@ main {
   gap: 1rem;
   margin-top: 1rem;
   width: 100%;
+  max-width: 1500px;
   min-width: 0;
   position: relative;
   padding-bottom: 1px;
@@ -402,18 +403,6 @@ main {
     padding: 0.83em;
   }
 
-}
-
-@media (min-width: 1500px) {
-  .card-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .card {
-    flex: 1 1 calc(33.333% - 1rem);
-    max-width: calc(33.333% - 1rem);
-  }
 }
 
 .card-link{
