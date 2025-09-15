@@ -2,6 +2,7 @@
   --cyan: #00b7ff;
   --magenta: #e51eff;
   --yellow: #fff01e;
+  --orange: #ff8c00;
   --cubeSize: 130px;
 
   --cyan-translucent: #00b7ff99;
@@ -23,7 +24,7 @@
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
-  font-weight: 900;
+  font-weight: 600;
   color: #fff;
   white-space: nowrap;
   overflow: hidden;
@@ -73,7 +74,7 @@ body {
   transition: color 0.2s;
 }
 .nav-list li a:hover {
-  color: var(--magenta);
+  color: var(--orange);
 }
 .nav-toggle {
   display: none;
@@ -477,4 +478,23 @@ main {
 
 .hidden{
   display: none !important;
+}
+
+.show-all-message {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #555;
+  text-align: center;
+  line-height: 2;
+}
+
+.show-all-btn{
+  background: var(--orange);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
 }
