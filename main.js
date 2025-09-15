@@ -100,6 +100,53 @@ function getDnaSimilarity(dna, ratio) {
   );
 }
 
+function spawnProjectCards(projects, thisUpdate){
+  const container = document.querySelector(".card-container");
+  container.innerHTML = "";
+  projects.forEach((project, idx) => {
+    const total = project.dna.reduce((a, b) => a + b, 0) || 1;
+    const techPercent = (project.dna[0] / total) * 100;
+    const artPercent = (project.dna[1] / total) * 100;
+    const eduPercent = (project.dna[2] / total) * 100;
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.opacity = "0";
+    card.style.transform = "scale(0.95)";
+    card.innerHTML = `
+        <div class="card-dna-bar">
+          <div class="card-dna-segment tech" style="width: ${techPercent}%;"></div>
+          <div class="card-dna-segment art" style="width: ${artPercent}%;"></div>
+          <div class="card-dna-segment edu" style="width: ${eduPercent}%;"></div>
+        </div>
+        <a href="${project.page}" class="card-link">
+          <img src="${project.thumbnail}" alt="${project.title}" class="card-thumb" loading="lazy">
+          <div class="card-info">
+            <p class="card-title">${project.title}</p>
+            <p class="card-desc">${project.description}</p>
+          </div>
+        </a>
+      `;
+    if(thisUpdate === null){
+      container.appendChild(card);
+        requestAnimationFrame(() => {
+          card.style.opacity = "1";
+          card.style.transform = "scale(1)";
+        });
+    }else{
+      // Staggered fade-in animation
+      setTimeout(() => {
+        if (thisUpdate !== updateId) return;
+        card.style.transition = "opacity 0.4s, transform 0.4s";
+        container.appendChild(card);
+        requestAnimationFrame(() => {
+          card.style.opacity = "1";
+          card.style.transform = "scale(1)";
+        });
+      }, idx * 400); // Delay per rank
+    }
+  });
+}
+
 function updateCardRankOrder() {
   if (!didUserDragCube) return; // Only update if user has interacted
   didUserDragCube = false; // Reset flag
@@ -124,44 +171,9 @@ function updateCardRankOrder() {
     const simB = getDnaSimilarity(b.dna, currentRatio);
     return simA - simB;
   });
-  // Fade out all cards
-  const cards = Array.from(container.children);
-  cards.forEach((card) => card.classList.add("fade-out"));
 
-  container.innerHTML = "";
-  sorted.forEach((project, idx) => {
-    const total = project.dna.reduce((a, b) => a + b, 0) || 1;
-    const techPercent = (project.dna[0] / total) * 100;
-    const artPercent = (project.dna[1] / total) * 100;
-    const eduPercent = (project.dna[2] / total) * 100;
-    const card = document.createElement("div");
-    card.className = "card";
-    card.style.opacity = "0";
-    card.style.transform = "scale(0.95)";
-    card.innerHTML = `
-        <div class="card-dna-bar">
-          <div class="card-dna-segment tech" style="width: ${techPercent}%;"></div>
-          <div class="card-dna-segment art" style="width: ${artPercent}%;"></div>
-          <div class="card-dna-segment edu" style="width: ${eduPercent}%;"></div>
-        </div>
-        <a href="${project.page}" class="card-link">
-          <img src="${project.thumbnail}" alt="${project.title}" class="card-thumb" loading="lazy">
-          <div class="card-info">
-            <p class="card-title">${project.title}</p>
-            <p class="card-desc">${project.description}</p>
-          </div>
-        </a>
-      `;
-    setTimeout(() => {
-      if (thisUpdate !== updateId) return;
-      card.style.transition = "opacity 0.4s, transform 0.4s";
-      container.appendChild(card);
-      requestAnimationFrame(() => {
-        card.style.opacity = "1";
-        card.style.transform = "scale(1)";
-      });
-    }, idx * 400); // Delay per rank
-  });
+  spawnProjectCards(sorted, thisUpdate);
+
   // Wait for all fade-ins to finish before allowing another update
   setTimeout(() => {
     if (thisUpdate !== updateId) return; // Abort if a newer update started
@@ -208,30 +220,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let filteredProjects = showAllProjects
           ? projects.slice()
           : projects.filter(p => p.highlight);
-        filteredProjects.forEach((project, idx) => {
-          const total = project.dna.reduce((a, b) => a + b, 0) || 1;
-          const techPercent = (project.dna[0] / total) * 100;
-          const artPercent = (project.dna[1] / total) * 100;
-          const eduPercent = (project.dna[2] / total) * 100;
-          const card = document.createElement("div");
-          card.className = "card";
-          card.style.order = idx;
-          card.innerHTML = `
-            <div class="card-dna-bar">
-              <div class="card-dna-segment tech" style="width: ${techPercent}%;"></div>
-              <div class="card-dna-segment art" style="width: ${artPercent}%;"></div>
-              <div class="card-dna-segment edu" style="width: ${eduPercent}%;"></div>
-            </div>
-            <a href="${project.page}" class="card-link">
-              <img src="${project.thumbnail}" alt="${project.title}" class="card-thumb" loading="lazy">
-              <div class="card-info">
-                <p class="card-title">${project.title}</p>
-                <p class="card-desc">${project.description}</p>
-              </div>
-            </a>
-          `;
-          container.appendChild(card);
-        });
+        spawnProjectCards(filteredProjects, null);
       }
       // Do not call updateCardRankOrder on initial load
     });
@@ -415,34 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelector(".show-all-btn").onclick = function () {
     showAllProjects = true;
     // spawn in the remaining projects
-    const container = document.querySelector(".card-container");
-    if (container) {
-      container.innerHTML = "";
-      loadedProjects.forEach((project, idx) => {
-        const total = project.dna.reduce((a, b) => a + b, 0) || 1;
-        const techPercent = (project.dna[0] / total) * 100;
-        const artPercent = (project.dna[1] / total) * 100;
-        const eduPercent = (project.dna[2] / total) * 100;
-        const card = document.createElement("div");
-        card.className = "card";
-        card.style.order = idx;
-        card.innerHTML = `
-          <div class="card-dna-bar">
-            <div class="card-dna-segment tech" style="width: ${techPercent}%;"></div>
-            <div class="card-dna-segment art" style="width: ${artPercent}%;"></div>
-            <div class="card-dna-segment edu" style="width: ${eduPercent}%;"></div>
-          </div>
-          <a href="${project.page}" class="card-link">
-            <img src="${project.thumbnail}" alt="${project.title}" class="card-thumb" loading="lazy">
-            <div class="card-info">
-              <p class="card-title">${project.title}</p>
-              <p class="card-desc">${project.description}</p>
-            </div>
-          </a>
-        `;
-        container.appendChild(card);
-      });
-    }
+    spawnProjectCards(loadedProjects, null);
     const showAllMessage = document.querySelector(".show-all-message");
     if (showAllMessage) {
       showAllMessage.classList.add("hidden");
