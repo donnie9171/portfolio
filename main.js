@@ -74,7 +74,7 @@ function updateSideAreasBar(rotationX) {
 let rotationX = 0;
 let rotationY = 0;
 let didUserDragCube = false;
-let updatingCards = false;
+let updateId = 0;
 
 // Store loaded projects globally
 let loadedProjects = [];
@@ -101,9 +101,11 @@ function getDnaSimilarity(dna, ratio) {
 
 function updateCardRankOrder() {
   if(!didUserDragCube) return; // Only update if user has interacted
-  if (updatingCards) return; // Prevent overlapping updates
-  updatingCards = true;
   didUserDragCube = false;    // Reset flag
+  updateId++;
+  const thisUpdate = updateId;
+  updatingCards = true;
+  pendingCardUpdate = false;
   const container = document.querySelector('.card-container');
   if (!container || loadedProjects.length === 0) return;
   const currentRatio = getCurrentCubeRatio();
@@ -142,6 +144,7 @@ function updateCardRankOrder() {
         </a>
       `;
       setTimeout(() => {
+        if (thisUpdate !== updateId) return;
         card.style.transition = 'opacity 0.4s, transform 0.4s';
         container.appendChild(card);
         requestAnimationFrame(() => {
@@ -152,7 +155,7 @@ function updateCardRankOrder() {
     });
     // Wait for all fade-ins to finish before allowing another update
     setTimeout(() => {
-      console.log('Card update complete');
+      if (thisUpdate !== updateId) return; // Abort if a newer update started
       updatingCards = false;
     }, sorted.length * 400 + 400);
 }
