@@ -323,6 +323,7 @@ main {
   grid-template-columns: 1fr;
   justify-content: center;
   gap: 1rem;
+  grid-gap: 1rem;
   margin-top: 1rem;
   width: 100%;
   min-width: 0;
@@ -384,9 +385,8 @@ main {
   background: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   width: 100%;
-  overflow: hidden;
   aspect-ratio: 2.25 / 1;
-  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
 }
 
 .card-link{
