@@ -2,7 +2,7 @@
   --cyan: #00b7ff;
   --magenta: #e51eff;
   --yellow: #fff01e;
-  --cubeSize: 100px;
+  --cubeSize: 130px;
 
   --cyan-translucent: #00b7ff99;
   --magenta-translucent: #e51eff63;
@@ -371,7 +371,7 @@ main {
 
 @media (min-width: 700px) {
   :root{
-    --cubeSize: 150px;
+    --cubeSize: 180px;
   }
 
   .cube-container{
