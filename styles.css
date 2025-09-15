@@ -30,6 +30,7 @@
   text-overflow: ellipsis;
   height: 100%;
   transition: width 0.3s;
+  cursor: pointer;
 }
 .side-area.tech {
   background: var(--cyan);
@@ -338,6 +339,19 @@ main {
   width: 100%;
   aspect-ratio: 2.25 / 1;
   overflow: hidden;
+}
+
+.card {
+  transition: opacity 0.4s, transform 0.4s ease;
+  opacity: 1;
+}
+.card.fade-out {
+  opacity: 0;
+  transform: scale(0.95);
+}
+.card.fade-in {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .card-thumb {

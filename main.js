@@ -70,6 +70,93 @@ function updateSideAreasBar(rotationX) {
   }
 }
 
+// Make rotationX and rotationY public
+let rotationX = 0;
+let rotationY = 0;
+let didUserDragCube = true;
+let updatingCards = false;
+
+// Store loaded projects globally
+let loadedProjects = [];
+
+function getCurrentCubeRatio() {
+  // Get the current side area ratios (tech, art, edu) based on rotationX
+  const areas = getSideAreas(rotationX);
+  // Convert to [tech, art, edu] array, normalized to 100
+  return [
+    areas.tech * 100,
+    areas.art * 100,
+    areas.edu * 100
+  ];
+}
+
+function getDnaSimilarity(dna, ratio) {
+  // Euclidean distance (lower is more similar)
+  return Math.sqrt(
+    Math.pow(dna[0] - ratio[0], 2) +
+    Math.pow(dna[1] - ratio[1], 2) +
+    Math.pow(dna[2] - ratio[2], 2)
+  );
+}
+
+function updateCardRankOrder() {
+  if(!didUserDragCube) return; // Only update if user has interacted
+  if (updatingCards) return; // Prevent overlapping updates
+  updatingCards = true;
+  didUserDragCube = false;    // Reset flag
+  const container = document.querySelector('.card-container');
+  if (!container || loadedProjects.length === 0) return;
+  const currentRatio = getCurrentCubeRatio();
+  // Sort projects by similarity (lowest distance first)
+  const sorted = loadedProjects.slice().sort((a, b) => {
+    const simA = getDnaSimilarity(a.dna, currentRatio);
+    const simB = getDnaSimilarity(b.dna, currentRatio);
+    return simA - simB;
+  });
+  // Fade out all cards
+  const cards = Array.from(container.children);
+  cards.forEach(card => card.classList.add('fade-out'));
+
+    container.innerHTML = '';
+    sorted.forEach((project, idx) => {
+      const total = project.dna.reduce((a, b) => a + b, 0) || 1;
+      const techPercent = (project.dna[0] / total) * 100;
+      const artPercent = (project.dna[1] / total) * 100;
+      const eduPercent = (project.dna[2] / total) * 100;
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.95)';
+      card.innerHTML = `
+        <div class="card-dna-bar">
+          <div class="card-dna-segment tech" style="width: ${techPercent}%;"></div>
+          <div class="card-dna-segment art" style="width: ${artPercent}%;"></div>
+          <div class="card-dna-segment edu" style="width: ${eduPercent}%;"></div>
+        </div>
+        <a href="${project.page}" class="card-link">
+          <img src="${project.thumbnail}" alt="${project.title}" class="card-thumb" loading="lazy">
+          <div class="card-info">
+            <p class="card-title">${project.title}</p>
+            <p class="card-desc">${project.description}</p>
+          </div>
+        </a>
+      `;
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.4s, transform 0.4s';
+        container.appendChild(card);
+        requestAnimationFrame(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
+        });
+      }, idx * 400); // Delay per rank
+    });
+    // Wait for all fade-ins to finish before allowing another update
+    setTimeout(() => {
+      console.log('Card update complete');
+      updatingCards = false;
+    }, sorted.length * 400 + 400);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   // Animate radial spin text
   const spinTextCircle = document.querySelector('.spin-text-circle svg');
@@ -86,34 +173,8 @@ document.addEventListener('DOMContentLoaded', function() {
   fetch('project_list.json')
     .then(res => res.json())
     .then(projects => {
-      const container = document.querySelector('.card-container');
-      if (!container) return;
-      container.innerHTML = '';
-      projects.forEach(project => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        // Calculate total for normalization
-        const total = project.dna.reduce((a, b) => a + b, 0) || 1;
-        const techPercent = (project.dna[0] / total) * 100;
-        const artPercent = (project.dna[1] / total) * 100;
-        const eduPercent = (project.dna[2] / total) * 100;
-        card.innerHTML = `
-
-                        <div class="card-dna-bar">
-              <div class="card-dna-segment tech" style="width: ${techPercent}%;"></div>
-              <div class="card-dna-segment art" style="width: ${artPercent}%;"></div>
-              <div class="card-dna-segment edu" style="width: ${eduPercent}%;"></div>
-            </div>
-          <a href="${project.page}" class="card-link">
-            <img src="${project.thumbnail}" alt="${project.title}" class="card-thumb" loading="lazy">
-            <div class="card-info">
-              <p class="card-title">${project.title}</p>
-              <p class="card-desc">${project.description}</p>
-            </div>
-          </a>
-        `;
-        container.appendChild(card);
-      });
+      loadedProjects = projects; // Store globally
+      updateCardRankOrder();     // Initial render
     });
   function triggerDizzy() {
     shakeAccumulator = 0;
@@ -144,16 +205,10 @@ document.addEventListener('DOMContentLoaded', function() {
   if (cube) {
     let rect = null;
     // Set random starting rotation
-    let rotationX = 0;
-    let rotationY = 0;
-    // Set slight random starting velocity
     let velocityX = -20 + Math.random() * 5;
     let velocityY = 20 + Math.random() * 5;
-    let lastX = 0;
-    let lastY = 0;
     let spinning = false;
-    let lastTime = 0;
-
+    shakeAccumulator = 0;
     function setTransform() {
       cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
       // Animate pupils based on velocity (rattle effect)
@@ -197,6 +252,9 @@ document.addEventListener('DOMContentLoaded', function() {
       // Gradually slow down
       velocityX *= 0.95;
       velocityY *= 0.95;
+      if (Math.abs(velocityX) < 1 && Math.abs(velocityY) < 1) {
+        updateCardRankOrder();
+      }
       if (Math.abs(velocityX) > 0.01 || Math.abs(velocityY) > 0.01) {
         requestAnimationFrame(spinCube);
       } else {
@@ -214,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
     cubeHitbox.addEventListener('pointerdown', function(e) {
       e.preventDefault();
       pointerActive = true;
+      didUserDragCube = true;
       cube.classList.add('grabbing');
       spinning = false;
       velocityX = 0;
@@ -280,12 +339,15 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   document.getElementById('techSlider').onclick = function() {
+    didUserDragCube = true;
     rotateCubeTo(0, 0);
   };
   document.getElementById('artSlider').onclick = function() {
+    didUserDragCube = true;
     rotateCubeTo(0, 90);
   };
   document.getElementById('eduSlider').onclick = function() {
+    didUserDragCube = true;
     rotateCubeTo(-90, 0);
   };
   }
