@@ -20,13 +20,6 @@
     "page": "portfolio.html",
     "dna": [70, 5, 25]
   },
-    {
-    "title": "ScratchGO",
-    "description": "The power of Scratch, in the palm of your hand.",
-    "thumbnail": "assets/cards/scratchgo_cardthumb.png",
-    "page": "portfolio.html",
-    "dna": [70, 25, 5]
-  },
   {
     "title": "Scratch Day Taiwan",
     "description": "Organized Scratch Day in Taiwan since 2019.",
@@ -40,5 +33,12 @@
     "thumbnail": "assets/cards/scratchbook_cardthumb.png",
     "page": "portfolio.html",
     "dna": [30, 30, 40]
+  },
+    {
+    "title": "ScratchGO",
+    "description": "The power of Scratch, in the palm of your hand.",
+    "thumbnail": "assets/cards/scratchgo_cardthumb.png",
+    "page": "portfolio.html",
+    "dna": [70, 25, 5]
   }
 ]

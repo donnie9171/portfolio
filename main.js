@@ -268,5 +268,25 @@ document.addEventListener('DOMContentLoaded', function() {
       requestAnimationFrame(spinCube);
       rect = null;
     });
+        // Add click handlers for side-area sliders to rotate cube
+  function rotateCubeTo(targetX, targetY) {
+    // Calculate velocity needed to reach target rotation
+    // (simple proportional velocity, can be tuned)
+    const velocityScale = 0.25;
+    velocityX = (targetX - rotationX) * velocityScale;
+    velocityY = (targetY - rotationY) * velocityScale;
+    spinning = true;
+    requestAnimationFrame(spinCube);
+  }
+
+  document.getElementById('techSlider').onclick = function() {
+    rotateCubeTo(0, 0);
+  };
+  document.getElementById('artSlider').onclick = function() {
+    rotateCubeTo(0, 90);
+  };
+  document.getElementById('eduSlider').onclick = function() {
+    rotateCubeTo(-90, 0);
+  };
   }
 });
