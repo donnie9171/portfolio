@@ -5,7 +5,8 @@
     "thumbnail": "assets/cards/internship_cardthumb.jpeg",
     "page": "portfolio.html",
     "dna": [34, 33, 33],
-    "highlight": true
+    "highlight": true,
+    "keywords": ["2025", "Intern", "Scratch", "Software", "AI", "React", "Typescript", "Docker"]
   },
   {
     "title": "MEW",
@@ -13,7 +14,8 @@
     "thumbnail": "assets/cards/mew_cardthumb.png",
     "page": "portfolio.html",
     "dna": [65, 15, 20],
-    "highlight": true
+    "highlight": true,
+    "keywords": ["2025", "Main Developer", "Final Year Project", "Scratch", "AI", "Software"]
   },
   {
     "title": "Matchbox",
@@ -21,7 +23,8 @@
     "thumbnail": "assets/cards/matchbox_cardthumb.png",
     "page": "portfolio.html",
     "dna": [60, 15, 25],
-    "highlight": true
+    "highlight": true,
+    "keywords": ["2024-25", "Project Lead", "Product Development", "3D Printing", "PCB Design", "Upcycling"]
   },
   {
     "title": "Scratch Day Taiwan",
@@ -29,7 +32,8 @@
     "thumbnail": "assets/cards/scratchdaytaiwan_cardthumb.jpg",
     "page": "portfolio.html",
     "dna": [10, 25, 65],
-    "highlight": true
+    "highlight": true,
+    "keywords": ["2019-Present", "Organizer", "Scratch", "Community", "Event Planning", "Volunteer"]
   },
   {
     "title": "Secrets of Scratch",
@@ -37,7 +41,8 @@
     "thumbnail": "assets/cards/scratchbook_cardthumb.png",
     "page": "portfolio.html",
     "dna": [30, 30, 40],
-    "highlight": true
+    "highlight": true,
+    "keywords": ["2019-20", "Author", "Illustrator", "Scratch", "Graphic Design", "Publishing"]
   },
   {
     "title": "Visioneers HKU",
@@ -45,7 +50,8 @@
     "thumbnail": "assets/cards/visioneers_cardthumb.png",
     "page": "portfolio.html",
     "dna": [70, 25, 5],
-    "highlight": true
+    "highlight": true,
+    "keywords": ["2023-24", "Research Assistant", "Project Lead", "VR", "Unity", "Branding", "Marketing"]
   },
   {
     "title": "ScratchGO",
@@ -53,7 +59,8 @@
     "thumbnail": "assets/cards/scratchgo_cardthumb.png",
     "page": "portfolio.html",
     "dna": [70, 25, 5],
-    "highlight": false
+    "highlight": false,
+    "keywords": ["2022-24", "Main Developer", "HTML", "CSS", "JS", "React"]
   },
   {
     "title": "FireZine '24",
@@ -61,7 +68,8 @@
     "thumbnail": "assets/cards/firezine_cardthumb.png",
     "page": "portfolio.html",
     "dna": [20, 75, 5],
-    "highlight": false
+    "highlight": false,
+    "keywords": ["2024", "Author", "Illustrator", "Editor", "Graphic Design", "Storytelling"]
   },
   {
     "title": "Refactorman!",
@@ -69,7 +77,8 @@
     "thumbnail": "assets/cards/refactorman_cardthumb.png",
     "page": "portfolio.html",
     "dna": [35, 60, 5],
-    "highlight": false
+    "highlight": false,
+    "keywords": ["2024", "Author", "Illustrator", "Comic", "Storytelling", "Graphic Design", "Silly", "Goofy"]
   },
   {
     "title": "Matchbox Merch",
@@ -77,7 +86,8 @@
     "thumbnail": "assets/cards/matchboxmerch_cardthumb.png",
     "page": "portfolio.html",
     "dna": [5, 90, 5],
-    "highlight": false
+    "highlight": false,
+    "keywords": ["2024-25", "Designer", "Graphic Design", "Storytelling", "Branding", "Merch"]
   },
   {
     "title": "ARTZINE",
@@ -85,7 +95,9 @@
     "thumbnail": "assets/cards/artzine_cardthumb.png",
     "page": "portfolio.html",
     "dna": [5, 85, 10],
-    "highlight": false
+    "highlight": false,
+    "keywords": ["2020-24", "Artist", "Editor", "Graphic Design", "Storytelling", "Zine", "Art"]
+
   },
 
   {
@@ -94,6 +106,7 @@
     "thumbnail": "assets/cards/pizzaman_cardthumb.png",
     "page": "portfolio.html",
     "dna": [25, 70, 5],
-    "highlight": false
+    "highlight": false,
+    "keywords": ["2024", "Illustrator", "Comic", "Storytelling", "Graphic Design", "Cheese"]
   }
 ]

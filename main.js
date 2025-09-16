@@ -1,3 +1,37 @@
+// 3D card tilt effect on hover
+document.addEventListener('DOMContentLoaded', function () {
+  const cardContainer = document.querySelector('.card-container');
+  if (!cardContainer) return;
+  cardContainer.addEventListener('mousemove', function (e) {
+    const cards = cardContainer.querySelectorAll('.card');
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      if (
+        e.clientX >= rect.left && e.clientX <= rect.right &&
+        e.clientY >= rect.top && e.clientY <= rect.bottom
+      ) {
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const px = (x / rect.width - 0.5) * 2; // -1 to 1
+        const py = (y / rect.height - 0.5) * 2;
+        const tiltX = (-py * 2.5).toFixed(2) + 'deg';
+        const tiltY = (px * 1.5).toFixed(2) + 'deg';
+        card.style.setProperty('--card-tilt-x', tiltX);
+        card.style.setProperty('--card-tilt-y', tiltY);
+      } else {
+        card.style.setProperty('--card-tilt-x', '0deg');
+        card.style.setProperty('--card-tilt-y', '0deg');
+      }
+    });
+  });
+  cardContainer.addEventListener('mouseleave', function () {
+    const cards = cardContainer.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.style.setProperty('--card-tilt-x', '0deg');
+      card.style.setProperty('--card-tilt-y', '0deg');
+    });
+  });
+});
 const sideLength = 200; // Length of the cube side in pixels
 function getCubeSideLength() {
   const cube = document.querySelector(".cube");
@@ -123,6 +157,8 @@ function spawnProjectCards(projects, thisUpdate){
           <div class="card-info">
             <p class="card-title">${project.title}</p>
             <p class="card-desc">${project.description}</p>
+            <div class="card-keywords">${project.keywords.map(kw => `<span class='keyword-tag'>${kw}</span>`).join('')}</div>
+            <button class="view-project-button">View Project</button>
           </div>
         </a>
       `;
@@ -136,7 +172,6 @@ function spawnProjectCards(projects, thisUpdate){
       // Staggered fade-in animation
       setTimeout(() => {
         if (thisUpdate !== updateId) return;
-        card.style.transition = "opacity 0.4s, transform 0.4s";
         container.appendChild(card);
         requestAnimationFrame(() => {
           card.style.opacity = "1";
