@@ -8,6 +8,8 @@
   --cyan-translucent: #00b7ff99;
   --magenta-translucent: #e51eff63;
   --yellow-translucent: #fff01e75;
+
+  --border-radius: 20px;
 }
 
 .side-areas {
@@ -18,6 +20,10 @@
   height: 40px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 .side-area {
   display: flex;
@@ -146,6 +152,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 header h1 {
@@ -183,8 +191,11 @@ header h1 {
     display: none;
     z-index: 10;
     align-items: flex-end;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: var(--border-radius);
   }
   .nav-list.open {
     display: flex;
@@ -341,6 +352,10 @@ main {
   width: 100%;
   aspect-ratio: 2.25 / 1;
   overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 .card {
@@ -497,4 +512,5 @@ main {
   font-weight: 600;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   cursor: pointer;
+  border-radius: var(--border-radius);
 }
