@@ -293,6 +293,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let spinning = false;
   shakeAccumulator = 0;
   function setTransform() {
+    rotationX = Math.max(-90, Math.min(90, rotationX));
     cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
     // Animate pupils based on velocity (rattle effect)
     if (pupilLeft && pupilRight) {
@@ -329,6 +330,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Apply inertia
     rotationY += velocityY * 0.1;
     rotationX += velocityX * 0.1;
+    rotationX = Math.max(-90, Math.min(90, rotationX));
     // Accumulate shake
     shakeAccumulator += Math.abs(velocityX) + Math.abs(velocityY);
     setTransform();
@@ -375,6 +377,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const sensitivity = 0.4;
       rotationY += dx * sensitivity;
       rotationX -= dy * sensitivity;
+      rotationX = Math.max(-90, Math.min(90, rotationX));
       velocityY = dx * sensitivity;
       velocityX = -dy * sensitivity;
       setTransform();
@@ -415,6 +418,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Calculate velocity needed to reach target rotation
     // (simple proportional velocity, can be tuned)
     const velocityScale = 0.25;
+    targetX = Math.max(-90, Math.min(90, targetX));
     velocityX = (targetX - rotationX) * velocityScale;
     velocityY = (targetY - rotationY) * velocityScale;
     spinning = true;

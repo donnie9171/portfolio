@@ -438,6 +438,7 @@ main {
 
 .view-project-button:hover {
   transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .card-link{
