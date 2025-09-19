@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Enoch Kang</title>
-    <link rel="stylesheet" href="styles.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Play | Enoch Kang</title>    
+  <link rel="stylesheet" href="styles.css" />
     <link rel="preload" href="styles.css" as="style" />
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,9 +13,9 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-  </head>
-  <body class="">
-    <header>
+</head>
+<body>
+        <header>
       <h1>Enoch Kang</h1>
       <nav class="main-nav">
         <button class="nav-toggle" aria-label="Toggle menu">
@@ -29,99 +29,9 @@
       </nav>
     </header>
     <main>
-      <div class="cube-container noscroll prevent-select" id="cubeContainer">
-        <div class="spin-text-circle hidden">
-          <svg class="spin-svg" viewBox="0 0 200 200" width="200" height="200">
-            <defs>
-              <path
-                id="circlePath"
-                d="M 100, 100 m -80, 0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"
-              />
-            </defs>
-            <text>
-              <textPath xlink:href="#circlePath" startOffset="0">
-                SPIN THE CUBE • SPIN THE CUBE • SPIN THE CUBE • SPIN •
-              </textPath>
-            </text>
-          </svg>
-        </div>
-        <div class="cube">
-          <div class="front" id="techSide">
-            <div class="cubeFace">Tech no logy</div>
-          </div>
-          <div class="back">
-            <div class="cubeFace chinese-character">科</div>
-          </div>
-          <div class="left" id="artSide">
-            <div class="cubeFace">
-              Art
-              <div class="googly-eyes">
-                <svg class="googly-svg" viewBox="0 0 60 30">
-                  <defs>
-                    <clipPath id="clipLeft">
-                      <ellipse cx="15" cy="15" rx="13" ry="13" />
-                    </clipPath>
-                    <clipPath id="clipRight">
-                      <ellipse cx="45" cy="15" rx="13" ry="13" />
-                    </clipPath>
-                  </defs>
-                  <g>
-                    <ellipse cx="15" cy="15" rx="13" ry="13" fill="#fff" />
-                    <ellipse cx="45" cy="15" rx="13" ry="13" fill="#fff" />
-                    <circle
-                      class="pupil pupil-left"
-                      cx="15"
-                      cy="15"
-                      r="5"
-                      fill="#222"
-                      clip-path="url(#clipLeft)"
-                    />
-                    <circle
-                      class="pupil pupil-right"
-                      cx="45"
-                      cy="15"
-                      r="5"
-                      fill="#222"
-                      clip-path="url(#clipRight)"
-                    />
-                  </g>
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div class="right">
-            <div class="cubeFace chinese-character">藝</div>
-          </div>
-          <div class="top" id="eduSide">
-            <div class="cubeFace">Edu ca tion</div>
-          </div>
-          <div class="bottom">
-            <div class="cubeFace chinese-character">教</div>
-          </div>
-
-          <div class="front backface"></div>
-          <div class="back backface"></div>
-          <div class="left backface"></div>
-          <div class="right backface"></div>
-          <div class="top backface"></div>
-          <div class="bottom backface"></div>
-        </div>
-        <div class="cubehitbox"></div>
-        <div class="cube-drag-hint">
-          <img src="assets/images/drag_hint_icon.png" alt="">
-        </div>
-      </div>
-      <div class="side-areas" id="sideAreas">
-        <div class="side-area tech" id="techSlider">Technology</div>
-        <div class="side-area art" id="artSlider">Art</div>
-        <div class="side-area edu" id="eduSlider">Education</div>
-      </div>
-      <div class="card-container">
-        <!-- dynamically spawn cards here -->
-      </div>
-      <div class="show-all-message">That's all the <i>featured</i> projects! <button class="show-all-btn">Show me ALL the projects!</button></div>
+  <iframe class="responsive-iframe" src="https://turbowarp.org/1218825240/embed" width="100%" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
     </main>
-    <footer>
+        <footer>
 
          <p>
            enochkang9171@gmail.com
@@ -141,6 +51,6 @@
        <p>Made with passion and a lot of persistence (wrangling Copilot).</p>
         <p>by Enoch (I-Nuo) Kang 康以諾</p>
     </footer>
-    <script src="main.js" defer></script>
-  </body>
+  <script src="main.js"></script>
+</body>
 </html>

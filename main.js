@@ -1,3 +1,22 @@
+// Animate .cube-drag-hint along a sine wave
+document.addEventListener('DOMContentLoaded', function () {
+  const dragHint = document.querySelector('.cube-drag-hint');
+  if (!dragHint) return;
+  let start = null;
+  const amplitudeX = 40; // px left/right
+  const amplitudeY = 40; // px up/down
+  const period = 8000; // ms for a full cycle
+  function animateDragHint(ts) {
+    if (!start) start = ts;
+    const elapsed = (ts - start) % period;
+    const theta = (elapsed / period) * 2 * Math.PI;
+    const x = Math.sin(theta) * amplitudeX;
+    const y = Math.cos(theta) * amplitudeY;
+    dragHint.style.transform = `translateX(calc(-50% + ${x}px)) translateY(calc(-50% + ${y}px))`;
+    requestAnimationFrame(animateDragHint);
+  }
+  requestAnimationFrame(animateDragHint);
+});
 // 3D card tilt effect on hover
 document.addEventListener('DOMContentLoaded', function () {
   const cardContainer = document.querySelector('.card-container');
@@ -293,6 +312,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let spinning = false;
   shakeAccumulator = 0;
   function setTransform() {
+    rotationX = Math.max(-90, Math.min(90, rotationX));
     cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
     // Animate pupils based on velocity (rattle effect)
     if (pupilLeft && pupilRight) {
@@ -329,6 +349,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Apply inertia
     rotationY += velocityY * 0.1;
     rotationX += velocityX * 0.1;
+    rotationX = Math.max(-90, Math.min(90, rotationX));
     // Accumulate shake
     shakeAccumulator += Math.abs(velocityX) + Math.abs(velocityY);
     setTransform();
@@ -358,6 +379,8 @@ document.addEventListener("DOMContentLoaded", function () {
     didUserDragCube = true;
     initialCubeIdleRotation = false; // Stop idle loop on first interaction
     cube.classList.add("grabbing");
+    const dragHint = document.querySelector('.cube-drag-hint');
+    dragHint?.classList.add('hidden');
     spinning = false;
     velocityX = 0;
     velocityY = 0;
@@ -375,6 +398,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const sensitivity = 0.4;
       rotationY += dx * sensitivity;
       rotationX -= dy * sensitivity;
+      rotationX = Math.max(-90, Math.min(90, rotationX));
       velocityY = dx * sensitivity;
       velocityX = -dy * sensitivity;
       setTransform();
@@ -415,6 +439,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Calculate velocity needed to reach target rotation
     // (simple proportional velocity, can be tuned)
     const velocityScale = 0.25;
+    targetX = Math.max(-90, Math.min(90, targetX));
     velocityX = (targetX - rotationX) * velocityScale;
     velocityY = (targetY - rotationY) * velocityScale;
     spinning = true;
