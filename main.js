@@ -1,3 +1,22 @@
+// Animate .cube-drag-hint along a sine wave
+document.addEventListener('DOMContentLoaded', function () {
+  const dragHint = document.querySelector('.cube-drag-hint');
+  if (!dragHint) return;
+  let start = null;
+  const amplitudeX = 40; // px left/right
+  const amplitudeY = 40; // px up/down
+  const period = 8000; // ms for a full cycle
+  function animateDragHint(ts) {
+    if (!start) start = ts;
+    const elapsed = (ts - start) % period;
+    const theta = (elapsed / period) * 2 * Math.PI;
+    const x = Math.sin(theta) * amplitudeX;
+    const y = Math.cos(theta) * amplitudeY;
+    dragHint.style.transform = `translateX(calc(-50% + ${x}px)) translateY(calc(-50% + ${y}px))`;
+    requestAnimationFrame(animateDragHint);
+  }
+  requestAnimationFrame(animateDragHint);
+});
 // 3D card tilt effect on hover
 document.addEventListener('DOMContentLoaded', function () {
   const cardContainer = document.querySelector('.card-container');
@@ -360,6 +379,8 @@ document.addEventListener("DOMContentLoaded", function () {
     didUserDragCube = true;
     initialCubeIdleRotation = false; // Stop idle loop on first interaction
     cube.classList.add("grabbing");
+    const dragHint = document.querySelector('.cube-drag-hint');
+    dragHint?.classList.add('hidden');
     spinning = false;
     velocityX = 0;
     velocityY = 0;

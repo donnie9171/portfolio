@@ -1,9 +1,43 @@
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  10% {
+    transform: translateX(-45%) translateY(-8px);
+  }
+  25% {
+    transform: translateX(-40%) translateY(-12px);
+  }
+  40% {
+    transform: translateX(-35%) translateY(-8px);
+  }
+  50% {
+    transform: translateX(-30%) translateY(0);
+  }
+  60% {
+    transform: translateX(-35%) translateY(8px);
+  }
+  75% {
+    transform: translateX(-40%) translateY(12px);
+  }
+  90% {
+    transform: translateX(-45%) translateY(8px);
+  }
+}
+/* Make the drag hint image scale to its parent */
+.cube-drag-hint img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
 /* Responsive iframe for play.html */
 .responsive-iframe {
   display: block;
   width: 100%;
-  max-width: 1000px;
-  max-height: 75vh;
+  /* max-width: 1200px; */
+  max-height: calc(100vh - 100px);
   aspect-ratio: 1.1699;
   margin: 0 auto;
   border: none;
@@ -596,4 +630,16 @@ footer {
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.03);
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
+}
+
+.cube-drag-hint{
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 80px;
+  height: 80px;
+  opacity: 0.5;
+  z-index: 5;
+  pointer-events: none;
 }
