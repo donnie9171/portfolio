@@ -1,3 +1,13 @@
+/* Responsive iframe for play.html */
+.responsive-iframe {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  max-height: 75vh;
+  aspect-ratio: 1.1699;
+  margin: 0 auto;
+  border: none;
+}
 .card-keywords {
   margin-top: 0.5em;
   display: flex;
