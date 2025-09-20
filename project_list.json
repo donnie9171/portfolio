@@ -12,7 +12,7 @@
     "title": "MEW",
     "description": "Node based AI as a material for Scratch projects.",
     "thumbnail": "assets/cards/mew_cardthumb.png",
-    "page": "portfolio.html",
+    "page": "https://fireworks-studios.gitbook.io/fireworks-studios/mew-multi-agent-exploration-workbench",
     "dna": [65, 15, 20],
     "highlight": true,
     "keywords": ["2025", "Main Developer", "Final Year Project", "Scratch", "AI", "Software"]
@@ -21,7 +21,7 @@
     "title": "Matchbox",
     "description": "Affordable STEAM DIY kits made from upcycled keyboards!",
     "thumbnail": "assets/cards/matchbox_cardthumb.png",
-    "page": "portfolio.html",
+    "page": "https://fireworks-studios.gitbook.io/fireworks-studios",
     "dna": [60, 15, 25],
     "highlight": true,
     "keywords": ["2024-25", "Project Lead", "Product Development", "3D Printing", "PCB Design", "Upcycling"]
@@ -30,7 +30,7 @@
     "title": "Scratch Day Taiwan",
     "description": "Organized Scratch Day in Taiwan since 2019.",
     "thumbnail": "assets/cards/scratchdaytaiwan_cardthumb.jpg",
-    "page": "portfolio.html",
+    "page": "http://scratchday.tw/",
     "dna": [10, 25, 65],
     "highlight": true,
     "keywords": ["2019-Present", "Organizer", "Scratch", "Community", "Event Planning", "Volunteer"]
@@ -39,7 +39,7 @@
     "title": "Secrets of Scratch",
     "description": "Published a book about making Scratch games.",
     "thumbnail": "assets/cards/scratchbook_cardthumb.png",
-    "page": "portfolio.html",
+    "page": "https://www.youtube.com/watch?v=BBjIkd6U1Kk",
     "dna": [30, 30, 40],
     "highlight": true,
     "keywords": ["2019-20", "Author", "Illustrator", "Scratch", "Graphic Design", "Publishing"]
@@ -48,7 +48,7 @@
     "title": "Visioneers HKU",
     "description": "RA & project lead at the Human-systems Interaction and Simulation lab in HKU.",
     "thumbnail": "assets/cards/visioneers_cardthumb.png",
-    "page": "portfolio.html",
+    "page": "https://www.youtube.com/watch?v=1o_HK_-Jb_Y",
     "dna": [70, 25, 5],
     "highlight": true,
     "keywords": ["2023-24", "Research Assistant", "Project Lead", "VR", "Unity", "Branding", "Marketing"]
@@ -57,7 +57,7 @@
     "title": "ScratchGO",
     "description": "The power of Scratch, in the palm of your hand.",
     "thumbnail": "assets/cards/scratchgo_cardthumb.png",
-    "page": "portfolio.html",
+    "page": "https://scratchgo.app/",
     "dna": [70, 25, 5],
     "highlight": false,
     "keywords": ["2022-24", "Main Developer", "HTML", "CSS", "JS", "React"]
