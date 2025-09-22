@@ -1,3 +1,16 @@
+document.addEventListener('DOMContentLoaded', function () {
+  // Check if intro has already played this session
+  const body = document.body;
+  if(sessionStorage.getItem('lastPage') === window.location.href){
+    body.classList.add('initial'); 
+  }else{
+    if (!sessionStorage.getItem('introPlayed')) {
+      body.classList.add('initial'); 
+    }
+  }
+  sessionStorage.setItem('lastPage', window.location.href);
+});
+
 // Animate .cube-drag-hint along a sine wave
 document.addEventListener('DOMContentLoaded', function () {
   const dragHint = document.querySelector('.cube-drag-hint');
@@ -172,7 +185,7 @@ function spawnProjectCards(projects, thisUpdate){
           <div class="card-dna-segment edu" style="width: ${eduPercent}%;"></div>
         </div>
         <a href="${project.page}" class="card-link">
-          <img src="${project.thumbnail}" alt="${project.title}" class="card-thumb" loading="lazy">
+          <img src="${project.thumbnail}" alt="${project.title}" class="card-thumb" loading="${project.highlight ? 'eager' : 'lazy'}">
           <div class="card-info">
             <p class="card-title">${project.title}</p>
             <p class="card-desc">${project.description}</p>
@@ -415,6 +428,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if(didUserDragCube){
     const body = document.querySelector('body');
     body?.classList.remove("initial");
+    sessionStorage.setItem('introPlayed', 'true');
     }
     pointerActive = false;
     cube.classList.remove("grabbing");
@@ -431,6 +445,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if(didUserDragCube){
     const body = document.querySelector('body');
     body?.classList.remove("initial");
+    sessionStorage.setItem('introPlayed', 'true');
     }
     pointerActive = false;
     cube.classList.remove("grabbing");

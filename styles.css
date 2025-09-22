@@ -1,29 +1,21 @@
-@keyframes bounce {
-  0%, 100% {
-    transform: translateX(-50%) translateY(0);
-  }
-  10% {
-    transform: translateX(-45%) translateY(-8px);
-  }
-  25% {
-    transform: translateX(-40%) translateY(-12px);
-  }
-  40% {
-    transform: translateX(-35%) translateY(-8px);
-  }
-  50% {
-    transform: translateX(-30%) translateY(0);
-  }
-  60% {
-    transform: translateX(-35%) translateY(8px);
-  }
-  75% {
-    transform: translateX(-40%) translateY(12px);
-  }
-  90% {
-    transform: translateX(-45%) translateY(8px);
-  }
+:root {
+  --cyan: #00b7ff;
+  --magenta: #e51eff;
+  --yellow: #fff01e;
+  --orange: #ff8c00;
+  --gray: #acacac;
+  --cubeSize: 130px;
+
+  --cyan-translucent: #00b7ff99;
+  --magenta-translucent: #e51eff63;
+  --yellow-translucent: #fff01e75;
+
+  --border-radius: 20px;
+
+  --cube-curve: ease;
 }
+
+
 /* Make the drag hint image scale to its parent */
 .cube-drag-hint img {
   display: block;
@@ -59,20 +51,6 @@
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
   letter-spacing: 0.01em;
-}
-:root {
-  --cyan: #00b7ff;
-  --magenta: #e51eff;
-  --yellow: #fff01e;
-  --orange: #ff8c00;
-  --gray: #acacac;
-  --cubeSize: 130px;
-
-  --cyan-translucent: #00b7ff99;
-  --magenta-translucent: #e51eff63;
-  --yellow-translucent: #fff01e75;
-
-  --border-radius: 20px;
 }
 
 .side-areas {
@@ -133,7 +111,7 @@ main {
   align-items: center;
   height: auto;
   background-color: #fafafa00;
-  transition: background-color 0.5s ease, height 0.5s ease, padding-top 0.5s ease;
+  transition: height 0.5s var(--cube-curve), padding-top 0.5s var(--cube-curve);
 }
 
 .initial .cube-modal{
@@ -144,7 +122,7 @@ main {
   padding-top: 30vh;
   z-index: 20;
   background-color: #fafafa;
-  transition: background-color 0.5s ease, height 0.5s ease, padding-top 0.5s ease;
+  transition: height 0.5s var(--cube-curve), padding-top 0.5s var(--cube-curve);
 }
 
 
