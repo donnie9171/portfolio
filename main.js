@@ -412,6 +412,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   cubeHitbox.addEventListener("pointerup", function (e) {
     e.preventDefault();
+    if(didUserDragCube){
+    const body = document.querySelector('body');
+    body?.classList.remove("initial");
+    }
     pointerActive = false;
     cube.classList.remove("grabbing");
     // Check for dizzy on release
@@ -424,6 +428,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   cubeHitbox.addEventListener("pointerleave", function (e) {
     e.preventDefault();
+    if(didUserDragCube){
+    const body = document.querySelector('body');
+    body?.classList.remove("initial");
+    }
     pointerActive = false;
     cube.classList.remove("grabbing");
     // Check for dizzy on leave

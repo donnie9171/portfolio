@@ -14,7 +14,7 @@
       rel="stylesheet"
     />
   </head>
-  <body class="">
+  <body class="initial">
     <header>
       <h1>Enoch Kang</h1>
       <nav class="main-nav">
@@ -29,97 +29,101 @@
       </nav>
     </header>
     <main>
-      <div class="cube-container noscroll prevent-select" id="cubeContainer">
-        <div class="spin-text-circle hidden">
-          <svg class="spin-svg" viewBox="0 0 200 200" width="200" height="200">
-            <defs>
-              <path
-                id="circlePath"
-                d="M 100, 100 m -80, 0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"
-              />
-            </defs>
-            <text>
-              <textPath xlink:href="#circlePath" startOffset="0">
-                SPIN THE CUBE • SPIN THE CUBE • SPIN THE CUBE • SPIN •
-              </textPath>
-            </text>
-          </svg>
-        </div>
-        <div class="cube">
-          <div class="front" id="techSide">
-            <div class="cubeFace">Tech no logy</div>
+      <div class="cube-modal">
+        <div class="cube-container" id="cubeContainer">
+          <div class="spin-text-circle hidden">
+            <svg class="spin-svg" viewBox="0 0 200 200" width="200" height="200">
+              <defs>
+                <path
+                  id="circlePath"
+                  d="M 100, 100 m -80, 0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"
+                />
+              </defs>
+              <text>
+                <textPath xlink:href="#circlePath" startOffset="0">
+                  SPIN THE CUBE • SPIN THE CUBE • SPIN THE CUBE • SPIN •
+                </textPath>
+              </text>
+            </svg>
           </div>
-          <div class="back">
-            <div class="cubeFace chinese-character">科</div>
-          </div>
-          <div class="left" id="artSide">
-            <div class="cubeFace">
-              Art
-              <div class="googly-eyes">
-                <svg class="googly-svg" viewBox="0 0 60 30">
-                  <defs>
-                    <clipPath id="clipLeft">
-                      <ellipse cx="15" cy="15" rx="13" ry="13" />
-                    </clipPath>
-                    <clipPath id="clipRight">
-                      <ellipse cx="45" cy="15" rx="13" ry="13" />
-                    </clipPath>
-                  </defs>
-                  <g>
-                    <ellipse cx="15" cy="15" rx="13" ry="13" fill="#fff" />
-                    <ellipse cx="45" cy="15" rx="13" ry="13" fill="#fff" />
-                    <circle
-                      class="pupil pupil-left"
-                      cx="15"
-                      cy="15"
-                      r="5"
-                      fill="#222"
-                      clip-path="url(#clipLeft)"
-                    />
-                    <circle
-                      class="pupil pupil-right"
-                      cx="45"
-                      cy="15"
-                      r="5"
-                      fill="#222"
-                      clip-path="url(#clipRight)"
-                    />
-                  </g>
-                </svg>
+          <div class="cube">
+            <div class="front" id="techSide">
+              <div class="cubeFace">Tech no logy</div>
+            </div>
+            <div class="back">
+              <div class="cubeFace chinese-character">科</div>
+            </div>
+            <div class="left" id="artSide">
+              <div class="cubeFace">
+                Art
+                <div class="googly-eyes">
+                  <svg class="googly-svg" viewBox="0 0 60 30">
+                    <defs>
+                      <clipPath id="clipLeft">
+                        <ellipse cx="15" cy="15" rx="13" ry="13" />
+                      </clipPath>
+                      <clipPath id="clipRight">
+                        <ellipse cx="45" cy="15" rx="13" ry="13" />
+                      </clipPath>
+                    </defs>
+                    <g>
+                      <ellipse cx="15" cy="15" rx="13" ry="13" fill="#fff" />
+                      <ellipse cx="45" cy="15" rx="13" ry="13" fill="#fff" />
+                      <circle
+                        class="pupil pupil-left"
+                        cx="15"
+                        cy="15"
+                        r="5"
+                        fill="#222"
+                        clip-path="url(#clipLeft)"
+                      />
+                      <circle
+                        class="pupil pupil-right"
+                        cx="45"
+                        cy="15"
+                        r="5"
+                        fill="#222"
+                        clip-path="url(#clipRight)"
+                      />
+                    </g>
+                  </svg>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="right">
-            <div class="cubeFace chinese-character">藝</div>
-          </div>
-          <div class="top" id="eduSide">
-            <div class="cubeFace">Edu ca tion</div>
-          </div>
-          <div class="bottom">
-            <div class="cubeFace chinese-character">教</div>
-          </div>
+            <div class="right">
+              <div class="cubeFace chinese-character">藝</div>
+            </div>
+            <div class="top" id="eduSide">
+              <div class="cubeFace">Edu ca tion</div>
+            </div>
+            <div class="bottom">
+              <div class="cubeFace chinese-character">教</div>
+            </div>
 
-          <div class="front backface"></div>
-          <div class="back backface"></div>
-          <div class="left backface"></div>
-          <div class="right backface"></div>
-          <div class="top backface"></div>
-          <div class="bottom backface"></div>
+            <div class="front backface"></div>
+            <div class="back backface"></div>
+            <div class="left backface"></div>
+            <div class="right backface"></div>
+            <div class="top backface"></div>
+            <div class="bottom backface"></div>
+          </div>
+          <div class="cubehitbox  noscroll prevent-select"></div>
+          <div class="cube-drag-hint">
+            <img src="assets/images/drag_hint_icon.png" alt="">
+          </div>
         </div>
-        <div class="cubehitbox"></div>
-        <div class="cube-drag-hint">
-          <img src="assets/images/drag_hint_icon.png" alt="">
+        <div class="side-areas" id="sideAreas">
+          <div class="side-area tech" id="techSlider">Technology</div>
+          <div class="side-area art" id="artSlider">Art</div>
+          <div class="side-area edu" id="eduSlider">Education</div>
         </div>
       </div>
-      <div class="side-areas" id="sideAreas">
-        <div class="side-area tech" id="techSlider">Technology</div>
-        <div class="side-area art" id="artSlider">Art</div>
-        <div class="side-area edu" id="eduSlider">Education</div>
-      </div>
+      <div class="project-section" id="projectSection">
       <div class="card-container">
         <!-- dynamically spawn cards here -->
       </div>
       <div class="show-all-message">That's all the <i>featured</i> projects! <button class="show-all-btn">Show me ALL the projects!</button></div>
+      </div>
     </main>
     <footer>
 
