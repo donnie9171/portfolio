@@ -113,6 +113,10 @@
 }
 main {
   position: relative;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 /* Minimal CSS for fast loading */
 body {
@@ -276,13 +280,6 @@ header h1 {
   }
 }
 
-main {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .cube {
   position: relative;
   width: var(--cubeSize);
@@ -408,8 +405,8 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 10px;
+  margin-top: 10px;
   width: 100%;
   max-width: 1000px;
   min-width: 0;
@@ -421,7 +418,7 @@ main {
   background: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   width: 100%;
-  aspect-ratio: 2.25 / 1;
+  /* aspect-ratio: 2.25 / 1; */
   overflow: hidden;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -439,25 +436,18 @@ main {
   transform: scale(1);
 }
 
-.card:hover {
-  /* 3D tilt effect using CSS variables */
-  transition: none !important;
-  transform: perspective(900px) rotateX(var(--card-tilt-x, 0deg)) rotateY(var(--card-tilt-y, 0deg)) scale(1.025) !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.13), 0 1.5px 6px rgba(0,0,0,0.08);
-  z-index: 2;
-}
-
 .card-thumb {
-  height: 100%;
+  width: 100%;
   object-fit: cover;
-  aspect-ratio: 3.5 / 3;
+  aspect-ratio: 5 / 3;
+  height: auto;
   overflow: hidden;
   display: block;
 }
 
 .card-info{
-  height: 100%;
-  aspect-ratio: 3.25/3;
+  width: auto;
+  height: auto;
   padding: 0.83em;
 }
 
@@ -488,7 +478,6 @@ main {
 .card-link{
   text-decoration: none;
   color: inherit;
-  display: flex;
   height: calc(100% - 5px);
   width: 100%;
 }
@@ -605,19 +594,37 @@ main {
     max-width: calc(50% - 1rem);
   } */
 
-    .card-thumb {
-    height: 100%;
-    object-fit: cover;
+  .card{
+    aspect-ratio: 2.25 / 1;
+  }
+
+  .card-thumb {
     aspect-ratio: 5 / 3;
+    height: 100%;
+    width: auto;
+    object-fit: cover;
     overflow: hidden;
     display: block;
   }
 
   .card-info{
     height: 100%;
+    width: auto;
     aspect-ratio: 1.75/3;
     padding: 0.83em;
   }
+
+  .card:hover {
+  /* 3D tilt effect using CSS variables */
+  transition: none !important;
+  transform: perspective(900px) rotateX(var(--card-tilt-x, 0deg)) rotateY(var(--card-tilt-y, 0deg)) scale(1.025) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.13), 0 1.5px 6px rgba(0,0,0,0.08);
+  z-index: 2;
+}
+
+.card-link{
+  display: flex;
+}
 
 }
 
