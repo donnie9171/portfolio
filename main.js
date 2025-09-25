@@ -147,6 +147,11 @@ let initialCubeIdleRotation = true;
 let idleStartTime = null;
 let showAllProjects = false;
 
+const rotationRenderThreshold = 1; // degrees
+
+let oldRotationX = rotationX;
+let oldRotationY = rotationY;
+
 // Store loaded projects globally
 let loadedProjects = [];
 
@@ -369,9 +374,15 @@ document.addEventListener("DOMContentLoaded", function () {
     // Gradually slow down
     velocityX *= 0.95;
     velocityY *= 0.95;
-    if (Math.abs(velocityX) < 1 && Math.abs(velocityY) < 1) {
-      updateCardRankOrder();
-    }
+if (
+  (Math.abs(rotationX - oldRotationX) > rotationRenderThreshold ||
+   Math.abs(rotationY - oldRotationY) > rotationRenderThreshold) &&
+  Math.abs(velocityX) < 1 && Math.abs(velocityY) < 1
+) {
+  updateCardRankOrder();
+  oldRotationX = rotationX;
+  oldRotationY = rotationY;
+}
     if (Math.abs(velocityX) > 0.01 || Math.abs(velocityY) > 0.01) {
       requestAnimationFrame(spinCube);
     } else {
@@ -491,6 +502,36 @@ document.addEventListener("DOMContentLoaded", function () {
     const showAllMessage = document.querySelector(".show-all-message");
     if (showAllMessage) {
       showAllMessage.classList.add("hidden");
+    }
+  }
+});
+
+// Add onclick to lockfacebuttons to increment/decrement and loop 1-9
+document.addEventListener('DOMContentLoaded', function () {
+  // Use variables to store the current value for each lock input
+  const lockfaceValues = [1, 1, 1, 1];
+
+  for (let i = 1; i <= 4; i++) {
+    const upBtn = document.getElementById(`lockfaceButton${(i - 1) * 2 + 1}`);
+    const downBtn = document.getElementById(`lockfaceButton${(i - 1) * 2 + 2}`);
+    const inputSpan = document.getElementById(`lockfaceInput${i}`);
+
+    // Initialize display
+    if (inputSpan) inputSpan.textContent = '?';
+
+    if (upBtn && inputSpan) {
+      upBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        lockfaceValues[i - 1] = lockfaceValues[i - 1] < 9 ? lockfaceValues[i - 1] + 1 : 1;
+        inputSpan.textContent = lockfaceValues[i - 1];
+      });
+    }
+    if (downBtn && inputSpan) {
+      downBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        lockfaceValues[i - 1] = lockfaceValues[i - 1] > 1 ? lockfaceValues[i - 1] - 1 : 9;
+        inputSpan.textContent = lockfaceValues[i - 1];
+      });
     }
   }
 });
