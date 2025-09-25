@@ -715,4 +715,10 @@ footer {
   font-weight: 600 !important;
   font-size: calc(var(--cubeSize)*0.3) !important;
   pointer-events: auto !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lockfaceButton:focus {
+  outline: none; /* Remove focus outline */
+  box-shadow: none; /* Remove box-shadow */
 }
