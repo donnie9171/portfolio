@@ -506,10 +506,10 @@ if (
   }
 });
 
-// Add onclick to lockfacebuttons to increment/decrement and loop 1-9
+// Add onclick to lockfacebuttons to increment/decrement and loop 0-9
 document.addEventListener('DOMContentLoaded', function () {
   // Use variables to store the current value for each lock input
-  const lockfaceValues = [1, 1, 1, 1];
+  const lockfaceValues = [0, 0, 0, 0];
 
   for (let i = 1; i <= 4; i++) {
     const upBtn = document.getElementById(`lockfaceButton${(i - 1) * 2 + 1}`);
@@ -517,19 +517,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputSpan = document.getElementById(`lockfaceInput${i}`);
 
     // Initialize display
-    if (inputSpan) inputSpan.textContent = '?';
+    if (inputSpan) inputSpan.textContent = lockfaceValues[i - 1];
 
     if (upBtn && inputSpan) {
       upBtn.addEventListener('click', function (e) {
         e.stopPropagation();
-        lockfaceValues[i - 1] = lockfaceValues[i - 1] < 9 ? lockfaceValues[i - 1] + 1 : 1;
+        lockfaceValues[i - 1] = lockfaceValues[i - 1] < 9 ? lockfaceValues[i - 1] + 1 : 0;
         inputSpan.textContent = lockfaceValues[i - 1];
       });
     }
     if (downBtn && inputSpan) {
       downBtn.addEventListener('click', function (e) {
         e.stopPropagation();
-        lockfaceValues[i - 1] = lockfaceValues[i - 1] > 1 ? lockfaceValues[i - 1] - 1 : 9;
+        lockfaceValues[i - 1] = lockfaceValues[i - 1] > 0 ? lockfaceValues[i - 1] - 1 : 9;
         inputSpan.textContent = lockfaceValues[i - 1];
       });
     }
