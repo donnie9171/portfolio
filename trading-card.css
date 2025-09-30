@@ -17,7 +17,7 @@
   border-radius: 16px;
   padding: 1rem;
   width: 90vw;
-  height: calc(100vh - 200px);
+  height: calc(100dvh - 200px);
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   position: relative;
 }
@@ -38,6 +38,8 @@
   float: right;
   right: 1rem;
   font-size: 2rem;
+  width: 2rem;
+  height: 2rem;
   color: black;
   text-align: end;
   background: none;

@@ -116,10 +116,10 @@ main {
 
 .initial .cube-modal{
   position: absolute;
-  height: 70vh;
+  height: 70dvh;
   top: 0;
   left: 0;
-  padding-top: 30vh;
+  padding-top: 30dvh;
   z-index: 20;
   background-color: #fafafa;
   transition: height 0.5s var(--cube-curve), padding-top 0.5s var(--cube-curve);
@@ -726,7 +726,7 @@ footer {
 
 .deck{
   position: fixed;
-  bottom: 5px;
+  bottom: 10px;
   left: 5px;
   color: white;
   background-color: transparent;
