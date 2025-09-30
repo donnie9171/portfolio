@@ -66,28 +66,80 @@ function showTradingCardModal(cards = []) {
   if (cards.length === 0) {
     grid.innerHTML = `<div class=\"trading-card-modal-empty\">No cards to display.</div>`;
   } else {
-    cards.forEach(card => {
+    cards.forEach((card, idx) => {
       const cardDiv = document.createElement('div');
       cardDiv.className = 'trading-card-modal-card';
+      cardDiv.dataset.cardIndex = idx;
       if(card.found === "false"){
         cardDiv.classList.add('not-found');
         cardDiv.innerHTML = `
             <div class="card-not-found-text">?</div>
         `;
       }else{
-      cardDiv.innerHTML = `
-        <img src="${card.image || ''}" alt="${card.title || 'Card Title'}"></img>
-      `;
-      if(card.shiny === "true"){
-        cardDiv.classList.add('shiny');
-        cardDiv.innerHTML += `
-            <s></s>
+        cardDiv.innerHTML = `
+          <img src="${card.image || ''}" alt="${card.title || 'Card Title'}"></img>
         `;
+        if(card.shiny === "true"){
+          cardDiv.classList.add('shiny');
+          cardDiv.innerHTML += `
+              <s></s>
+          `;
+        }
       }
-      }
+      // Add click handler for detailed view
+      cardDiv.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if(card.found === "false") return; // Do nothing if not found
+        showCardDetailModal(card);
+      });
       grid.appendChild(cardDiv);
     });
   }
+// Show a detailed modal for a single card
+function showCardDetailModal(card) {
+  // Remove any existing detail modal
+  let detailModal = document.getElementById('tradingCardDetailModal');
+  if (detailModal) detailModal.remove();
+  // Create modal overlay
+  detailModal = document.createElement('div');
+  detailModal.id = 'tradingCardDetailModal';
+  detailModal.className = 'trading-card-detail-modal';
+  // Modal content
+  const content = document.createElement('div');
+  content.className = 'trading-card-detail-content';
+  // Close button
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = '×';
+  closeBtn.setAttribute('aria-label', 'Close');
+  closeBtn.className = 'trading-card-detail-close';
+  closeBtn.onclick = () => {
+    detailModal.remove();
+  };
+  // Card image
+  const img = document.createElement('img');
+  img.src = card.image || '';
+  img.alt = card.title || 'Card Title';
+  img.className = 'trading-card-detail-img';
+  // Card title
+  const title = document.createElement('h2');
+  title.textContent = card.title || 'Card Title';
+  title.className = 'trading-card-detail-title';
+  // Card details (add more fields as needed)
+  const details = document.createElement('div');
+  details.className = 'trading-card-detail-desc';
+  details.textContent = card.description || '';
+  // Append all
+  content.appendChild(closeBtn);
+  content.appendChild(img);
+//   content.appendChild(title);
+//   content.appendChild(details);
+  detailModal.appendChild(content);
+  // Remove modal on background click
+  detailModal.addEventListener('click', (e) => {
+    if (e.target === detailModal) detailModal.remove();
+  });
+  document.body.appendChild(detailModal);
+}
 
   // Show modal
   modal.classList.remove('hidden');
@@ -103,14 +155,14 @@ document.addEventListener("DOMContentLoaded", function () {
     deckBtn.addEventListener("click", function () {
       // Example cards array; replace with your data source
       showTradingCardModal([
-        { title: "Card 1", image: "assets/trading cards/25.png", found: "true"  },
-        { title: "Card 2", image: "assets/trading cards/26.png", found: "true"  },
-        { title: "Card 3", image: "assets/trading cards/27.png", found: "true"  },
+        { title: "Perseverance of an Engineer", image: "assets/trading cards/25.png", found: "true"  },
+        { title: "Passion of an Artist", image: "assets/trading cards/26.png", found: "true"  },
+        { title: "Curiosity of a Child", image: "assets/trading cards/27.png", found: "true"  },
         { title: "Card 1", image: "assets/trading cards/28.png", found: "false" },
         { title: "Card 2", image: "assets/trading cards/29.png", found: "false"  },
         { title: "Card 3", image: "assets/trading cards/30.png", found: "false"  },
-        { title: "Card 2", image: "assets/trading cards/33.png", found: "true"  },
-        { title: "Card 3", image: "assets/trading cards/34.png", found: "true"  },
+        { title: "Card 2", image: "assets/trading cards/33.png", found: "true", shiny: "true"  },
+        { title: "Card 3", image: "assets/trading cards/34.png", found: "true", shiny: "true"  },
         { title: "Card 1", image: "assets/trading cards/28.png", found: "false" },
         { title: "Card 2", image: "assets/trading cards/29.png", found: "false"  },
         { title: "Card 3", image: "assets/trading cards/30.png", found: "false"  },
@@ -134,6 +186,7 @@ function setup3DCardGrid(grid) {
   grid.addEventListener('mousemove', function (e) {
     const card = e.target.closest('.trading-card-modal-card');
     if (!card) return;
+    if (card.classList.contains('not-found')) return; // Skip not found cards
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
