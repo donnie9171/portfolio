@@ -149,11 +149,17 @@ function showCardDetailModal(card) {
   });
   document.body.appendChild(detailModal);
 
-  // Add 3D hover effect to the detail card
-  cardVisual.addEventListener('mousemove', function (e) {
+  // Add 3D and shine effect to the detail card for both mouse and pointer events
+  function handle3DPointer(e) {
     const rect = cardVisual.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    let x, y;
+    if (e.touches && e.touches.length) {
+      x = e.touches[0].clientX - rect.left;
+      y = e.touches[0].clientY - rect.top;
+    } else {
+      x = (e.clientX !== undefined ? e.clientX : 0) - rect.left;
+      y = (e.clientY !== undefined ? e.clientY : 0) - rect.top;
+    }
     const cx = rect.width / 2;
     const cy = rect.height / 2;
     const dx = (x - cx) / cx;
@@ -166,21 +172,22 @@ function showCardDetailModal(card) {
     cardVisual.querySelector('s')?.style.setProperty('--angle', `${rotateY + 45}deg`);
     cardVisual.querySelector('s')?.style.setProperty('--s-o', `0.5`);
     cardVisual.querySelector('s')?.style.setProperty('--s-s', `400%`);
-  });
-  cardVisual.addEventListener('mouseleave', function (e) {
+  }
+  function reset3DPointer() {
     cardVisual.style.transform = '';
     cardVisual.style.boxShadow = '';
     cardVisual.querySelector('s')?.style.setProperty('--angle', `45deg`);
     cardVisual.querySelector('s')?.style.setProperty('--s-o', `0.2`);
     cardVisual.querySelector('s')?.style.setProperty('--s-s', `100%`);
-  });
-  cardVisual.addEventListener('mouseout', function (e) {
-    cardVisual.style.transform = '';
-    cardVisual.style.boxShadow = '';
-    cardVisual.querySelector('s')?.style.setProperty('--angle', `45deg`);
-    cardVisual.querySelector('s')?.style.setProperty('--s-o', `0.2`);
-    cardVisual.querySelector('s')?.style.setProperty('--s-s', `100%`);
-  });
+  }
+  cardVisual.addEventListener('mousemove', handle3DPointer);
+  cardVisual.addEventListener('pointermove', handle3DPointer);
+  cardVisual.addEventListener('touchmove', handle3DPointer);
+  cardVisual.addEventListener('mouseleave', reset3DPointer);
+  cardVisual.addEventListener('pointerleave', reset3DPointer);
+  cardVisual.addEventListener('mouseout', reset3DPointer);
+  cardVisual.addEventListener('touchend', reset3DPointer);
+  cardVisual.addEventListener('touchcancel', reset3DPointer);
 }
 
   // Show modal
