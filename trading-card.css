@@ -31,7 +31,10 @@
   position: absolute;
   top: -40px;
   right: 0;
-  font-size: 2rem;
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  text-align: end;
   background: none;
   border: none;
   cursor: pointer;
