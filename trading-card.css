@@ -226,3 +226,7 @@ background-size: var(--s-s, 400%);
     );
 	}
 
+
+  .trading-card-detail-content .trading-card-modal-card{
+    border-radius: 2rem;
+  }

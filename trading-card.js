@@ -115,11 +115,20 @@ function showCardDetailModal(card) {
   closeBtn.onclick = () => {
     detailModal.remove();
   };
+  // Card visual wrapper for 3D and shiny effect
+  const cardVisual = document.createElement('div');
+  cardVisual.className = 'trading-card-modal-card trading-card-detail-card';
+  if(card.shiny === "true") {
+    cardVisual.classList.add('shiny');
+    const shine = document.createElement('s');
+    cardVisual.appendChild(shine);
+  }
   // Card image
   const img = document.createElement('img');
   img.src = card.image || '';
   img.alt = card.title || 'Card Title';
   img.className = 'trading-card-detail-img';
+  cardVisual.appendChild(img);
   // Card title
   const title = document.createElement('h2');
   title.textContent = card.title || 'Card Title';
@@ -130,7 +139,7 @@ function showCardDetailModal(card) {
   details.textContent = card.description || '';
   // Append all
   content.appendChild(closeBtn);
-  content.appendChild(img);
+  content.appendChild(cardVisual);
 //   content.appendChild(title);
 //   content.appendChild(details);
   detailModal.appendChild(content);
@@ -139,6 +148,39 @@ function showCardDetailModal(card) {
     if (e.target === detailModal) detailModal.remove();
   });
   document.body.appendChild(detailModal);
+
+  // Add 3D hover effect to the detail card
+  cardVisual.addEventListener('mousemove', function (e) {
+    const rect = cardVisual.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    const dx = (x - cx) / cx;
+    const dy = (y - cy) / cy;
+    const maxRotate = 5;
+    const rotateY = dx * maxRotate;
+    const rotateX = -dy * maxRotate;
+    cardVisual.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+    cardVisual.style.boxShadow = '0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.07)';
+    cardVisual.querySelector('s')?.style.setProperty('--angle', `${rotateY + 45}deg`);
+    cardVisual.querySelector('s')?.style.setProperty('--s-o', `0.5`);
+    cardVisual.querySelector('s')?.style.setProperty('--s-s', `400%`);
+  });
+  cardVisual.addEventListener('mouseleave', function (e) {
+    cardVisual.style.transform = '';
+    cardVisual.style.boxShadow = '';
+    cardVisual.querySelector('s')?.style.setProperty('--angle', `45deg`);
+    cardVisual.querySelector('s')?.style.setProperty('--s-o', `0.2`);
+    cardVisual.querySelector('s')?.style.setProperty('--s-s', `100%`);
+  });
+  cardVisual.addEventListener('mouseout', function (e) {
+    cardVisual.style.transform = '';
+    cardVisual.style.boxShadow = '';
+    cardVisual.querySelector('s')?.style.setProperty('--angle', `45deg`);
+    cardVisual.querySelector('s')?.style.setProperty('--s-o', `0.2`);
+    cardVisual.querySelector('s')?.style.setProperty('--s-s', `100%`);
+  });
 }
 
   // Show modal
