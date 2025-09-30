@@ -12,9 +12,15 @@ function showTradingCardModal(cards = []) {
     modal.id = 'tradingCardModal';
     modal.className = 'trading-card-modal hidden';
 
-    // Modal content container
-    content = document.createElement('div');
-    content.className = 'trading-card-modal-content';
+  // Modal content container
+  content = document.createElement('div');
+  content.className = 'trading-card-modal-content';
+
+  // Add top message
+  const topMessage = document.createElement('div');
+  topMessage.className = 'trading-card-modal-message';
+  topMessage.textContent = 'Find all the hidden cards!';
+  content.appendChild(topMessage);
 
     // Close button
     closeBtn = document.createElement('button');
