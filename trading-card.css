@@ -10,12 +10,13 @@
   padding-top: 100px;
   display: flex;
   justify-content: center;
+  overflow-y: hidden;
+  touch-action: none;
 }
 
 .trading-card-modal-content {
   background: #fff;
   border-radius: 16px;
-  padding: 1rem;
   width: 90vw;
   height: calc(100dvh - 200px);
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
@@ -24,8 +25,8 @@
 
 .trading-card-grid-container {
   width: 100%;
-  height: calc(100% - 40px);
-  margin-top: 40px;
+  height: calc(100% - 50px);
+  margin-top: 50px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -50,19 +51,43 @@
 }
 .trading-card-modal-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  margin: 1rem;
 }
 
 .trading-card-modal-card {
-  background: #f8f8f8;
+  background: #ababab;
+  --s: 50px; /* control the size*/
+  --c1: #737373;
+  --c2: #636363;
+  
+  --_g: var(--c1) 90deg,#0000 90.5deg;
+  background:
+   conic-gradient(from -45deg,var(--_g)),
+   conic-gradient(from 135deg,var(--_g)) calc(var(--s)/2) 0,
+   var(--c2);
+  background-size: var(--s) var(--s);
   border-radius: 12px;
-  padding: 1rem;
+  overflow: hidden;
+  aspect-ratio: 5/7;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s cubic-bezier(.25,.8,.25,1), box-shadow 0.25s cubic-bezier(.25,.8,.25,1);
 }
 
-.trading-card-modal-card h3 {
-  margin-top: 0;
+.card-not-found-text{
+  font-size: 5rem;
+  font-weight: 800;
+  color: white;
+  text-align: center;
+  line-height: 7;
+}
+
+.trading-card-modal-card img{
+    width: 100%;
 }
 
 .trading-card-modal-empty {
@@ -87,9 +112,16 @@ body.modal-open {
 @media screen and (max-width: 850px) {
   .trading-card-modal-content {
     max-width: calc(100vw - 10px);
+    height: calc(100dvh - 135px);
   }
     
   .trading-card-modal-top-image{
     max-width: 50%;
+  }
+
+  .trading-card-modal-grid {
+    gap: 0.5rem;
+    margin: 0.5rem;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
