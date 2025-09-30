@@ -4,9 +4,9 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   background: linear-gradient(120deg, rgba(30,30,40,0.55) 0%, rgba(60,60,80,0.45) 100%);
-  backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(60%);
   --glass-bg: linear-gradient(120deg, rgba(30,30,40,0.55) 0%, rgba(60,60,80,0.45) 100%);
   z-index: 10000;
   display: flex;
@@ -35,12 +35,12 @@
   background: none;
   border: none;
   cursor: pointer;
+  color: black;
 }
 
 .trading-card-detail-img {
   width: 100%;
   height: 100%;
-  border-radius: 2rem;
 }
 
 .trading-card-detail-title {
@@ -90,6 +90,12 @@
   display: flex;
   flex-direction: column;
 }
+
+
+
+  .trading-card-detail-content .trading-card-modal-card{
+    border-radius: 2rem;
+  }
 
 
 .trading-card-modal-close {
@@ -184,6 +190,9 @@ body.modal-open {
     margin: 0.5rem;
     grid-template-columns: repeat(3, 1fr);
   }
+  .trading-card-detail-content .trading-card-modal-card {
+    border-radius: 1rem;
+  }
 }
 
 s {
@@ -225,8 +234,3 @@ background-size: var(--s-s, 400%);
       rgba(255,255,255,0.2) 100%
     );
 	}
-
-
-  .trading-card-detail-content .trading-card-modal-card{
-    border-radius: 2rem;
-  }
