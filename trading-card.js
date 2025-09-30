@@ -69,10 +69,16 @@ function showTradingCardModal(cards = []) {
     cards.forEach(card => {
       const cardDiv = document.createElement('div');
       cardDiv.className = 'trading-card-modal-card';
+      if(card.found === "false"){
+        cardDiv.classList.add('not-found');
+        cardDiv.innerHTML = `
+            <div class="card-not-found-text">?</div>
+        `;
+      }else{
       cardDiv.innerHTML = `
-        <h3>${card.title || 'Card Title'}</h3>
-        <p>${card.description || ''}</p>
+        <img src="${card.image || ''}" alt="${card.title || 'Card Title'}"></img>
       `;
+      }
       grid.appendChild(cardDiv);
     });
   }
@@ -80,6 +86,8 @@ function showTradingCardModal(cards = []) {
   // Show modal
   modal.classList.remove('hidden');
   document.body.classList.add('modal-open');
+  // Attach 3D card mouse events after grid is populated
+  setup3DCardGrid(grid);
 }
 
 // Attach to deck button
@@ -89,28 +97,64 @@ document.addEventListener("DOMContentLoaded", function () {
     deckBtn.addEventListener("click", function () {
       // Example cards array; replace with your data source
       showTradingCardModal([
-        { title: "Card 1", description: "This is the first card." },
-        { title: "Card 2", description: "This is the second card." },
-        { title: "Card 3", description: "This is the third card." },
-        { title: "Card 1", description: "This is the first card." },
-        { title: "Card 2", description: "This is the second card." },
-        { title: "Card 3", description: "This is the third card." },
-        { title: "Card 1", description: "This is the first card." },
-        { title: "Card 2", description: "This is the second card." },
-        { title: "Card 3", description: "This is the third card." },
-        { title: "Card 1", description: "This is the first card." },
-        { title: "Card 2", description: "This is the second card." },
-        { title: "Card 3", description: "This is the third card." },
-        { title: "Card 1", description: "This is the first card." },
-        { title: "Card 2", description: "This is the second card." },
-        { title: "Card 3", description: "This is the third card." },
-        { title: "Card 1", description: "This is the first card." },
-        { title: "Card 2", description: "This is the second card." },
-        { title: "Card 3", description: "This is the third card." },
+        { title: "Card 1", image: "assets/trading cards/25.png", found: "true"  },
+        { title: "Card 2", image: "assets/trading cards/26.png", found: "true"  },
+        { title: "Card 3", image: "assets/trading cards/27.png", found: "true"  },
+        { title: "Card 1", image: "assets/trading cards/28.png", found: "false" },
+        { title: "Card 2", image: "assets/trading cards/29.png", found: "false"  },
+        { title: "Card 3", image: "assets/trading cards/30.png", found: "false"  },
+        { title: "Card 2", image: "assets/trading cards/33.png", found: "true"  },
+        { title: "Card 3", image: "assets/trading cards/34.png", found: "true"  },
+        { title: "Card 1", image: "assets/trading cards/28.png", found: "false" },
+        { title: "Card 2", image: "assets/trading cards/29.png", found: "false"  },
+        { title: "Card 3", image: "assets/trading cards/30.png", found: "false"  },
+        { title: "Card 1", image: "assets/trading cards/28.png", found: "false" },
+        { title: "Card 1", image: "assets/trading cards/28.png", found: "true"  },
+        { title: "Card 2", image: "assets/trading cards/29.png", found: "true"  },
+        { title: "Card 3", image: "assets/trading cards/30.png", found: "true"  },
+        { title: "Card 2", image: "assets/trading cards/29.png", found: "false"  },
+        { title: "Card 3", image: "assets/trading cards/30.png", found: "false"  },
+        { title: "Card 1", image: "assets/trading cards/28.png", found: "false" },
       ]);
     });
   }
 });
 
+
+// Attach 3D card mouse events to a grid element (only once)
+function setup3DCardGrid(grid) {
+  if (!grid || grid._has3DCardEvents) return;
+  grid._has3DCardEvents = true;
+  grid.addEventListener('mousemove', function (e) {
+    const card = e.target.closest('.trading-card-modal-card');
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    const dx = (x - cx) / cx;
+    const dy = (y - cy) / cy;
+    const maxRotate = 5;
+    const rotateY = dx * maxRotate;
+    const rotateX = -dy * maxRotate;
+    card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+    card.style.boxShadow = '0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.07)';
+  });
+  grid.addEventListener('mouseleave', function (e) {
+    if (e.target.classList && e.target.classList.contains('trading-card-modal-card')) {
+      e.target.style.transform = '';
+      e.target.style.boxShadow = '';
+    }
+  }, true);
+  grid.addEventListener('mouseout', function (e) {
+    if (e.target.classList && e.target.classList.contains('trading-card-modal-card')) {
+      e.target.style.transform = '';
+      e.target.style.boxShadow = '';
+    }
+  }, true);
+}
+
 // Export for use in other scripts if needed
 window.showTradingCardModal = showTradingCardModal;
+

@@ -135,6 +135,7 @@ body {
 
 body.initial{
   overflow: hidden;
+  touch-action: none;
 }
 
 .main-nav {
