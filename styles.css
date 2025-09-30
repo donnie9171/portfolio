@@ -655,6 +655,7 @@ footer {
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.03);
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
+  z-index: 50;
 }
 
 .initial footer{
@@ -721,4 +722,29 @@ footer {
 .lockfaceButton:focus {
   outline: none; /* Remove focus outline */
   box-shadow: none; /* Remove box-shadow */
+}
+
+.deck{
+  position: fixed;
+  bottom: 5px;
+  left: 5px;
+  color: white;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: transform 0.2s cubic-bezier(0.67, -0.47, 0.4, 1.39);
+  transform-origin: left bottom;
+}
+
+.deck img{
+  width: 5em;
+  max-width: 100px;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 0px 5px rgba(0,0,0,0.25));
+}
+
+.deck:hover {
+  transform: scale(1.15);
 }

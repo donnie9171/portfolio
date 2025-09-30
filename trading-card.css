@@ -1,0 +1,91 @@
+.trading-card-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.trading-card-modal-content {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1rem;
+  width: 90vw;
+  height: 80vh;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+}
+
+.trading-card-grid-container {
+  width: 100%;
+  height: calc(100% - 40px);
+  margin-top: 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.trading-card-modal-close {
+  position: absolute;
+  top: 1rem;
+  float: right;
+  right: 1rem;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  z-index: 10;
+}
+.trading-card-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.trading-card-modal-card {
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.trading-card-modal-card h3 {
+  margin-top: 0;
+}
+
+.trading-card-modal-empty {
+  text-align: center;
+  opacity: 0.7;
+}
+
+body.modal-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.trading-card-modal-top-image{
+    width: 200px;
+  position: absolute;
+  top: -80px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+@media screen and (max-width: 850px) {
+  .trading-card-modal-content {
+    max-width: calc(100vw - 10px);
+  }
+    
+  .trading-card-modal-top-image{
+    max-width: 50%;
+    top: -65px;
+  }
+}
