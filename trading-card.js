@@ -78,6 +78,12 @@ function showTradingCardModal(cards = []) {
       cardDiv.innerHTML = `
         <img src="${card.image || ''}" alt="${card.title || 'Card Title'}"></img>
       `;
+      if(card.shiny === "true"){
+        cardDiv.classList.add('shiny');
+        cardDiv.innerHTML += `
+            <s></s>
+        `;
+      }
       }
       grid.appendChild(cardDiv);
     });
@@ -109,9 +115,9 @@ document.addEventListener("DOMContentLoaded", function () {
         { title: "Card 2", image: "assets/trading cards/29.png", found: "false"  },
         { title: "Card 3", image: "assets/trading cards/30.png", found: "false"  },
         { title: "Card 1", image: "assets/trading cards/28.png", found: "false" },
-        { title: "Card 1", image: "assets/trading cards/28.png", found: "true"  },
-        { title: "Card 2", image: "assets/trading cards/29.png", found: "true"  },
-        { title: "Card 3", image: "assets/trading cards/30.png", found: "true"  },
+        { title: "Card 1", image: "assets/trading cards/28.png", found: "true", shiny: "true"  },
+        { title: "Card 2", image: "assets/trading cards/29.png", found: "true", shiny: "true"  },
+        { title: "Card 3", image: "assets/trading cards/30.png", found: "true", shiny: "true"  },
         { title: "Card 2", image: "assets/trading cards/29.png", found: "false"  },
         { title: "Card 3", image: "assets/trading cards/30.png", found: "false"  },
         { title: "Card 1", image: "assets/trading cards/28.png", found: "false" },
@@ -140,17 +146,26 @@ function setup3DCardGrid(grid) {
     const rotateX = -dy * maxRotate;
     card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
     card.style.boxShadow = '0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.07)';
+    card.querySelector('s')?.style.setProperty('--angle', `${rotateY + 45}deg`);
+    card.querySelector('s')?.style.setProperty('--s-o', `0.5`);
+    card.querySelector('s')?.style.setProperty('--s-s', `400%`);
   });
   grid.addEventListener('mouseleave', function (e) {
     if (e.target.classList && e.target.classList.contains('trading-card-modal-card')) {
       e.target.style.transform = '';
       e.target.style.boxShadow = '';
+    e.target.querySelector('s')?.style.setProperty('--angle', `45deg`);
+    e.target.querySelector('s')?.style.setProperty('--s-o', `0.2`);
+    e.target.querySelector('s')?.style.setProperty('--s-s', `100%`);
     }
   }, true);
   grid.addEventListener('mouseout', function (e) {
     if (e.target.classList && e.target.classList.contains('trading-card-modal-card')) {
       e.target.style.transform = '';
       e.target.style.boxShadow = '';
+          e.target.querySelector('s')?.style.setProperty('--angle', `45deg`);
+    e.target.querySelector('s')?.style.setProperty('--s-o', `0.2`);
+    e.target.querySelector('s')?.style.setProperty('--s-s', `100%`);
     }
   }, true);
 }

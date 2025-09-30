@@ -76,6 +76,7 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.25s cubic-bezier(.25,.8,.25,1), box-shadow 0.25s cubic-bezier(.25,.8,.25,1);
+  position: relative;
 }
 
 .card-not-found-text{
@@ -125,3 +126,44 @@ body.modal-open {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+s {
+		position: absolute;
+		inset: 0;
+    --s-o: 0.2;
+    --s-s: 100%;
+    --angle: 45deg;
+		opacity: var(--s-o, 0);
+		pointer-events: none;
+		transition: --angle 0.2s, opacity 0.6s, background-size 0.3s;
+		background-size: var(--s-s, 400%);
+background-size: var(--s-s, 400%);
+  background-image: linear-gradient(
+      var(--angle, 135deg),
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0) 15%,
+      rgba(255,255,255,0.9) 20%,
+      rgba(255,255,255,0.9) 25%,
+      rgba(255,255,255,0) 30%,
+      rgba(255,255,255,0.3) 100%
+    ),
+    linear-gradient(
+      calc(var(--angle, 135deg) - 180deg),
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0) 15%,
+      rgba(255,255,255,0.8) 20%,
+      rgba(255,255,255,0.8) 25%,
+      rgba(255,255,255,0) 30%,
+      rgba(255,255,255,0) 100%
+    ),
+    linear-gradient(
+      var(--angle, 135deg),
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0) 30%,
+      rgba(255,255,255,0.75) 33%,
+      rgba(255,255,255,0.75) 33%,
+      rgba(255,255,255,0) 35%,
+      rgba(255,255,255,0.2) 100%
+    );
+	}
+
