@@ -514,6 +514,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.stopPropagation();
         lockfaceValues[i - 1] = lockfaceValues[i - 1] < 9 ? lockfaceValues[i - 1] + 1 : 0;
         inputSpan.textContent = lockfaceValues[i - 1];
+        checkLockfaceCode(lockfaceValues);
       });
     }
     if (downBtn && inputSpan) {
@@ -521,7 +522,24 @@ document.addEventListener('DOMContentLoaded', function () {
         e.stopPropagation();
         lockfaceValues[i - 1] = lockfaceValues[i - 1] > 0 ? lockfaceValues[i - 1] - 1 : 9;
         inputSpan.textContent = lockfaceValues[i - 1];
+        checkLockfaceCode(lockfaceValues);
       });
     }
   }
 });
+
+function checkLockfaceCode(inputCode) {
+
+  // check that the user doesn't already have the alt cards
+  if (getTradingCardStorage().includes("Perseverance of an Engineer alt")) return;
+  if (getTradingCardStorage().includes("Passion of an Artist alt")) return;
+  if (getTradingCardStorage().includes("Curiosity of a Child alt")) return;
+
+  const correctCode = [9, 1, 7, 1];
+  if (
+    inputCode.length !== correctCode.length ||
+    !inputCode.every((val, idx) => val === correctCode[idx])
+  ) return;
+
+  window.notifyNewCard(["Perseverance of an Engineer alt","Passion of an Artist alt","Curiosity of a Child alt"]);
+}
