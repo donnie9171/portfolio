@@ -112,11 +112,28 @@ if (cards.length === 0) {
               <s></s>
           `;
         }
+        // Add badge if card is in newTradingCards
+        const newCards = getNewCards();
+        if (newCards.includes(card.title)) {
+          const badge = document.createElement('div');
+          badge.className = 'trading-card-deck-badge textvariant';
+          badge.innerHTML = '<span>New!</span>';
+          cardDiv.appendChild(badge);
+        }
       }
       // Add click handler for detailed view
       cardDiv.addEventListener('click', function(e) {
         e.stopPropagation();
         if(card.found === "false") return; // Do nothing if not found
+        if(getNewCards().includes(card.title)){
+            // remove from new cards
+            const updatedNewCards = getNewCards().filter(name => name !== card.title);
+            setNewCards(updatedNewCards);
+            updateDeckButtonBadge();
+            // remove badge
+            const badge = cardDiv.querySelector('.trading-card-deck-badge');
+            if(badge) badge.remove();
+        }
         showCardDetailModal(card);
       });
       grid.appendChild(cardDiv);
@@ -233,6 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
     deckBtn.addEventListener("click", function () {
       showTradingCardModal(getTradingCardStorage());
     });
+    updateDeckButtonBadge();
   }
 });
 
@@ -295,3 +313,190 @@ function setTradingCardStorage(cardNamesArray){
 }
 
 window.setTradingCardStorage = setTradingCardStorage;
+
+function getNewCards(){
+    const stored = localStorage.getItem('newTradingCards');
+    return stored ? JSON.parse(stored) : [];
+}
+
+function setNewCards(cardNamesArray){
+    localStorage.setItem('newTradingCards', JSON.stringify(cardNamesArray));
+}
+
+window.setNewCards = setNewCards;
+
+function notifyNewCard(cardNames) {
+    // if there are more than one card, show "New cards found!" otherwise show "New card found!"
+    setNewCards([...new Set([...getNewCards(), ...cardNames])]); // merge and dedupe
+    setTradingCardStorage([...new Set([...getTradingCardStorage(), ...cardNames])]); // merge and dedupe
+    if (cardNames.length === 0) return;
+    const message = cardNames.length === 1 ? 'New card found!' : 'New cards found!';
+    // Create notification element
+    let notification = document.getElementById('tradingCardNotification');
+    if (!notification) {
+        notification = document.createElement('div');
+        notification.id = 'tradingCardNotification';
+        notification.className = 'trading-card-notification';
+        document.body.appendChild(notification);
+    }
+    // Clear previous content
+    notification.innerHTML = '';
+
+    // Add message
+    const msgDiv = document.createElement('div');
+    msgDiv.textContent = message;
+    msgDiv.style.marginBottom = '0.5rem';
+
+    // Fetch card data and show thumbnails for new cards
+    fetch('trading-cards.json')
+      .then(response => response.json())
+      .then(data => {
+        const thumbsRow = document.createElement('div');
+        thumbsRow.style.display = 'flex';
+        thumbsRow.style.gap = '0.5rem';
+        thumbsRow.style.justifyContent = 'center';
+
+        cardNames.forEach(cardName => {
+          const card = data.find(c => c.title === cardName);
+          if (card && card.image) {
+            const thumb = document.createElement('div');
+            thumb.style.width = '60px';
+            thumb.style.height = '84px';
+            thumb.style.borderRadius = '5px';
+            thumb.style.overflow = 'hidden';
+            thumb.style.background = '#eee';
+            thumb.style.display = 'flex';
+            thumb.style.alignItems = 'center';
+            thumb.style.justifyContent = 'center';
+            const img = document.createElement('img');
+            img.src = card.image;
+            img.alt = card.title;
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'cover';
+            img.style.pointerEvents = 'none';
+            img.style.userSelect = 'none';
+            thumb.appendChild(img);
+            thumbsRow.appendChild(thumb);
+          }
+        });
+
+        notification.appendChild(msgDiv);
+        notification.appendChild(thumbsRow);
+
+        notification.addEventListener('click', () => {
+            showTradingCardModal(getTradingCardStorage());
+            notification.classList.remove('show');
+        })
+
+        // dismiss notification if swipe up
+        let startY = null;
+        notification.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+        });
+        notification.addEventListener('touchmove', (e) => {
+            if (!startY) return;
+            let diffY = e.touches[0].clientY - startY;
+            if (diffY < -30) { // swipe up
+                if (!notification.classList.contains('show')) return; // already dismissed
+                notification.classList.remove('show');
+                animateThumbsToDeck(thumbsRow);
+                startY = null;
+            }
+        });
+        notification.addEventListener('touchend', () => {
+            startY = null;
+        });
+
+        notification.classList.add('show');
+        // Hide after 3 seconds
+        setTimeout(() => {
+            if (!notification.classList.contains('show')) return; // already dismissed
+            notification.classList.remove('show');
+            animateThumbsToDeck(thumbsRow);
+        }, 3000);
+      });
+}
+window.notifyNewCard = notifyNewCard;
+
+
+function animateThumbsToDeck(thumbsRow) {
+    const deckBtn = document.getElementById('deckButton');
+    if (!deckBtn) return;
+
+    // Get deck button position
+    const deckRect = deckBtn.getBoundingClientRect();
+    const deckX = deckRect.left + deckRect.width / 2;
+    const deckY = deckRect.top + deckRect.height / 2;
+
+    // For each thumb in the notification
+    thumbsRow.querySelectorAll('div').forEach(thumb => {
+        const img = thumb.querySelector('img');
+        if (!img) return;
+
+        // hide the original thumb
+        thumb.style.visibility = 'hidden';
+
+        // Get thumb position
+        const thumbRect = img.getBoundingClientRect();
+        const startX = thumbRect.left + thumbRect.width / 2;
+        const startY = thumbRect.top + thumbRect.height / 2;
+
+        // Create a floating clone
+        const floating = img.cloneNode(true);
+        floating.style.position = 'fixed';
+        floating.style.left = `${startX - thumbRect.width / 2}px`;
+        floating.style.top = `${startY - thumbRect.height / 2}px`;
+        floating.style.width = `${thumbRect.width}px`;
+        floating.style.height = `${thumbRect.height}px`;
+        floating.style.zIndex = 99999;
+        floating.style.pointerEvents = 'none';
+        floating.style.borderRadius = '6px';
+        floating.style.boxShadow = '0 2px 8px rgba(0,0,0,0.12)';
+        floating.style.background = '#eee';
+        floating.classList.add('trading-card-floating-thumb');
+
+        document.body.appendChild(floating);
+
+        // Animate to deck button
+        requestAnimationFrame(() => {
+            const dx = deckX - startX;
+            const dy = deckY - startY;
+            floating.style.transform = `translate(${dx}px, ${dy}px)`;
+        });        
+
+        // Remove after animation
+        setTimeout(() => {
+            floating.remove();
+        }, 800);
+
+
+        // animate the deck icon to pulse (spring effect) when the cards reach it
+        deckBtn.classList.add('trading-card-deck-pulse');
+        setTimeout(() => {
+        deckBtn.classList.remove('trading-card-deck-pulse');
+        }, 850);
+        });
+
+        updateDeckButtonBadge();
+}
+
+function updateDeckButtonBadge(){
+    const deckBtn = document.getElementById('deckButton');
+    if (!deckBtn) return;
+    // add a new card icon to the deck button (a red circle with a ! sign)
+    let deckBadge = document.getElementById('deckButtonBadge');
+    if (!deckBadge) {
+      deckBadge = document.createElement('div');
+      deckBadge.id = 'deckButtonBadge';
+      deckBadge.className = 'trading-card-deck-badge';
+      deckBadge.innerHTML = '<span>!</span>';
+      deckBtn.appendChild(deckBadge);
+    }
+    if(getNewCards().length === 0){
+        deckBadge.style.display = 'none';
+        return;
+    }else{
+        deckBadge.style.display = 'flex';
+    }
+}
