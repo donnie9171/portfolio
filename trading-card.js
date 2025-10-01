@@ -29,7 +29,8 @@ function showTradingCardModal(cards = []) {
     closeBtn.className = 'trading-card-modal-close';
     closeBtn.onclick = () => {
       modal.classList.add('hidden');
-      document.body.classList.remove('modal-open');
+    document.body.classList.remove("no-scroll");
+    document.body.classList.remove("modal-open");
     };
 
     // Cards grid container
@@ -55,7 +56,8 @@ function showTradingCardModal(cards = []) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         modal.classList.add('hidden');
-        document.body.classList.remove('modal-open');
+        document.body.classList.remove("no-scroll");
+        document.body.classList.remove("modal-open");
       }
     });
 
@@ -299,3 +301,12 @@ function setup3DCardGrid(grid) {
 // Export for use in other scripts if needed
 window.showTradingCardModal = showTradingCardModal;
 
+// document.addEventListener("DOMContentLoaded", function () {
+//     const main = document.querySelector("main");
+//     if(!main) return;
+//     main.addEventListener("click", function (e) {
+//         console.log("clicked main");   
+//         document.body.classList.remove("no-scroll");
+//         document.body.classList.remove("modal-open");
+//     })
+// });

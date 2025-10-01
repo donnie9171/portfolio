@@ -131,6 +131,8 @@ body {
   font-family: "Poppins", sans-serif;
   background: #fafafa;
   color: #222;
+  overflow: auto;
+  touch-action: auto;
 }
 
 body.initial{
