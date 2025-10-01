@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
+  const loadingDiv = document.querySelector('.loading');
+  if (loadingDiv) {
+    setTimeout(() => {
+      loadingDiv.style.opacity = '0';
+    }, 100);
+    setTimeout(() => {
+      loadingDiv.style.display = 'none';
+    }, 600);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
   // Check if intro has already played this session
   const body = document.body;
   if(sessionStorage.getItem('lastPage') === window.location.href){

@@ -122,7 +122,7 @@ main {
   padding-top: 30dvh;
   z-index: 20;
   background-color: #fafafa;
-  transition: height 0.5s var(--cube-curve), padding-top 0.5s var(--cube-curve);
+  transition: none;
 }
 
 
@@ -755,4 +755,23 @@ footer {
 .deck.trading-card-deck-pulse{
   z-index: 1000000;
   transform: scale(1.15);
+}
+
+.loading{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  background: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #222;
+  z-index: 1000000;
+  transition: opacity 0.5s ease;
+}
+.loading.hidden{
+  display: none;
 }
