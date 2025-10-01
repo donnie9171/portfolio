@@ -541,12 +541,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function checkLockfaceCode(inputCode) {
-
-  // check that the user doesn't already have the alt cards
-  if (getTradingCardStorage().includes("Perseverance of an Engineer alt")) return;
-  if (getTradingCardStorage().includes("Passion of an Artist alt")) return;
-  if (getTradingCardStorage().includes("Curiosity of a Child alt")) return;
-
   const correctCode = [9, 1, 7, 1];
   if (
     inputCode.length !== correctCode.length ||

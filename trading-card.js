@@ -29,8 +29,8 @@ function showTradingCardModal(cardNames = []) {
     closeBtn.className = 'trading-card-modal-close';
     closeBtn.onclick = () => {
       modal.classList.add('hidden');
-    document.body.classList.remove("no-scroll");
-    document.body.classList.remove("modal-open");
+    document.body.classList?.remove("no-scroll");
+    document.body.classList?.remove("modal-open");
     };
 
     // Cards grid container
@@ -56,8 +56,8 @@ function showTradingCardModal(cardNames = []) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         modal.classList.add('hidden');
-        document.body.classList.remove("no-scroll");
-        document.body.classList.remove("modal-open");
+        document.body?.classList.remove("no-scroll");
+        document.body?.classList.remove("modal-open");
       }
     });
 

@@ -168,11 +168,6 @@
   opacity: 0.7;
 }
 
-body.modal-open {
-  overflow: hidden;
-  touch-action: none;
-}
-
 .trading-card-modal-top-image{
   width: 150px;
   position: absolute;
