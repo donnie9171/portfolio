@@ -93,6 +93,7 @@ function populateCardGrid(){
 if (cards.length === 0) {
     grid.innerHTML = `<div class=\"trading-card-modal-empty\">No cards to display.</div>`;
   } else {
+    grid.innerHTML = '';
     cards.forEach((card, idx) => {
       const cardDiv = document.createElement('div');
       cardDiv.className = 'trading-card-modal-card';
@@ -307,6 +308,8 @@ function getTradingCardStorage(){
     const stored = localStorage.getItem('tradingCardCollection');
     return stored ? JSON.parse(stored) : [];
 }
+
+window.getTradingCardStorage = getTradingCardStorage;
 
 function setTradingCardStorage(cardNamesArray){
     localStorage.setItem('tradingCardCollection', JSON.stringify(cardNamesArray));
