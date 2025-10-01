@@ -177,6 +177,7 @@ body.initial{
   background: #222;
   position: relative;
   transition: background 0.3s;
+  -webkit-tap-highlight-color: transparent;
 }
 .hamburger::before,
 .hamburger::after {
@@ -191,9 +192,11 @@ body.initial{
 }
 .hamburger::before {
   top: -8px;
+  -webkit-tap-highlight-color: transparent;
 }
 .hamburger::after {
   top: 8px;
+  -webkit-tap-highlight-color: transparent;
 }
 .hamburger.open {
   background: transparent;
@@ -738,6 +741,7 @@ footer {
   border-radius: var(--border-radius);
   transition: transform 0.2s cubic-bezier(0.67, -0.47, 0.4, 1.39);
   transform-origin: left bottom;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .deck img{

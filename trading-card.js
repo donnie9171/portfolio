@@ -129,7 +129,7 @@ function showTradingCardModal(cardNames = []) {
 
 function populateCardGrid(){
 if (cards.length === 0) {
-    grid.innerHTML = `<div class=\"trading-card-modal-empty\">No cards to display.</div>`;
+    grid.innerHTML = `<div class="trading-card-modal-empty">No cards to display.</div>`;
   } else {
     grid.innerHTML = '';
     cards.forEach((card, idx) => {
@@ -177,6 +177,8 @@ if (cards.length === 0) {
       });
       grid.appendChild(cardDiv);
     });
+    // Update scroll pointers immediately after rendering cards
+    if (typeof updateScrollPointers === 'function') updateScrollPointers();
   }
 }
 
