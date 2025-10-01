@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About | Enoch Kang</title>    
+  <title>404 | Enoch Kang</title>    
   <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="trading-card.css" />
     <link rel="preload" href="styles.css" as="style" />
@@ -30,6 +30,10 @@
       </nav>
     </header>
     <main>
+        <h2>404 - Page Not Found</h2>
+        <button class="return-home-button" onclick="window.location.href='index.html'">Return to Home</button>
+        <img src="assets/images/404error.png" alt="404 Error Image" style="max-width: min(500px, 100%); height: auto;"/>
+
     </main>
               <button class="deck" id="deckButton">
         <img src="assets/images/trading-card-button.png" alt="">
@@ -56,6 +60,10 @@
     </footer>
     <script src="hamburger-menu.js"></script>
     <script src="trading-card.js"></script>
-    <script src="about.js"></script>
+    <script>
+        window.onload = function() {
+            window.notifyNewCard(["404"]);
+        };
+    </script>
 </body>
 </html>

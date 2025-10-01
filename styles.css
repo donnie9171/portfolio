@@ -779,3 +779,23 @@ footer {
 .loading.hidden{
   display: none;
 }
+
+
+.return-home-button{
+  background: var(--orange);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  margin-bottom: 10px;
+  transition: transform 0.2s cubic-bezier(0.67, -0.47, 0.4, 1.39);
+}
+
+.return-home-button:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
