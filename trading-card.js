@@ -3,7 +3,7 @@
  * The modal is appended to the body and overlays all content.
  * Call this function to show the modal.
  */
-function showTradingCardModal(cards = []) {
+function showTradingCardModal(cardNames = []) {
   let modal = document.getElementById('tradingCardModal');
   let content, grid, gridContainer, closeBtn;
   if (!modal) {
@@ -71,7 +71,26 @@ function showTradingCardModal(cards = []) {
 
   // Update cards content
   grid.innerHTML = '';
-  if (cards.length === 0) {
+
+  // fetch card data based on cardNames and info in trading-cards.json
+  let cards = [];
+    fetch('trading-cards.json')
+    .then(response => response.json())
+    .then(data => {
+        cards = data.map(card => ({
+        ...card,
+        found: cardNames.includes(card.title) ? "true" : "false"
+        }));
+        populateCardGrid();
+    })
+    .catch(error => {
+        console.error('Error fetching trading cards data:', error);
+        grid.innerHTML = `<div class=\"trading-card-modal-empty\">Error loading cards.</div>`;
+    });
+
+
+function populateCardGrid(){
+if (cards.length === 0) {
     grid.innerHTML = `<div class=\"trading-card-modal-empty\">No cards to display.</div>`;
   } else {
     cards.forEach((card, idx) => {
@@ -103,6 +122,8 @@ function showTradingCardModal(cards = []) {
       grid.appendChild(cardDiv);
     });
   }
+}
+
 // Show a detailed modal for a single card
 function showCardDetailModal(card) {
   // Remove any existing detail modal
@@ -210,49 +231,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const deckBtn = document.getElementById("deckButton");
   if (deckBtn) {
     deckBtn.addEventListener("click", function () {
-      // Example cards array; replace with your data source
-      showTradingCardModal([
-        { title: "Internship at Scratch", image: "assets/trading cards/25.png", found: "true" },
-        { title: "Eric Rosenbaum", image: "assets/trading cards/24.png", found: "true", shiny: "true"  },
-        { title: "MEW", image: "assets/trading cards/43.png", found: "true", shiny: "true"  },
-        { title: "Perseverance of an Engineer", image: "assets/trading cards/26.png", found: "true"  },
-        { title: "Passion of an Artist", image: "assets/trading cards/27.png", found: "true"  },
-        { title: "Curiosity of a Child", image: "assets/trading cards/28.png", found: "true"  },
-        { title: "HTML", image: "assets/trading cards/13.png", found: "true" },
-        { title: "CSS", image: "assets/trading cards/14.png", found: "true"  },
-        { title: "JS", image: "assets/trading cards/15.png", found: "true" },
-        { title: "Scratch Book", image: "assets/trading cards/33.png", found: "true"  },
-        { title: "Visioneers", image: "assets/trading cards/36.png", found: "true"  },
-        { title: "Visioneers alt", image: "assets/trading cards/37.png", found: "true", shiny: "true"  },
-        { title: "Scratch Day Taiwan", image: "assets/trading cards/32.png", found: "true"  },
-        { title: "Pizza Man", image: "assets/trading cards/34.png", found: "true", shiny: "true"  },
-        { title: "Macaroni Mastermind", image: "assets/trading cards/35.png", found: "true" },
-        { title: "Refactorman", image: "assets/trading cards/10.png", found: "true", shiny: "true"  },
-        { title: "Cut", image: "assets/trading cards/11.png", found: "true", shiny: "true"  },
-        { title: "Shadow Paste", image: "assets/trading cards/12.png", found: "true", shiny: "true"  },
-        { title: "Matchbox isam2024", image: "assets/trading cards/40.png", found: "true"  },
-        { title: "Matchbox merch 1", image: "assets/trading cards/41.png", found: "true", shiny: "true"  },
-        { title: "Matchbox merch 2", image: "assets/trading cards/42.png", found: "true", shiny: "true"  },
-        { title: "ScratchGO", image: "assets/trading cards/38.png", found: "true", shiny: "true"  },
-        { title: "Matchbox", image: "assets/trading cards/39.png", found: "true", shiny: "true"  },
-        { title: "Fireside Friday Refactorman", image: "assets/trading cards/9.png", found: "true" },
-        { title: "Copy", image: "assets/trading cards/20.png", found: "true"  },
-        { title: "Paste", image: "assets/trading cards/21.png", found: "true"  },
-        { title: "Copy and Paste Truck", image: "assets/trading cards/22.png", found: "true" },
-        { title: "Scrum Master", image: "assets/trading cards/23.png", found: "true"  },
-        { title: "Sphagetti Code Monster", image: "assets/trading cards/17.png", found: "true"  },
-        { title: "Tiny Bug", image: "assets/trading cards/16.png", found: "true" },
-        { title: "Doctor Refactorman", image: "assets/trading cards/18.png", found: "true"  },
-        { title: "Therapist Refactorman", image: "assets/trading cards/19.png", found: "true"  },
-        { title: "Card 1", image: "assets/trading cards/28.png", found: "false" },
-        { title: "Perseverance of an Engineer alt", image: "assets/trading cards/29.png", found: "true", shiny: "true"  },
-        { title: "Passion of an Artist alt", image: "assets/trading cards/30.png", found: "true", shiny: "true"  },
-        { title: "Curiosity of a Child alt", image: "assets/trading cards/31.png", found: "true", shiny: "true"  },
-      ]);
+      showTradingCardModal(getTradingCardStorage());
     });
   }
 });
-
 
 // Attach 3D card mouse events to a grid element (only once)
 function setup3DCardGrid(grid) {
@@ -301,12 +283,15 @@ function setup3DCardGrid(grid) {
 // Export for use in other scripts if needed
 window.showTradingCardModal = showTradingCardModal;
 
-// document.addEventListener("DOMContentLoaded", function () {
-//     const main = document.querySelector("main");
-//     if(!main) return;
-//     main.addEventListener("click", function (e) {
-//         console.log("clicked main");   
-//         document.body.classList.remove("no-scroll");
-//         document.body.classList.remove("modal-open");
-//     })
-// });
+
+
+function getTradingCardStorage(){
+    const stored = localStorage.getItem('tradingCardCollection');
+    return stored ? JSON.parse(stored) : [];
+}
+
+function setTradingCardStorage(cardNamesArray){
+    localStorage.setItem('tradingCardCollection', JSON.stringify(cardNamesArray));
+}
+
+window.setTradingCardStorage = setTradingCardStorage;
