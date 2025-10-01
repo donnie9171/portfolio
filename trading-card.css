@@ -329,3 +329,33 @@ background-size: var(--s-s, 400%);
   top: 5px;
   right: 5px;
 }
+
+.trading-card-scroll-pointer{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+    width: auto;
+  padding: 4px 10px;
+  background: #e53935;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.trading-card-scroll-pointer.up{
+  top: 60px;
+}
+
+.trading-card-scroll-pointer.down{
+  bottom: 10px;
+}
+
+.new-triangle{
+  font-size: 15px;
+  margin-right: 5px;
+}

@@ -61,6 +61,44 @@ function showTradingCardModal(cardNames = []) {
       }
     });
 
+    // add 2 pointers for up and down if there are new cards out of view of the scroll view
+    const upPointer = document.createElement('div');
+    upPointer.className = 'trading-card-scroll-pointer up';
+    upPointer.innerHTML = '<span class="new-triangle">▲</span> New!';
+    gridContainer.appendChild(upPointer);
+
+    const downPointer = document.createElement('div');
+    downPointer.className = 'trading-card-scroll-pointer down';
+    downPointer.innerHTML = '<span class="new-triangle">▼</span> New!';
+    gridContainer.appendChild(downPointer);
+
+    // Helper to check if any new cards are above or below the visible area
+    function updateScrollPointers() {
+      const newCards = getNewCards();
+      const cardDivs = Array.from(grid.querySelectorAll('.trading-card-modal-card'));
+      if (cardDivs.length === 0 || newCards.length === 0) {
+        upPointer.style.display = 'none';
+        downPointer.style.display = 'none';
+        return;
+      }
+      const containerRect = gridContainer.getBoundingClientRect();
+      let hasAbove = false, hasBelow = false;
+      cardDivs.forEach(cardDiv => {
+        const title = cardDiv.querySelector('img')?.alt;
+        if (newCards.includes(title)) {
+          const rect = cardDiv.getBoundingClientRect();
+          if (rect.bottom < containerRect.top + 10) hasAbove = true;
+          if (rect.top > containerRect.bottom - 10) hasBelow = true;
+        }
+      });
+      upPointer.style.display = hasAbove ? 'flex' : 'none';
+      downPointer.style.display = hasBelow ? 'flex' : 'none';
+    }
+
+    // Listen for scroll and update pointers
+    gridContainer.addEventListener('scroll', updateScrollPointers);
+    // Also update after grid is populated
+    setTimeout(updateScrollPointers, 0);
     document.body.appendChild(modal);
   } else {
     content = modal.querySelector('.trading-card-modal-content');
