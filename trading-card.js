@@ -1,3 +1,26 @@
+// Card event trigger on scroll for elements with data-card-event
+document.addEventListener('DOMContentLoaded', function() {
+  const cardEventElements = document.querySelectorAll('[data-card-event]');
+  cardEventElements.forEach(el => {
+    const cardNames = el.getAttribute('data-card-event').split(',').map(s => s.trim()).filter(Boolean);
+    if (cardNames.length === 0) return;
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (window.notifyNewCard) {
+            window.notifyNewCard(cardNames);
+          } else if (typeof showTradingCardModal === 'function') {
+            showTradingCardModal(cardNames);
+          }
+          observer.unobserve(el); // Only trigger once
+        }
+      });
+    }, {
+      threshold: 0.3
+    });
+    observer.observe(el);
+  });
+});
 /**
  * Injects a modal with card content into the current page.
  * The modal is appended to the body and overlays all content.
