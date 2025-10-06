@@ -1,0 +1,69 @@
+/* Overview and People Block */
+.overview-and-people {
+	display: flex;
+	gap: 2em;
+}
+.overview-and-people > .overview {
+	flex: 7 1 0;
+	min-width: 0;
+}
+.overview-and-people > .people {
+	flex: 3 1 0;
+	min-width: 0;
+}
+
+@media (max-width: 700px) {
+	.overview-and-people {
+		flex-direction: column;
+		gap: 1em;
+	}
+}
+/* Project Page Building Blocks */
+
+.project-block {
+	max-width: 1000px;
+	width: 100%;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+.project-block.center-text {
+    max-width: 800px;
+}
+
+@media (max-width: 600px) {
+	.project-block {
+		margin: 5px auto;
+		border-radius: 0;
+		box-shadow: none;
+	}
+}
+
+.project-images {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	justify-content: space-between;
+	max-width: 1000px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.project-images img {
+	flex: 1 1 300px;
+	max-width: calc(100% / var(--img-count, 2) - 0.5em);
+	height: auto;
+	border-radius: 6px;
+	box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+	object-fit: cover;
+}
+
+@media (max-width: 600px) {
+	.project-images {
+		gap: 0.5em;
+	}
+	.project-images img {
+		max-width: 100%;
+		flex-basis: 100%;
+	}
+}

@@ -3,7 +3,7 @@
     "title": "Internship at Scratch!",
     "description": "Prototyped AI related features for Scratch Lab.",
     "thumbnail": "assets/cards/internship_cardthumb.jpeg",
-    "page": "portfolio.html",
+    "page": "scratch-internship.html",
     "dna": [34, 33, 33],
     "highlight": true,
     "keywords": ["2025", "Intern", "Scratch", "Software", "AI", "React", "Typescript", "Docker"]
