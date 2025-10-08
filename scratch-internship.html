@@ -357,7 +357,7 @@
             Now that I had the artwork settled, I needed to find some relevant text to put on the card. As I was making this card, I was thinking back on all the ways Eric's work has inspired me in the past and I remembered this quote from an article he'd written a few years back: 
         </p>
         <div class="quote">
-            "Even if it’s been done before, you can find your own way. Use your unique weirdness to bring magic to the world." - Eric Rosenbaum, 2020. <a href="https://medium.com/@eric.rosenbaum/glowdoodle-a-love-letter-to-light-painting-33bc94b17d41" style="color: inherit" target="_blank" rel="noopener">“Glowdoodle: A Love Letter to Light Painting” </a>
+            “Even if it’s been done before, you can find your own way. Use your unique weirdness to bring magic to the world.” - Eric Rosenbaum, 2020. <a href="https://medium.com/@eric.rosenbaum/glowdoodle-a-love-letter-to-light-painting-33bc94b17d41" style="color: inherit" target="_blank" rel="noopener">Glowdoodle: A Love Letter to Light Painting </a>
         </div>
         <p>
             This message is very special to me because one our my projects (Matchbox) is directly inspired by the Eric's work on the MakeyMakey. At the start of the project, I would sometimes think to myself: Does Matchbox really contribute something new to the conversation, or am I just spending all this time making something that someone else has already solved? But after having met Eric and been encouraged by his works, I now proudly forge forward into the unknown, following the footsteps left by the giants before us.
@@ -472,5 +472,37 @@
     <script src="hamburger-menu.js"></script>
     <script src="trading-card.js"></script>
     <script src="project-page.js"></script>
+    <div id="page-fade-cover">
+    <!-- self contained div for loading cover -->
+      <style>
+        #page-fade-cover {
+          position: fixed;
+          inset: 0;
+          width: 100vw;
+          height: 100vh;
+          background: #fff;
+          z-index: 99999;
+          opacity: 1;
+          transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+          pointer-events: auto;
+        }
+        #page-fade-cover.fade-out {
+          opacity: 0;
+          pointer-events: none;
+        }
+      </style>
+      <script>
+        function fadeCover() {
+          var cover = document.getElementById('page-fade-cover');
+          if (cover) cover.classList.add('fade-out');
+          setTimeout(function() {
+            if (cover) cover.style.display = 'none';
+          }, 600);
+          window.removeEventListener('DOMContentLoaded', fadeCover);
+        }
+
+        window.addEventListener('DOMContentLoaded', fadeCover);
+      </script>
+    </div>
   </body>
 </html>

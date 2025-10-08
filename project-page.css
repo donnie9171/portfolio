@@ -59,6 +59,7 @@
 /* Responsive visibility for header images */
 .project-images.mobile-header-image {
 	display: none;
+	margin-top: 0.8em;
 }
 .project-images.non-mobile {
 	display: flex;
