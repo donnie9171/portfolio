@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Page Editor</title>
+  <link rel="stylesheet" href="project-page.css" />
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      background: #f7f8fa;
+    }
+    .editor-container {
+        display: flex;
+        height: 100vh;
+        position: relative;
+    }
+    .editor-sidebar {
+        width: 340px;
+        min-width: 300px;
+        max-width: none;
+        transition: width 0.1s;
+        padding: 10px;
+        overflow-y: auto;
+    }
+    .editor-resizer {
+        width: 8px;
+        height: 100%;
+        cursor: ew-resize;
+        background: #e3e3e3;
+        position: relative;
+        z-index: 2;
+        transition: background 0.2s;
+    }
+    .editor-resizer:hover, .editor-resizer.dragging {
+        background: #3a7afe;
+    }
+    .editor-preview {
+        min-width: 300px;
+        flex: 1;
+        padding: 2em;
+        background: #f7f8fa;
+        overflow-y: auto;
+    }
+    .block-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .block-list li {
+      margin-bottom: 1.5em;
+      padding: 1em;
+      background: #f2f4f8;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+    .editor-actions {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      display: flex;
+      gap: 1em;
+    }
+    .editor-actions button {
+      padding: 0.5em 1.2em;
+      font-size: 1em;
+      border-radius: 6px;
+      border: none;
+      background: #3a7afe;
+      color: #fff;
+      cursor: pointer;
+    }
+    .editor-actions button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="editor-container">
+    <aside class="editor-sidebar">
+      <h2>Project Page Editor</h2>
+      <div>
+        <label for="block-type">Add Block:</label>
+        <select id="block-type">
+          <option value="title">Title</option>
+          <option value="text">Text</option>
+          <option value="image">Image</option>
+          <option value="quote">Quote</option>
+          <option value="cardbox">Cardbox</option>
+          <option value="separator">Separator</option>
+          <option value="custom">Custom HTML</option>
+        </select>
+        <button id="add-block">Add</button>
+      </div>
+        <div class="editor-actions">
+        <button id="export-html">HTML</button>
+        <button id="clear-blocks">Clear</button>
+        <button id="expand-toggle">></button>
+      </div>
+      <ul class="block-list" id="block-list">
+        <!-- Blocks will be listed here -->
+      </ul>
+    </aside>
+      <div class="editor-resizer" id="editor-resizer"></div>
+    <main class="editor-preview" id="editor-preview">
+      <!-- Live preview will be rendered here -->
+    </main>
+  </div>
+  <script src="project-page-editor.js"></script>
+</body>
+</html>
