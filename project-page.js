@@ -1,6 +1,6 @@
 // Responsive floating contents menu based on headings
-document.addEventListener('DOMContentLoaded', function () {
-	// Select all h2 and h3 headings in main content
+function updateFloatingMenu() {
+// Select all h2 and h3 headings in main content
 	const headings = Array.from(document.querySelectorAll('main h2, main h3'));
 	if (headings.length === 0) return;
 
@@ -27,7 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			list.appendChild(li);
 		});
 	menu.appendChild(list);
-	document.body.appendChild(menu);
+	// If on project-page-editor, append to .editor-preview, else to body
+    const previewDiv = document.querySelector('.editor-preview');
+    if (previewDiv) {
+        previewDiv.appendChild(menu);
+    } else {
+        document.body.appendChild(menu);
+    }
 
 	// Track which menu item was last clicked
 	let clickedIdx = null;
@@ -80,4 +86,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	window.addEventListener('scroll', updateActive);
 	updateActive();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	updateFloatingMenu();
 });
+
+window.updateFloatingMenu = updateFloatingMenu;

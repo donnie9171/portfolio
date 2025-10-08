@@ -133,6 +133,7 @@ body {
   color: #222;
   overflow: auto;
   touch-action: auto;
+  container-type: inline-size;
 }
 
 body.initial{
@@ -263,7 +264,7 @@ header h1 {
   margin-left: auto;
 }
 
-@media (max-width: 600px) {
+@container (max-width: 600px) {
   header {
     flex-direction: row;
     align-items: center;
@@ -603,7 +604,7 @@ header h1 {
 }
 
 
-@media (min-width: 850px) {
+@container (min-width: 850px) {
   :root{
     --cubeSize: 180px;
   }
@@ -967,7 +968,7 @@ color: var(--orange);
   justify-content: center;
 }
 
-@media (max-width: 900px) {
+@container (max-width: 900px) {
   .intro-grid {
     flex-direction: column;
     gap: 1.5rem;

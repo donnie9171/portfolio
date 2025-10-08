@@ -40,6 +40,8 @@
 ```
 {
     size: large | fit
+    no-ratio: bool
+    no-shadow: bool
     images: [
         img: {
             src: string,

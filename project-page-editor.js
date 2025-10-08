@@ -75,6 +75,39 @@ previewModeToggle.addEventListener('click', () => {
 });
 
 // --- Render Functions ---
+function renderImageBlockEditor(data, idx) {
+  let html = `
+    <label>
+      Size:
+      <select data-field="size" data-idx="${idx}">
+        <option value="large"${data.size === "large" ? " selected" : ""}>Large</option>
+        <option value="fit"${data.size === "fit" ? " selected" : ""}>Fit</option>
+      </select>
+    </label>
+    <br/>
+    <label>
+      <input type="checkbox" data-field="noRatio" data-idx="${idx}" ${data.noRatio ? "checked" : ""} />
+      No aspect ratio
+    </label>
+    <br/>
+    <label>
+      <input type="checkbox" data-field="noShadow" data-idx="${idx}" ${data.noShadow ? "checked" : ""} />
+      No shadow
+    </label>
+    <br/>
+  `;
+  data.images.forEach((img, imgIdx) => {
+    html += `
+      <input type="text" placeholder="Image src" value="${img.src}" data-field="images.${imgIdx}.src" data-idx="${idx}" /><br/>
+      <textarea placeholder="Image caption (markdown supported)" data-field="images.${imgIdx}.caption" data-idx="${idx}">${img.caption}</textarea><br/>
+    `;
+  });
+    html += `<button data-action="add-image" data-idx="${idx}" style="background:#3a7afe;color:#fff;border:none;border-radius:4px;padding:0.2em 0.7em;cursor:pointer;">Add Image</button><br/>`;
+  html += `<input type="text" placeholder="Cards (comma separated)" value="${data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
+  return html;
+}
+
+
 function renderBlockEditor(block, idx) {
   // Minimal editor for each block type
   let html = `<div class="block-editor" draggable="true" data-idx="${idx}">`;
@@ -101,16 +134,7 @@ function renderBlockEditor(block, idx) {
         <input type="text" placeholder="Cards (comma separated)" value="${block.data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
       break;
     case "image":
-      html += `<select data-field="size" data-idx="${idx}">
-        <option value="large"${block.data.size === "large" ? " selected" : ""}>Large</option>
-        <option value="fit"${block.data.size === "fit" ? " selected" : ""}>Fit</option>
-      </select><br/>`;
-      block.data.images.forEach((img, imgIdx) => {
-        html += `<input type="text" placeholder="Image src" value="${img.src}" data-field="images.${imgIdx}.src" data-idx="${idx}" /><br/>
-          <input type="text" placeholder="Image caption" value="${img.caption}" data-field="images.${imgIdx}.caption" data-idx="${idx}" /><br/>`;
-      });
-      html += `<button data-action="add-image" data-idx="${idx}">Add Image</button><br/>
-        <input type="text" placeholder="Cards (comma separated)" value="${block.data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
+      html += renderImageBlockEditor(block.data, idx);
       break;
     case "quote":
       html += `<textarea placeholder="Quote" data-field="quote" data-idx="${idx}">${block.data.quote}</textarea><br/>
@@ -140,17 +164,28 @@ function renderMarkdown(md) {
   if (!md) return "";
   let html = md
     .replace(/</g, "&lt;") // Escape HTML
-    .replace(/(?:__|\*\*)(.*?)\1/g, "<strong>$1</strong>") // Bold
-    .replace(/(?:_|\*)(.*?)\1/g, "<em>$1</em>") // Italic
-    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" style="color: inherit" target="_blank" rel="noopener">$1</a>') // Links
-    .replace(/`([^`]+)`/g, '<code>$1</code>') // Inline code
-    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-    .replace(/^\s*\n\*/gm, '<ul>\n*')
-    .replace(/^(\* .+)$/gm, '<li>$1</li>')
-    .replace(/<\/li>\n<li>/g, '</li><li>')
-    .replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>')
+    // Bold: **text** or __text__
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    .replace(/__(.*?)__/g, "<strong>$1</strong>")
+    // Italic: *text* or _text_
+    .replace(/\*(.*?)\*/g, "<em>$1</em>")
+    .replace(/_(.*?)_/g, "<em>$1</em>")
+    // Links
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" style="color: inherit" target="_blank" rel="noopener">$1</a>')
+    // Inline code
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    // Headings
+    .replace(/^### (.*)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.*)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.*)$/gm, '<h1>$1</h1>')
+    // Bulleted lists: - item or * item
+    .replace(/((?:^[-*] .+(?:\n|$))+)/gm, function(match) {
+      const items = match.trim().split('\n').map(line =>
+        line.replace(/^[-*] (.+)/, '<li>$1</li>')
+      ).join('');
+      return `<ul>${items}</ul>`;
+    })
+    // Paragraph breaks
     .replace(/\n{2,}/g, '<br/>');
   return html;
 }
@@ -220,9 +255,35 @@ function renderTextBlockPreview(data){
 }
 
 function renderImageBlockPreview(data) {
-  return data.images.map(img =>
-    `<figure><img src="${img.src}" alt="${img.caption}" style="max-width:100%;"/><figcaption>${img.caption}</figcaption></figure>`
-  ).join('');
+  const imgCount = data.images.filter(img => img.src).length;
+  if (imgCount === 0) return "";
+
+  // Build figure HTML
+  const figures = data.images
+    .filter(img => img.src)
+    .map(img =>
+      `<figure>
+        <img src="${img.src}" alt="${img.caption}" />
+        ${img.caption ? `<figcaption>${renderMarkdown(img.caption)}</figcaption>` : ""}
+      </figure>`
+    ).join("");
+
+  // Build classes and styles
+  let classes = "project-images";
+  if (data.size === "large") classes += " large-image";
+  if (data.noRatio) classes += " no-ratio";
+  if (data.noShadow) classes += " no-shadow";
+
+  // Build data-card-event attribute if needed
+  const cardAttr = data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : "";
+
+  return `
+    <section class="project-block${data.size === "large" ? " large-image" : " center-text"}">
+      <div class="${classes}" style="--img-count: ${imgCount};"${cardAttr}>
+        ${figures}
+      </div>
+    </section>
+  `;
 }
 
 function renderQuoteBlockPreview(data) {
@@ -265,6 +326,7 @@ function renderBlockPreview(block) {
 function renderPreview() {
   if (previewMode) {
     previewEl.innerHTML = blocks.map(renderBlockPreview).join('');
+    window.updateFloatingMenu();
   } else {
     previewEl.innerHTML = `<pre style="background:#fff;padding:1em;border-radius:8px; overflow:auto; max-width: 100%">${JSON.stringify(blocks, null, 2)}</pre>`;
   }
@@ -427,6 +489,19 @@ clearBtn.addEventListener("click", () => {
     saveBlocks(blocks);
     renderBlockList();
     renderPreview();
+  }
+});
+
+blockListEl.addEventListener("input", e => {
+  const field = e.target.getAttribute("data-field");
+  const idx = parseInt(e.target.getAttribute("data-idx"));
+  if (field && !isNaN(idx)) {
+    // Handle checkboxes for boolean fields
+    if (e.target.type === "checkbox") {
+      updateBlock(idx, field, e.target.checked, { skipBlockListRender: true });
+    } else {
+      updateBlock(idx, field, e.target.value, { skipBlockListRender: true });
+    }
   }
 });
 

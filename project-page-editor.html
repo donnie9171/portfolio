@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Page Editor</title>
+  <title>Editor</title>
     <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="project-page.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -42,6 +42,7 @@
         flex: 1;
         background: #f7f8fa;
         overflow: auto;
+        container-type: inline-size !important;
     }
     .block-list {
       margin: 0;
@@ -82,12 +83,19 @@
         width: 100%;
         resize: vertical;
     }
+    .editor-top-control{
+        position: sticky;
+        top: -10px;
+        background-color: #fafafa;
+        padding-bottom: 5px;
+    }
   </style>
 </head>
 <body>
   <div class="editor-container">
     <aside class="editor-sidebar">
-      <h2>Project Page Editor</h2>
+        <div class="editor-top-control">
+<h2>Project Page Editor</h2>
       <div>
         <label for="block-type">Add Block:</label>
         <select id="block-type">
@@ -106,6 +114,7 @@
         <button id="export-html">Copy HTML</button>
         <button id="expand-toggle">></button>
       </div>
+        </div>
       <ul class="block-list" id="block-list">
         <!-- Blocks will be listed here -->
       </ul>
