@@ -54,9 +54,25 @@ const addBlockBtn = document.getElementById("add-block");
 const blockTypeSelect = document.getElementById("block-type");
 const exportBtn = document.getElementById("export-html");
 const clearBtn = document.getElementById("clear-blocks");
+const previewModeToggle = document.createElement('button');
+previewModeToggle.id = 'preview-mode-toggle';
+previewModeToggle.textContent = 'Preview';
+previewModeToggle.style.marginLeft = 'auto';
+
+// Insert the toggle button into the editor actions area
+const editorActions = document.querySelector('.editor-actions');
+editorActions.appendChild(previewModeToggle);
 
 // --- State ---
 let blocks = loadBlocks();
+let previewMode = true; // false = JSON, true = HTML preview
+
+// --- Toggle Preview Mode ---
+previewModeToggle.addEventListener('click', () => {
+  previewMode = !previewMode;
+  previewModeToggle.textContent = previewMode ? 'JSON' : 'Preview';
+  renderPreview();
+});
 
 // --- Render Functions ---
 function renderBlockEditor(block, idx) {
@@ -119,9 +135,139 @@ function renderBlockList() {
   blockListEl.innerHTML = blocks.map((block, idx) => `<li>${renderBlockEditor(block, idx)}</li>`).join("");
 }
 
+// Add a simple markdown-to-HTML converter (basic bold, italic, links, lists, code)
+function renderMarkdown(md) {
+  if (!md) return "";
+  let html = md
+    .replace(/</g, "&lt;") // Escape HTML
+    .replace(/(?:__|\*\*)(.*?)\1/g, "<strong>$1</strong>") // Bold
+    .replace(/(?:_|\*)(.*?)\1/g, "<em>$1</em>") // Italic
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" style="color: inherit" target="_blank" rel="noopener">$1</a>') // Links
+    .replace(/`([^`]+)`/g, '<code>$1</code>') // Inline code
+    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+    .replace(/^\s*\n\*/gm, '<ul>\n*')
+    .replace(/^(\* .+)$/gm, '<li>$1</li>')
+    .replace(/<\/li>\n<li>/g, '</li><li>')
+    .replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>')
+    .replace(/\n{2,}/g, '<br/>');
+  return html;
+}
+
+function renderTitleBlockPreview(data) {
+  // Mobile header image
+  const mobileImage = data.imgmobile.src
+    ? `<div class="project-images mobile-header-image" style="--img-count: 1">
+        <figure>
+          <img src="${data.imgmobile.src}" alt="${data.imgmobile.caption}" />
+          ${data.imgmobile.caption ? `<figcaption>${data.imgmobile.caption}</figcaption>` : ""}
+        </figure>
+      </div>`
+    : "";
+
+  // Non-mobile images
+  const nonMobileImages = [data.img1, data.img2]
+    .filter(img => img.src)
+    .map(img =>
+      `<figure>
+        <img src="${img.src}" alt="${img.caption}" />
+        ${img.caption ? `<figcaption>${img.caption}</figcaption>` : ""}
+      </figure>`
+    ).join("");
+
+  const nonMobileImagesBlock = nonMobileImages
+    ? `<div class="project-images non-mobile" style="--img-count: ${[data.img1, data.img2].filter(img => img.src).length}">
+        ${nonMobileImages}
+      </div>`
+    : "";
+
+  // Overview and People
+  const overviewBlock = data.overview
+    ? `<div class="overview">
+        <h2>Overview</h2>
+        <p>${renderMarkdown(data.overview)}</p>
+      </div>`
+    : "";
+
+  const peopleBlock = data.people
+    ? `<div class="people">
+        <h2>People</h2>
+        <p>${renderMarkdown(data.people)}</p>
+      </div>`
+    : "";
+
+  const overviewAndPeople = (overviewBlock || peopleBlock)
+    ? `<div class="overview-and-people">${overviewBlock}${peopleBlock}</div>`
+    : "";
+
+  // Main block
+  return `
+    <section class="top-section">
+      <div class="project-block">
+        ${mobileImage}
+        <h1${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}>${data.title}</h1>
+        ${data.subtitle ? `<div class="project-subtitle">${data.subtitle}</div>` : ""}
+        ${overviewAndPeople}
+      </div>
+      ${nonMobileImagesBlock}
+    </section>
+  `;
+}
+
+function renderTextBlockPreview(data){
+    return `<section class="project-block center-text"><div>${renderMarkdown(data.text)}</div></section>`;
+}
+
+function renderImageBlockPreview(data) {
+  return data.images.map(img =>
+    `<figure><img src="${img.src}" alt="${img.caption}" style="max-width:100%;"/><figcaption>${img.caption}</figcaption></figure>`
+  ).join('');
+}
+
+function renderQuoteBlockPreview(data) {
+  return `<section class="project-block center-text"><div class="quote">${renderMarkdown(data.quote)}</div></section>`;
+}
+
+function renderSeparatorBlockPreview() {
+  return `<section class="project-block"><div class="separator line"></div></section>`;
+}
+
+function renderCardboxBlockPreview(data) {
+  return `<div style="background:#eaf3ff;padding:1em;border-radius:8px;margin:1em 0;">Cards: ${data["card-shown"].join(', ')}</div>`;
+}
+
+function renderCustomBlockPreview(data) {
+  return data.html;
+}
+
+function renderBlockPreview(block) {
+  switch (block.type) {
+    case "title":
+      return renderTitleBlockPreview(block.data);
+    case "text":
+      return renderTextBlockPreview(block.data);
+    case "image":
+      return renderImageBlockPreview(block.data);
+    case "quote":
+      return renderQuoteBlockPreview(block.data);
+    case "separator":
+      return renderSeparatorBlockPreview();
+    case "cardbox":
+      return renderCardboxBlockPreview(block.data);
+    case "custom":
+      return renderCustomBlockPreview(block.data);
+    default:
+      return '';
+  }
+}
+
 function renderPreview() {
-  // For simplicity, just show JSON for now
-  previewEl.innerHTML = `<pre style="background:#fff;padding:1em;border-radius:8px;">${JSON.stringify(blocks, null, 2)}</pre>`;
+  if (previewMode) {
+    previewEl.innerHTML = blocks.map(renderBlockPreview).join('');
+  } else {
+    previewEl.innerHTML = `<pre style="background:#fff;padding:1em;border-radius:8px; overflow:auto; max-width: 100%">${JSON.stringify(blocks, null, 2)}</pre>`;
+  }
 }
 
 // --- Block Manipulation ---
@@ -169,29 +315,75 @@ function addImageToBlock(idx) {
   renderPreview();
 }
 
-// --- Drag and Drop ---
+// --- Drag and Drop with Insert Indicator ---
 let dragSrcIdx = null;
+let dragOverIdx = null;
+let insertLine = document.createElement("div");
+insertLine.className = "block-insert-line";
+insertLine.style.height = "4px";
+insertLine.style.background = "#3a7afe";
+insertLine.style.borderRadius = "2px";
+insertLine.style.transition = "background 0.2s";
+insertLine.style.position = "relative";
+
+// Helper to remove insert lines
+function removeInsertLines() {
+  document.querySelectorAll('.block-insert-line').forEach(el => el.remove());
+}
+
 blockListEl.addEventListener("dragstart", e => {
   const li = e.target.closest("li");
   if (!li) return;
   dragSrcIdx = Array.from(blockListEl.children).indexOf(li);
   e.dataTransfer.effectAllowed = "move";
 });
+
 blockListEl.addEventListener("dragover", e => {
   e.preventDefault();
-});
-blockListEl.addEventListener("drop", e => {
   const li = e.target.closest("li");
   if (!li || dragSrcIdx === null) return;
-  const dropIdx = Array.from(blockListEl.children).indexOf(li);
-  if (dragSrcIdx !== dropIdx) {
+
+  // Remove any previous insert lines
+  removeInsertLines();
+
+  // Calculate insertIdx based on mouse position
+  const rect = li.getBoundingClientRect();
+  const offset = e.clientY - rect.top;
+  let hoveredIdx = Array.from(blockListEl.children).indexOf(li);
+  insertIdx = hoveredIdx;
+  if (offset >= rect.height / 2) insertIdx++;
+
+  // Show insert line at the correct position
+  if (insertIdx >= blockListEl.children.length) {
+    blockListEl.appendChild(insertLine);
+  } else {
+    blockListEl.insertBefore(insertLine, blockListEl.children[insertIdx]);
+  }
+  insertLine.style.display = "block";
+});
+
+blockListEl.addEventListener("dragleave", e => {
+  removeInsertLines();
+});
+
+blockListEl.addEventListener("drop", e => {
+  removeInsertLines();
+  if (dragSrcIdx === null || insertIdx === null) return;
+  if (dragSrcIdx !== insertIdx && dragSrcIdx !== insertIdx - 1) {
     const moved = blocks.splice(dragSrcIdx, 1)[0];
-    blocks.splice(dropIdx, 0, moved);
+    blocks.splice(insertIdx > dragSrcIdx ? insertIdx - 1 : insertIdx, 0, moved);
     saveBlocks(blocks);
     renderBlockList();
     renderPreview();
   }
   dragSrcIdx = null;
+  insertIdx = null;
+});
+
+blockListEl.addEventListener("dragend", () => {
+  removeInsertLines();
+  dragSrcIdx = null;
+  insertIdx = null;
 });
 
 // --- Event Listeners ---
@@ -255,7 +447,7 @@ document.body.style.cursor = 'ew-resize';
 document.addEventListener('mousemove', function(e) {
 if (!isDragging) return;
 let containerRect = document.querySelector('.editor-container').getBoundingClientRect();
-let newSidebarWidth = Math.max(300, Math.min(e.clientX - containerRect.left, containerRect.width - 300));
+let newSidebarWidth = Math.max(300, Math.min(e.clientX - containerRect.left - 24, containerRect.width - 300));
 sidebar.style.width = newSidebarWidth + 'px';
 preview.style.minWidth = '300px';
 });

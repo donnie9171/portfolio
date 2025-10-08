@@ -4,13 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Project Page Editor</title>
+    <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="project-page.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
   <style>
-    body {
-      font-family: system-ui, sans-serif;
-      margin: 0;
-      background: #f7f8fa;
-    }
     .editor-container {
         display: flex;
         height: 100vh;
@@ -20,7 +22,6 @@
         width: 340px;
         min-width: 300px;
         max-width: none;
-        transition: width 0.1s;
         padding: 10px;
         overflow-y: auto;
     }
@@ -39,9 +40,8 @@
     .editor-preview {
         min-width: 300px;
         flex: 1;
-        padding: 2em;
         background: #f7f8fa;
-        overflow-y: auto;
+        overflow: auto;
     }
     .block-list {
       margin: 0;
@@ -74,6 +74,14 @@
       background: #ccc;
       cursor: not-allowed;
     }
+    .block-insert-line {
+        width: 100%;
+        display: block;
+    }
+    textarea{
+        width: 100%;
+        resize: vertical;
+    }
   </style>
 </head>
 <body>
@@ -92,10 +100,10 @@
           <option value="custom">Custom HTML</option>
         </select>
         <button id="add-block">Add</button>
+        <button id="clear-blocks">Clear</button>
       </div>
         <div class="editor-actions">
-        <button id="export-html">HTML</button>
-        <button id="clear-blocks">Clear</button>
+        <button id="export-html">Copy HTML</button>
         <button id="expand-toggle">></button>
       </div>
       <ul class="block-list" id="block-list">
@@ -108,5 +116,6 @@
     </main>
   </div>
   <script src="project-page-editor.js"></script>
+  <script src="project-page.js"></script>
 </body>
 </html>

@@ -12,8 +12,8 @@
     border-bottom-left-radius: 8px;
 	box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 	padding: 1em 1.2em;
-	min-width: 180px;
-	max-width: 260px;
+	min-width: 100px;
+	max-width: 200px;
 	font-size: 1em;
 	transition: box-shadow 0.2s;
 }
