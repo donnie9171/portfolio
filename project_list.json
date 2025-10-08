@@ -21,7 +21,7 @@
     "title": "Matchbox",
     "description": "Affordable STEAM DIY kits made from upcycled keyboards!",
     "thumbnail": "assets/cards/matchbox_cardthumb.png",
-    "page": "https://fireworks-studios.gitbook.io/fireworks-studios",
+    "page": "matchbox.html",
     "dna": [60, 15, 25],
     "highlight": true,
     "keywords": ["2024-25", "Project Lead", "Product Development", "3D Printing", "PCB Design", "Upcycling"]
