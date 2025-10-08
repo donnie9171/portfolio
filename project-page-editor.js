@@ -56,7 +56,7 @@ const exportBtn = document.getElementById("export-html");
 const clearBtn = document.getElementById("clear-blocks");
 const previewModeToggle = document.createElement('button');
 previewModeToggle.id = 'preview-mode-toggle';
-previewModeToggle.textContent = 'Preview';
+previewModeToggle.textContent = 'JSON';
 previewModeToggle.style.marginLeft = 'auto';
 
 // Insert the toggle button into the editor actions area
@@ -72,6 +72,45 @@ previewModeToggle.addEventListener('click', () => {
   previewMode = !previewMode;
   previewModeToggle.textContent = previewMode ? 'JSON' : 'Preview';
   renderPreview();
+});
+
+const importBtn = document.getElementById("import-html");
+
+importBtn.addEventListener("click", async () => {
+
+  // Create a file input dynamically
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".html,text/html";
+  input.style.display = "none";
+  document.body.appendChild(input);
+
+  input.addEventListener("change", async (e) => {
+    const file = input.files[0];
+    if (!file) return;
+    const text = await file.text();
+
+    // Extract metadata from <script type="application/json" id="project-metadata">
+    const match = text.match(/<script[^>]*type=["']application\/json["'][^>]*id=["']project-metadata["'][^>]*>([\s\S]*?)<\/script>/);
+    if (match && match[1]) {
+    if (!confirm("Loading project will replace current contents! Are you sure?")) return;
+      try {
+        const metadata = JSON.parse(match[1]);
+        blocks = metadata;
+        saveBlocks(blocks);
+        renderBlockList();
+        renderPreview();
+      } catch (err) {
+        alert("Failed to parse project metadata.");
+        console.error(err);
+      }
+    } else {
+      alert("No project metadata found in the HTML file.");
+    }
+    document.body.removeChild(input);
+  });
+
+  input.click();
 });
 
 // --- Render Functions ---

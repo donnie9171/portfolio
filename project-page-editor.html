@@ -95,9 +95,9 @@
   <div class="editor-container">
     <aside class="editor-sidebar">
         <div class="editor-top-control">
-<h2>Project Page Editor</h2>
+<h2>Project Page Editor</h2> 
       <div>
-        <label for="block-type">Add Block:</label>
+        <label for="block-type">Add:</label>
         <select id="block-type">
           <option value="title">Title</option>
           <option value="text">Text</option>
@@ -105,14 +105,15 @@
           <option value="quote">Quote</option>
           <option value="cardbox">Cardbox</option>
           <option value="separator">Separator</option>
-          <option value="custom">Custom HTML</option>
+          <option value="custom">HTML</option>
         </select>
         <button id="add-block">Add</button>
         <button id="clear-blocks">Clear</button>
+        <button id="expand-toggle">></button>
       </div>
         <div class="editor-actions">
-        <button id="export-html">Copy HTML</button>
-        <button id="expand-toggle">></button>
+        <button id="export-html">Export</button>
+        <button id="import-html">Import</button>
       </div>
         </div>
       <ul class="block-list" id="block-list">
