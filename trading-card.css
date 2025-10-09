@@ -188,7 +188,7 @@
   color: #333;
 }
 
-@media screen and (max-width: 850px) {
+@container (max-width: 850px) {
   .trading-card-modal-content {
     max-width: calc(100vw - 10px);
     height: calc(100dvh - 135px);
