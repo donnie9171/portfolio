@@ -290,7 +290,7 @@ function renderTitleBlockPreview(data) {
 }
 
 function renderTextBlockPreview(data){
-    return `<section class="project-block center-text"><div>${renderMarkdown(data.text)}</div></section>`;
+    return `<section class="project-block center-text" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}><div>${renderMarkdown(data.text)}</div></section>`;
 }
 
 function renderImageBlockPreview(data) {
@@ -326,7 +326,7 @@ function renderImageBlockPreview(data) {
 }
 
 function renderQuoteBlockPreview(data) {
-  return `<section class="project-block center-text"><div class="quote">${renderMarkdown(data.quote)}</div></section>`;
+  return `<section class="project-block center-text" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}><div class="quote">${renderMarkdown(data.quote)}</div></section>`;
 }
 
 function renderSeparatorBlockPreview() {
@@ -334,7 +334,7 @@ function renderSeparatorBlockPreview() {
 }
 
 function renderCardboxBlockPreview(data) {
-  return `<div style="background:#eaf3ff;padding:1em;border-radius:8px;margin:1em 0;">Cards: ${data["card-shown"].join(', ')}</div>`;
+  return `<div style="background:#eaf3ff;padding:1em;border-radius:8px;margin:1em 0; ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}">Cards: ${data["card-shown"].join(', ')}</div>`;
 }
 
 function renderCustomBlockPreview(data) {

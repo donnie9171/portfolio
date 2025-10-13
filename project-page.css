@@ -13,7 +13,7 @@
 	box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 	padding: 0.5em 0.6em;
 	min-width: 100px;
-	max-width: 200px;
+	max-width: 250px;
 	font-size: 1em;
 	transition: box-shadow 0.2s;
 }
@@ -187,4 +187,12 @@
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   line-height: 1.5;
+}
+.video-wrapper {
+  aspect-ratio: 714 / 402;
+  width: 100%;
+  margin: 0 auto;   /* optional, for centering */
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
 }
