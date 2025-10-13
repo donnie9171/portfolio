@@ -603,12 +603,14 @@ header h1 {
   transform: scale(1.05);
 }
 
-
-@container (min-width: 850px) {
+@media (min-width: 850px){
   :root{
     --cubeSize: 180px;
   }
+}
 
+
+@container (min-width: 850px) {
   .cube-container{
     margin-top: 2rem;
     margin-bottom: 3rem;
