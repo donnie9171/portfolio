@@ -365,7 +365,6 @@ function renderBlockPreview(block) {
 function renderPreview() {
   if (previewMode) {
     previewEl.innerHTML = blocks.map(renderBlockPreview).join('');
-    window.updateFloatingMenu();
   } else {
     previewEl.innerHTML = `<pre style="background:#fff;padding:1em;border-radius:8px; overflow:auto; max-width: 100%">${JSON.stringify(blocks, null, 2)}</pre>`;
   }
