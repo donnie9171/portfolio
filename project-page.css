@@ -1,5 +1,7 @@
 .floating-contents-menu li.indent-h3 {
 	padding-left: 0.75em;
+	font-weight: 300;
+	color: #757575;
 }
 /* Floating Contents Menu Styling */
 .floating-contents-menu {
@@ -15,6 +17,7 @@
 	min-width: 100px;
 	max-width: 250px;
 	font-size: 1em;
+	font-weight: 600;
 	transition: box-shadow 0.2s;
 }
 .floating-contents-menu ul {
@@ -195,4 +198,8 @@
   position: relative;
   border-radius: 6px;
   overflow: hidden;
+}
+
+.block-editor.selected{
+  border: 2px solid #3a51fe;
 }

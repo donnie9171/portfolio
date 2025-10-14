@@ -34,8 +34,13 @@ const BLOCK_TYPES = {
 };
 
 const STORAGE_KEY = "projectPageEditorBlocks";
+let selectedBlockId = null;
 
 // --- Utility Functions ---
+function generateBlockId() {
+  // Simple unique id: timestamp + random
+  return 'block-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 5);
+}
 function saveBlocks(blocks) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(blocks));
 }
@@ -59,6 +64,11 @@ previewModeToggle.id = 'preview-mode-toggle';
 previewModeToggle.textContent = 'JSON';
 previewModeToggle.style.marginLeft = 'auto';
 
+const sidebar = document.querySelector('.editor-sidebar');
+const resizer = document.getElementById('editor-resizer');
+const preview = document.querySelector('.editor-preview');
+const expandToggle = document.getElementById('expand-toggle');
+
 // Insert the toggle button into the editor actions area
 const editorActions = document.querySelector('.editor-actions');
 editorActions.appendChild(previewModeToggle);
@@ -66,6 +76,11 @@ editorActions.appendChild(previewModeToggle);
 // --- State ---
 let blocks = loadBlocks();
 let previewMode = true; // false = JSON, true = HTML preview
+
+let primaryScrollSource = null;
+let scrollTimeout = null;
+
+let isDragging = false;
 
 // --- Toggle Preview Mode ---
 previewModeToggle.addEventListener('click', () => {
@@ -93,22 +108,27 @@ importBtn.addEventListener("click", async () => {
     // Extract metadata from <script type="application/json" id="project-metadata">
     const match = text.match(/<script[^>]*type=["']application\/json["'][^>]*id=["']project-metadata["'][^>]*>([\s\S]*?)<\/script>/);
     if (match && match[1]) {
-    if (!confirm("Loading project will replace current contents! Are you sure?")) return;
-      try {
+        if (!confirm("Loading project will replace current contents! Are you sure?")) return;
+        try {
         const metadata = JSON.parse(match[1]);
-        blocks = metadata;
+        // Ensure each block has a blockId
+        blocks = metadata.map(block => ({
+            ...block,
+            blockId: block.blockId || generateBlockId()
+        }));
         saveBlocks(blocks);
         renderBlockList();
         renderPreview();
-      } catch (err) {
+        alert("Project loaded!");
+        } catch (err) {
         alert("Failed to parse project metadata.");
         console.error(err);
-      }
+        }
     } else {
-      alert("No project metadata found in the HTML file.");
+        alert("No project metadata found in the HTML file.");
     }
     document.body.removeChild(input);
-  });
+    });
 
   input.click();
 });
@@ -149,7 +169,7 @@ function renderImageBlockEditor(data, idx) {
 
 function renderBlockEditor(block, idx) {
   // Minimal editor for each block type
-  let html = `<div class="block-editor" draggable="true" data-idx="${idx}">`;
+  let html = `<div class="block-editor" draggable="true" data-idx="${idx}" data-block-id="${block.blockId}" id="editor-block-${block.blockId}">`;
   html += `<div style="display:flex;justify-content:space-between;align-items:center;">
     <strong>${block.type.charAt(0).toUpperCase() + block.type.slice(1)}</strong>
     <button data-action="delete" data-idx="${idx}" style="background:#e33;color:#fff;border:none;border-radius:4px;padding:0.2em 0.7em;cursor:pointer;">Delete</button>
@@ -230,7 +250,7 @@ function renderMarkdown(md) {
   return html;
 }
 
-function renderTitleBlockPreview(data) {
+function renderTitleBlockPreview(data, blockId) {
   // Mobile header image
   const mobileImage = data.imgmobile.src
     ? `<div class="project-images mobile-header-image" style="--img-count: 1">
@@ -278,7 +298,7 @@ function renderTitleBlockPreview(data) {
 
   // Main block
   return `
-    <section class="top-section">
+    <section class="top-section" id="preview-block-${blockId}" data-block-id="${blockId}">
       <div class="project-block">
         ${mobileImage}
         <h1${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}>${data.title}</h1>
@@ -290,11 +310,11 @@ function renderTitleBlockPreview(data) {
   `;
 }
 
-function renderTextBlockPreview(data){
-    return `<section class="project-block center-text" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}><div>${renderMarkdown(data.text)}</div></section>`;
+function renderTextBlockPreview(data, blockId){
+  return `<section class="project-block center-text" id="preview-block-${blockId}" data-block-id="${blockId}" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}><div>${renderMarkdown(data.text)}</div></section>`;
 }
 
-function renderImageBlockPreview(data) {
+function renderImageBlockPreview(data, blockId) {
   const imgCount = data.images.filter(img => img.src).length;
   if (imgCount === 0) return "";
 
@@ -327,7 +347,7 @@ function renderImageBlockPreview(data) {
   const cardAttr = data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : "";
 
   return `
-    <section class="project-block${data.size === "large" ? " large-image" : " center-text"}">
+    <section id="preview-block-${blockId}" data-block-id="${blockId}" class="project-block${data.size === "large" ? " large-image" : " center-text"}">
       <div class="${classes}" style="--img-count: ${imgCount};"${cardAttr}>
         ${figures}
       </div>
@@ -335,38 +355,38 @@ function renderImageBlockPreview(data) {
   `;
 }
 
-function renderQuoteBlockPreview(data) {
-  return `<section class="project-block center-text" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}><div class="quote">${renderMarkdown(data.quote)}</div></section>`;
+function renderQuoteBlockPreview(data, blockId) {
+  return `<section class="project-block center-text" id="preview-block-${blockId}" data-block-id="${blockId}" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}><div class="quote">${renderMarkdown(data.quote)}</div></section>`;
 }
 
-function renderSeparatorBlockPreview() {
-  return `<section class="project-block"><div class="separator line"></div></section>`;
+function renderSeparatorBlockPreview(blockId) {
+  return `<section class="project-block" id="preview-block-${blockId}" data-block-id="${blockId}"><div class="separator line"></div></section>`;
 }
 
-function renderCardboxBlockPreview(data) {
+function renderCardboxBlockPreview(data, blockId) {
   return `<div style="background:#eaf3ff;padding:1em;border-radius:8px;margin:1em 0; ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}">Cards: ${data["card-shown"].join(', ')}</div>`;
 }
 
-function renderCustomBlockPreview(data) {
+function renderCustomBlockPreview(data, blockId) {
   return data.html;
 }
 
 function renderBlockPreview(block) {
   switch (block.type) {
     case "title":
-      return renderTitleBlockPreview(block.data);
+      return renderTitleBlockPreview(block.data, block.blockId);
     case "text":
-      return renderTextBlockPreview(block.data);
+      return renderTextBlockPreview(block.data, block.blockId);
     case "image":
-      return renderImageBlockPreview(block.data);
+      return renderImageBlockPreview(block.data, block.blockId);
     case "quote":
-      return renderQuoteBlockPreview(block.data);
+      return renderQuoteBlockPreview(block.data, block.blockId);
     case "separator":
-      return renderSeparatorBlockPreview();
+      return renderSeparatorBlockPreview(block.blockId);
     case "cardbox":
-      return renderCardboxBlockPreview(block.data);
+      return renderCardboxBlockPreview(block.data, block.blockId);
     case "custom":
-      return renderCustomBlockPreview(block.data);
+      return renderCustomBlockPreview(block.data, block.blockId);
     default:
       return '';
   }
@@ -380,20 +400,57 @@ function renderPreview() {
   }
 }
 
+function updateBlockPreview(idx) {
+  const block = blocks[idx];
+  const previewBlock = document.getElementById(`preview-block-${block.blockId}`);
+  if (previewBlock) {
+    // Replace the block's outerHTML with the new preview HTML
+    previewBlock.outerHTML = renderBlockPreview(block);
+  }
+}
+
 // --- Block Manipulation ---
 function addBlock(type) {
   const data = JSON.parse(JSON.stringify(BLOCK_TYPES[type]));
-  blocks.push({ type, data });
+  const blockId = generateBlockId();
+  const newBlock = { type, data, blockId };
+
+  let insertIdx = blocks.length; // Default: end of list
+  if (selectedBlockId) {
+    const selectedIdx = blocks.findIndex(b => b.blockId === selectedBlockId);
+    if (selectedIdx !== -1) {
+      insertIdx = selectedIdx + 1;
+    }
+  }
+  blocks.splice(insertIdx, 0, newBlock);
+
+  // Select the newly added block
+  selectedBlockId = blockId;
   saveBlocks(blocks);
   renderBlockList();
   renderPreview();
+  updateSelectionHighlight();
 }
 
 function deleteBlock(idx) {
+  const deletedBlockId = blocks[idx].blockId;
   blocks.splice(idx, 1);
+
+  // If deleted block was selected, select previous block or clear selection
+  if (selectedBlockId === deletedBlockId) {
+    if (blocks[idx]) {
+      selectedBlockId = blocks[idx].blockId;
+    } else if (blocks[idx - 1]) {
+      selectedBlockId = blocks[idx - 1].blockId;
+    } else {
+      selectedBlockId = null;
+    }
+  }
+
   saveBlocks(blocks);
   renderBlockList();
   renderPreview();
+  updateSelectionHighlight();
 }
 
 function updateBlock(idx, field, value, options = {}) {
@@ -415,8 +472,81 @@ function updateBlock(idx, field, value, options = {}) {
   }
   saveBlocks(blocks);
   if (!options.skipBlockListRender) renderBlockList();
-  renderPreview();
+//   renderPreview();
+    updateBlockPreview(idx); // Efficient update for preview
 }
+
+function updateSelectionHighlight() {
+  // Remove .selected from all blocks
+  document.querySelectorAll('.block-editor.selected').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('.project-block.selected').forEach(el => el.classList.remove('selected'));
+
+  if (selectedBlockId) {
+    // Add .selected to the selected editor block
+    const editorBlock = document.getElementById(`editor-block-${selectedBlockId}`);
+    if (editorBlock) editorBlock.classList.add('selected');
+
+    // Add .selected to the selected preview block
+    const previewBlock = document.getElementById(`preview-block-${selectedBlockId}`);
+    if (previewBlock) previewBlock.classList.add('selected');
+  }
+}
+
+function debounce(fn, delay) {
+  let timer = null;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+
+function getMostVisibleBlock(container, blockClass) {
+  const blocks = Array.from(container.querySelectorAll(blockClass));
+  let maxVisible = 0;
+  let mostVisibleBlock = null;
+  blocks.forEach(block => {
+    const rect = block.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const visible =
+      Math.max(0, Math.min(rect.bottom, containerRect.bottom) - Math.max(rect.top, containerRect.top));
+    if (visible > maxVisible) {
+      maxVisible = visible;
+      mostVisibleBlock = block;
+    }
+  });
+  return mostVisibleBlock;
+}
+
+function setPrimaryScroll(source) {
+  primaryScrollSource = source;
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    primaryScrollSource = null;
+  }, 1000); // 1000ms after last scroll event, reset
+}
+
+function syncPreviewToEditor() {
+  const block = getMostVisibleBlock(sidebar, '.block-editor');
+  if (!block) return;
+  const blockId = block.getAttribute('data-block-id');
+  const previewBlock = document.getElementById(`preview-block-${blockId}`);
+  if (previewBlock) {
+    previewBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+function syncEditorToPreview() {
+  const block = getMostVisibleBlock(preview, '.project-block');
+  if (!block) return;
+  const blockId = block.getAttribute('data-block-id');
+  const editorBlock = document.getElementById(`editor-block-${blockId}`);
+  if (editorBlock) {
+    editorBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+const debouncedSyncPreviewToEditor = debounce(syncPreviewToEditor, 100);
+const debouncedSyncEditorToPreview = debounce(syncEditorToPreview, 100);
 
 function addImageToBlock(idx) {
   blocks[idx].data.images.push({ src: "", caption: "" });
@@ -440,6 +570,14 @@ insertLine.style.position = "relative";
 function removeInsertLines() {
   document.querySelectorAll('.block-insert-line').forEach(el => el.remove());
 }
+
+blockListEl.addEventListener("click", e => {
+  const blockEl = e.target.closest('.block-editor');
+  if (blockEl) {
+    selectedBlockId = blockEl.getAttribute('data-block-id');
+    updateSelectionHighlight();
+  }
+});
 
 blockListEl.addEventListener("dragstart", e => {
   const li = e.target.closest("li");
@@ -497,16 +635,22 @@ blockListEl.addEventListener("dragend", () => {
 });
 
 // --- Event Listeners ---
-addBlockBtn.addEventListener("click", () => {
-  addBlock(blockTypeSelect.value);
+// Editor scroll event
+sidebar.addEventListener('scroll', () => {
+  if (primaryScrollSource === 'preview') return; // Only follow, don't initiate
+  setPrimaryScroll('editor');
+  debouncedSyncPreviewToEditor();
 });
 
-blockListEl.addEventListener("input", e => {
-  const field = e.target.getAttribute("data-field");
-  const idx = parseInt(e.target.getAttribute("data-idx"));
-  if (field && !isNaN(idx)) {
-    updateBlock(idx, field, e.target.value, { skipBlockListRender: true });
-  }
+// Preview scroll event
+preview.addEventListener('scroll', () => {
+  if (primaryScrollSource === 'editor') return; // Only follow, don't initiate
+  setPrimaryScroll('preview');
+  debouncedSyncEditorToPreview();
+});
+
+addBlockBtn.addEventListener("click", () => {
+  addBlock(blockTypeSelect.value);
 });
 
 blockListEl.addEventListener("click", e => {
@@ -758,12 +902,6 @@ blockListEl.addEventListener("input", e => {
 });
 
 // Draggable resizer logic
-const sidebar = document.querySelector('.editor-sidebar');
-const resizer = document.getElementById('editor-resizer');
-const preview = document.querySelector('.editor-preview');
-const expandToggle = document.getElementById('expand-toggle');
-
-let isDragging = false;
 
 resizer.addEventListener('mousedown', function(e) {
 isDragging = true;
