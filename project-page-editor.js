@@ -209,8 +209,9 @@ function renderMarkdown(md) {
     // Italic: *text* or _text_
     .replace(/\*(.*?)\*/g, "<em>$1</em>")
     .replace(/_(.*?)_/g, "<em>$1</em>")
-    // Links
-    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" style="color: inherit" target="_blank" rel="noopener">$1</a>')
+    // Links: section links (#...) vs normal links
+    .replace(/\[(.*?)\]\((#.*?)\)/g, '<a href="$2" style="color: inherit" class="section-link">$1</a>') // Section links
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" style="color: inherit" target="_blank" rel="noopener">$1</a>') // External links
     // Inline code
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     // Headings
@@ -300,12 +301,21 @@ function renderImageBlockPreview(data) {
   // Build figure HTML
   const figures = data.images
     .filter(img => img.src)
-    .map(img =>
-      `<figure>
-        <img src="${img.src}" alt="${img.caption}" />
-        ${img.caption ? `<figcaption>${renderMarkdown(img.caption)}</figcaption>` : ""}
-      </figure>`
-    ).join("");
+    .map(img => {
+      // Check for mp4 video
+      if (img.src.match(/\.(mp4)$/i)) {
+        return `<figure>
+          <video src="${img.src}" controls autoplay muted loop playsinline style="width:100%;height:auto;display:block;"></video>
+          ${img.caption ? `<figcaption>${renderMarkdown(img.caption)}</figcaption>` : ""}
+        </figure>`;
+      } else {
+        return `<figure>
+          <img src="${img.src}" alt="${img.caption}" style="width:100%;height:auto;display:block;" />
+          ${img.caption ? `<figcaption>${renderMarkdown(img.caption)}</figcaption>` : ""}
+        </figure>`;
+      }
+    })
+    .join("");
 
   // Build classes and styles
   let classes = "project-images";
