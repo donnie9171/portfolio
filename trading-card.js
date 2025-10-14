@@ -290,9 +290,11 @@ function showCardDetailModal(card) {
     cardVisual.querySelector('s')?.style.setProperty('--s-o', `0.2`);
     cardVisual.querySelector('s')?.style.setProperty('--s-s', `100%`);
   }
-  cardVisual.addEventListener('mousemove', handle3DPointer);
-  cardVisual.addEventListener('pointermove', handle3DPointer);
-  cardVisual.addEventListener('touchmove', handle3DPointer);
+  const debouncedHandle3DPointer = debounce(handle3DPointer, 10);
+
+  cardVisual.addEventListener('mousemove', debouncedHandle3DPointer);
+  cardVisual.addEventListener('pointermove', debouncedHandle3DPointer);
+  cardVisual.addEventListener('touchmove', debouncedHandle3DPointer);
   cardVisual.addEventListener('mouseleave', reset3DPointer);
   cardVisual.addEventListener('pointerleave', reset3DPointer);
   cardVisual.addEventListener('mouseout', reset3DPointer);
@@ -318,11 +320,20 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+function debounce(fn, delay) {
+  let timer = null;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+
 // Attach 3D card mouse events to a grid element (only once)
 function setup3DCardGrid(grid) {
   if (!grid || grid._has3DCardEvents) return;
   grid._has3DCardEvents = true;
-  grid.addEventListener('mousemove', function (e) {
+  // Debounced mousemove handler
+  const debouncedMouseMove = debounce(function (e) {
     const card = e.target.closest('.trading-card-modal-card');
     if (!card) return;
     if (card.classList.contains('not-found')) return; // Skip not found cards
@@ -341,23 +352,27 @@ function setup3DCardGrid(grid) {
     card.querySelector('s')?.style.setProperty('--angle', `${rotateY + 45}deg`);
     card.querySelector('s')?.style.setProperty('--s-o', `0.5`);
     card.querySelector('s')?.style.setProperty('--s-s', `400%`);
-  });
+  }, 10);
+
+  grid.addEventListener('mousemove', debouncedMouseMove);
+
   grid.addEventListener('mouseleave', function (e) {
     if (e.target.classList && e.target.classList.contains('trading-card-modal-card')) {
       e.target.style.transform = '';
       e.target.style.boxShadow = '';
-    e.target.querySelector('s')?.style.setProperty('--angle', `45deg`);
-    e.target.querySelector('s')?.style.setProperty('--s-o', `0.2`);
-    e.target.querySelector('s')?.style.setProperty('--s-s', `100%`);
+      e.target.querySelector('s')?.style.setProperty('--angle', `45deg`);
+      e.target.querySelector('s')?.style.setProperty('--s-o', `0.2`);
+      e.target.querySelector('s')?.style.setProperty('--s-s', `100%`);
     }
   }, true);
+
   grid.addEventListener('mouseout', function (e) {
     if (e.target.classList && e.target.classList.contains('trading-card-modal-card')) {
       e.target.style.transform = '';
       e.target.style.boxShadow = '';
-          e.target.querySelector('s')?.style.setProperty('--angle', `45deg`);
-    e.target.querySelector('s')?.style.setProperty('--s-o', `0.2`);
-    e.target.querySelector('s')?.style.setProperty('--s-s', `100%`);
+      e.target.querySelector('s')?.style.setProperty('--angle', `45deg`);
+      e.target.querySelector('s')?.style.setProperty('--s-o', `0.2`);
+      e.target.querySelector('s')?.style.setProperty('--s-s', `100%`);
     }
   }, true);
 }
