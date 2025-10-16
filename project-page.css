@@ -41,11 +41,6 @@
 .floating-contents-menu a:hover {
 	text-decoration: underline;
 }
-@media (max-width: 1500px) {
-	.floating-contents-menu {
-		display: none;
-	}
-}
 /* Separator Line Styling */
 .separator.line {
 	width: 100%;
@@ -202,4 +197,39 @@
 
 .block-editor.selected{
   border: 2px solid #3a51fe;
+}
+
+
+
+@media (max-width: 1500px) {
+	.project-block{
+		margin-left: calc((100% - 1250px)/2);
+	}
+	.project-block.large-image{
+		margin-left: calc((100% - 1250px)/2);
+	}
+	.project-images.non-mobile {
+		margin-left: calc((100% - 1250px)/2);
+	}
+	.project-block.center-text{
+		margin-left: calc((100% - 1050px)/2);
+	}
+}
+
+@media (max-width: 1300px) {
+	.floating-contents-menu {
+		display: none;
+	}
+	.project-block{
+		margin: 0 auto;
+	}
+	.project-block.large-image{
+		margin: 0 auto;
+	}
+	.project-images.non-mobile {
+		margin: 0 auto;
+	}
+	.project-block.center-text{
+		margin: 0 auto;
+	}
 }
