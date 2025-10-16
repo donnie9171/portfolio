@@ -12,7 +12,7 @@
     "title": "MEW",
     "description": "Node based AI as a material for Scratch projects.",
     "thumbnail": "assets/cards/mew_cardthumb.png",
-    "page": "https://fireworks-studios.gitbook.io/fireworks-studios/mew-multi-agent-exploration-workbench",
+    "page": "mew.html",
     "dna": [65, 15, 20],
     "highlight": true,
     "keywords": ["2025", "Main Developer", "Final Year Project", "Scratch", "AI", "Software"]
