@@ -48,7 +48,7 @@
     "title": "Visioneers HKU",
     "description": "RA & project lead at the Human-systems Interaction and Simulation lab in HKU.",
     "thumbnail": "assets/cards/visioneers_cardthumb.avif",
-    "page": "https://www.youtube.com/watch?v=1o_HK_-Jb_Y",
+    "page": "visioneers.html",
     "dna": [70, 25, 5],
     "highlight": true,
     "keywords": ["2023-24", "Research Assistant", "Project Lead", "VR", "Unity", "Branding", "Marketing"]

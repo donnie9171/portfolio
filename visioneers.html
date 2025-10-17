@@ -1,0 +1,349 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Visioneers HKU | Enoch Kang</title>
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="trading-card.css" />
+        <link rel="stylesheet" href="project-page.css" />
+        <link rel="preload" href="styles.css" as="style" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet"
+        />
+    </head>
+    <body>
+      <div id="page-fade-cover">
+        <!-- self contained div for loading cover -->
+        <style>
+            #page-fade-cover {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #fff;
+            z-index: 99999;
+            opacity: 1;
+            transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+            pointer-events: auto;
+            }
+            #page-fade-cover.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            }
+        </style>
+        <script>
+            function fadeCover() {
+            var cover = document.getElementById('page-fade-cover');
+            if (cover) cover.classList.add('fade-out');
+            setTimeout(function() {
+                if (cover) cover.style.display = 'none';
+            }, 600);
+            window.removeEventListener('DOMContentLoaded', fadeCover);
+            }
+
+            window.addEventListener('DOMContentLoaded', fadeCover);
+        </script>
+        </div>
+        <header>
+        <h1>
+            <a
+            href="index.html"
+            style="color: inherit; text-decoration: none; cursor: pointer"
+            >Enoch Kang</a
+            >
+        </h1>
+        <nav class="main-nav">
+            <button class="nav-toggle" aria-label="Toggle menu">
+            <span class="hamburger"></span>
+            </button>
+            <ul class="nav-list">
+            <li><a href="index.html">Work</a></li>
+            <li><a href="play.html">Play</a></li>
+            <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+        </header>
+        <main>
+
+    <section class="top-section" id="preview-block-block-mgutihal-0bcd6" data-block-id="block-mgutihal-0bcd6">
+      <div class="project-block">
+        <div class="project-images mobile-header-image" style="--img-count: 1">
+        <figure>
+          <img src="assets/cards/visioneers_cardthumb.avif" alt="" />
+          
+        </figure>
+      </div>
+        <h1>Visioneers HKU</h1>
+        <div class="project-subtitle">Research Assistant and Project Lead | Jan 2023 - Aug 2024</div>
+        <div class="overview-and-people"><div class="overview">
+        <h2>Overview</h2>
+        <p>Developed a Mixed Reality Spaceship Game as a demo of the Motion Platform and DOME projection hardware at the  Human-systems Interaction and Simulation (HIS) Laboratory at the University of Hong Kong! The game is an adaptation of an official <a href="https://unity.com/demos/urp-3d-sample" style="color: inherit" target="_blank" rel="noopener">Unity demo project</a> which we stitched together with our hardware to create this unique experience! Additionally, I also helped design the branding and website of our group, the Visioneers.</p>
+      </div><div class="people">
+        <h2>People</h2>
+        <p>Supervisor: Dr. Leith Chan<br/>Project Lead: Enoch Kang<br/>Software: Enoch, Bryan Pong<br/>Hardware: Daniel Wai, Bryan Pong,  Hei Hu
+</p>
+      </div></div>
+      </div>
+      <div class="project-images non-mobile" style="--img-count: 2">
+        <figure>
+        <img src="assets/cards/visioneers_cardthumb.avif" alt="" />
+        
+      </figure><figure>
+        <img src="assets/images/visioneers2.avif" alt="" />
+        
+      </figure>
+      </div>
+    </section>
+  <section class="project-block" id="preview-block-block-mguu66h8-bzic9" data-block-id="block-mguu66h8-bzic9"><div class="separator line"></div></section><section class="project-block center-text" id="preview-block-block-mguu9zd1-oyjxz" data-block-id="block-mguu9zd1-oyjxz" ><div><h2>Mixed Reality Spaceship Game!</h2>
+I am a huge sci-fi nerd. Could you tell by now?</div></section>
+    <section id="preview-block-block-mguu6bgw-rl0fa" data-block-id="block-mguu6bgw-rl0fa" class="project-block large-image">
+      <div class="project-images large-image no-ratio" style="--img-count: 1;">
+        <figure>
+          <img loading="lazy" src="assets/images/visioneers3.gif" alt="Giant videogame spaceship cockpit that shakes violently to make you feel every single impact in space?! 
+
+Y E S" style="width:100%;height:auto;display:block;" />
+          <figcaption>Giant videogame spaceship cockpit that shakes violently to make you feel every single impact in space?! <br/>Y E S</figcaption>
+        </figure>
+      </div>
+    </section>
+  <section class="project-block center-text" id="preview-block-block-mguumkah-jbyl9" data-block-id="block-mguumkah-jbyl9" ><div>So when the opportunity arose to  create a project to demo the Motion Platform and DOME projection system combo in our lab, I simply HAD to see it come to life as an interactive-playable-4D-maximalist-spaceship-Disney-ride.  
+<h3>Hardware</h3>
+The hardware of the project revolves around 2 main components:
+<ul><li><strong>The Motion Platform</strong> is a Motion Systems PS-3TM-350 motion platform that was originally used as a firetruck training simulator but has since been repurposed to be a pilot seat. It has 3 degrees of freedom and can support a payload of up to 350kg. Having such a powerful motion platform allows us to move the player's body around in physical space to simulate the momentum they would feel as if they were actually in the virtual spaceship.</li><li><strong>The DOME projection system</strong> is a large dome designed to host VR experiences for multiple participants at once. Unlike the head-mounted displays we commonly see for VR, the DOME makes social and group VR experiences possible. This is especially useful for large group demos which is often the case for our lab. There are 4 projectors secured along the rim of the dome, calibrated to stitch together a seamless 360 continuous projection for the player.</li></ul></div></section>
+    <section id="preview-block-block-mguv255h-7rc10" data-block-id="block-mguv255h-7rc10" class="project-block center-text">
+      <div class="project-images no-ratio" style="--img-count: 1;">
+        <figure>
+          <img loading="lazy" src="assets/images/visioneers4.avif" alt="" style="width:100%;height:auto;display:block;" />
+          
+        </figure>
+      </div>
+    </section>
+  <section class="project-block center-text" id="preview-block-block-mguvmwyg-47g9k" data-block-id="block-mguvmwyg-47g9k" ><div>On top of the motion platform, Daniel, Bryan, and Hei installed physical controls for the player to interface with the game. The controls  featured:
+<ul><li>An analogue throttle, hacked together from a broken racing simulator handbrake and a potentiometer.</li><li>A large control panel, complete with push buttons that light up, engine switches, and an emergency stop button that would park the platform in case of any malfunction.</li><li>A flight simulator joystick with roll, pitch, and yaw input, also a trigger for firing on the enemy bugs in the game.</li></ul><h3>Software   </h3>
+The software was assembled in Unity. I was lucky to find an <a href="https://unity.com/demos/urp-3d-sample" style="color: inherit" target="_blank" rel="noopener">official Unity demo project</a> that already had the stunning visuals and perfect setting as a starting point. Though, the original demo was created as an immersive animation, not as an interactive game, so we had to adjust many parts to make it fit our project. To enable the player to fly around freely, I took the spaceship off the preplanned rails and wired up controls to the inputs that the others made. From there, Bryan and I also implemented:
+<ul><li>Health tracking system: Each entity now had a health assigned to it and will explode when health reaches 0.</li><li>Machine guns! I animated the guns on the player's ship model and added muzzle flash and visual flair and all that.</li><li>Collisions: the player needed to FEEL the impact, so we added colliders to EVERYTHING! All the astroids, all the spaceships, all the giant alien worms!</li></ul><h3>Software + Hardware integration</h3>
+This wouldn't be a MR game if we didn't do something interesting with our unique setup!
+<ul><li>The motion platform responds dynamically to the player's movements in game. Due to physics and other such pesky rules about our reality, we cannot map the in-game movement 1:1 to the motion platform. So we did our best approximating the movement to prioritize making the feedback <em>feel correct</em> as opposed to making the feedback <em>actually correct</em>.</li><li>As the player's ship takes damage, the engines become less and less stable. This is translated to a constant rumbling from the motion platform that increases as the game goes on. This can make for some chaotic and awesome moments of frenzy!</li><li>Little haptic details like the rumbling of the machine guns or the exponentially increasing rumble when the player hits overdrive throttle and begins to pick up speed at an unsustainable pace can make the game feel so much more alive!</li></ul></div></section><section class="project-block center-text" id="preview-block-block-mguwpktm-t7xy0" data-block-id="block-mguwpktm-t7xy0" ><div>Here it is in action!</div></section>
+    <section class="project-block" id="preview-block-block-mguwqm1w-lhn1p" data-block-id="block-mguwqm1w-lhn1p" >
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/1o_HK_-Jb_Y"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+  
+        </main>
+        <button class="deck" id="deckButton">
+        <img src="assets/images/trading-card-button.avif" alt="" />
+        </button>
+        <footer>
+        <p>
+            enochkang9171@gmail.com |
+            <a
+            href="https://www.youtube.com/@fireworksstudios9172"
+            target="_blank"
+            aria-label="YouTube"
+            style="
+                vertical-align: middle;
+                display: inline-block;
+                margin: 0 0.2em;
+                margin-top: -2px;
+            "
+            >
+            <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style="vertical-align: middle"
+            >
+                <path
+                d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.117C19.228 3.5 12 3.5 12 3.5s-7.228 0-9.391.569A2.994 2.994 0 0 0 .502 6.186C0 8.36 0 12 0 12s0 3.64.502 5.814a2.994 2.994 0 0 0 2.107 2.117C4.772 20.5 12 20.5 12 20.5s7.228 0 9.391-.569a2.994 2.994 0 0 0 2.107-2.117C24 15.64 24 12 24 12s0-3.64-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+                fill="#FF0000"
+                />
+            </svg>
+            </a>
+            |
+            <a
+            href="https://www.linkedin.com/in/enochkang9171"
+            target="_blank"
+            aria-label="LinkedIn"
+            style="
+                vertical-align: middle;
+                display: inline-block;
+                margin: 0 0.2em;
+                margin-bottom: -4.5px;
+            "
+            >
+            <svg
+                width="22px"
+                height="22px"
+                viewBox="0 0 24 24"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <title>LinkedIn icon</title>
+                <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                fill="#0072B1"
+                />
+            </svg>
+            </a>
+            |
+            <a
+            href="https://github.com/donnie9171"
+            target="_blank"
+            aria-label="GitHub"
+            style="
+                vertical-align: middle;
+                display: inline-block;
+                margin: 0 0.2em;
+                margin-top: -2.5px;
+            "
+            >
+            <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style="vertical-align: middle"
+            >
+                <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.262.82-.582 0-.288-.012-1.243-.018-2.252-3.338.726-4.042-1.415-4.042-1.415-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.304-5.466-1.332-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.3 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.047.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.803 5.625-5.475 5.921.43.371.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.218.699.825.58C20.565 21.796 24 17.297 24 12c0-6.63-5.37-12-12-12z"
+                fill="#181717"
+                />
+            </svg>
+            </a>
+        </p>
+        <p>
+            Made with passion and a lot of
+            <a
+            href="https://github.com/donnie9171/portfolio"
+            target="_blank"
+            rel="noopener"
+            style="color: inherit"
+            >persistence</a
+            >
+            (wrangling Copilot).
+        </p>
+        <p>by Enoch (I-Nuo) Kang 康以諾</p>
+        </footer>
+        <script src="hamburger-menu.js"></script>
+        <script src="trading-card.js"></script>
+        <script src="project-page.js"></script>
+    <script type="application/json" id="project-metadata">
+[
+  {
+    "type": "title",
+    "data": {
+      "title": "Visioneers HKU",
+      "subtitle": "Research Assistant and Project Lead | Jan 2023 - Aug 2024",
+      "overview": "Developed a Mixed Reality Spaceship Game as a demo of the Motion Platform and DOME projection hardware at the  Human-systems Interaction and Simulation (HIS) Laboratory at the University of Hong Kong! The game is an adaptation of an official [Unity demo project](https://unity.com/demos/urp-3d-sample) which we stitched together with our hardware to create this unique experience! Additionally, I also helped design the branding and website of our group, the Visioneers.",
+      "people": "Supervisor: Dr. Leith Chan\n\nProject Lead: Enoch Kang\n\nSoftware: Enoch, Bryan Pong\n\nHardware: Daniel Wai, Bryan Pong,  Hei Hu\n",
+      "img1": {
+        "src": "assets/cards/visioneers_cardthumb.avif",
+        "caption": ""
+      },
+      "img2": {
+        "src": "assets/images/visioneers2.avif",
+        "caption": ""
+      },
+      "imgmobile": {
+        "src": "assets/cards/visioneers_cardthumb.avif",
+        "caption": ""
+      },
+      "card": []
+    },
+    "blockId": "block-mgutihal-0bcd6"
+  },
+  {
+    "type": "separator",
+    "data": {},
+    "blockId": "block-mguu66h8-bzic9"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "## Mixed Reality Spaceship Game!\nI am a huge sci-fi nerd. Could you tell by now?",
+      "card": []
+    },
+    "blockId": "block-mguu9zd1-oyjxz"
+  },
+  {
+    "type": "image",
+    "data": {
+      "size": "large",
+      "images": [
+        {
+          "src": "assets/images/visioneers3.gif",
+          "caption": "Giant videogame spaceship cockpit that shakes violently to make you feel every single impact in space?! \n\nY E S"
+        }
+      ],
+      "card": [],
+      "noRatio": true
+    },
+    "blockId": "block-mguu6bgw-rl0fa"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "So when the opportunity arose to  create a project to demo the Motion Platform and DOME projection system combo in our lab, I simply HAD to see it come to life as an interactive-playable-4D-maximalist-spaceship-Disney-ride.  \n### Hardware\nThe hardware of the project revolves around 2 main components:\n- **The Motion Platform** is a Motion Systems PS-3TM-350 motion platform that was originally used as a firetruck training simulator but has since been repurposed to be a pilot seat. It has 3 degrees of freedom and can support a payload of up to 350kg. Having such a powerful motion platform allows us to move the player's body around in physical space to simulate the momentum they would feel as if they were actually in the virtual spaceship.\n- **The DOME projection system** is a large dome designed to host VR experiences for multiple participants at once. Unlike the head-mounted displays we commonly see for VR, the DOME makes social and group VR experiences possible. This is especially useful for large group demos which is often the case for our lab. There are 4 projectors secured along the rim of the dome, calibrated to stitch together a seamless 360 continuous projection for the player.",
+      "card": []
+    },
+    "blockId": "block-mguumkah-jbyl9"
+  },
+  {
+    "type": "image",
+    "data": {
+      "size": "fit",
+      "images": [
+        {
+          "src": "assets/images/visioneers4.avif",
+          "caption": ""
+        }
+      ],
+      "card": [],
+      "noRatio": true
+    },
+    "blockId": "block-mguv255h-7rc10"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "On top of the motion platform, Daniel, Bryan, and Hei installed physical controls for the player to interface with the game. The controls  featured:\n- An analogue throttle, hacked together from a broken racing simulator handbrake and a potentiometer.\n- A large control panel, complete with push buttons that light up, engine switches, and an emergency stop button that would park the platform in case of any malfunction.\n- A flight simulator joystick with roll, pitch, and yaw input, also a trigger for firing on the enemy bugs in the game.\n### Software   \nThe software was assembled in Unity. I was lucky to find an [official Unity demo project](https://unity.com/demos/urp-3d-sample) that already had the stunning visuals and perfect setting as a starting point. Though, the original demo was created as an immersive animation, not as an interactive game, so we had to adjust many parts to make it fit our project. To enable the player to fly around freely, I took the spaceship off the preplanned rails and wired up controls to the inputs that the others made. From there, Bryan and I also implemented:\n- Health tracking system: Each entity now had a health assigned to it and will explode when health reaches 0.\n- Machine guns! I animated the guns on the player's ship model and added muzzle flash and visual flair and all that.\n- Collisions: the player needed to FEEL the impact, so we added colliders to EVERYTHING! All the astroids, all the spaceships, all the giant alien worms!\n### Software + Hardware integration\nThis wouldn't be a MR game if we didn't do something interesting with our unique setup!\n- The motion platform responds dynamically to the player's movements in game. Due to physics and other such pesky rules about our reality, we cannot map the in-game movement 1:1 to the motion platform. So we did our best approximating the movement to prioritize making the feedback _feel correct_ as opposed to making the feedback _actually correct_.\n- As the player's ship takes damage, the engines become less and less stable. This is translated to a constant rumbling from the motion platform that increases as the game goes on. This can make for some chaotic and awesome moments of frenzy!\n- Little haptic details like the rumbling of the machine guns or the exponentially increasing rumble when the player hits overdrive throttle and begins to pick up speed at an unsustainable pace can make the game feel so much more alive!   ",
+      "card": []
+    },
+    "blockId": "block-mguvmwyg-47g9k"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "Here it is in action!",
+      "card": []
+    },
+    "blockId": "block-mguwpktm-t7xy0"
+  },
+  {
+    "type": "youtube",
+    "data": {
+      "url": "https://www.youtube.com/embed/1o_HK_-Jb_Y",
+      "card": []
+    },
+    "blockId": "block-mguwqm1w-lhn1p"
+  }
+]
+</script>
+</body>
+    </html>
