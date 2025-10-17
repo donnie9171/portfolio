@@ -14,8 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install ImageMagick
-        run: sudo apt-get install -y imagemagick libavif-dev
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libavif-dev libheif-dev
+          sudo apt-get install -y imagemagick 
 
       - name: Convert images to AVIF
         run: |
