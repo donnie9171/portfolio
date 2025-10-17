@@ -195,6 +195,10 @@
   overflow: hidden;
 }
 
+video{
+	border-radius: 6px;
+}
+
 .block-editor.selected{
   border: 2px solid #3a51fe;
 }
