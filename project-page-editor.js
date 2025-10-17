@@ -687,6 +687,38 @@ exportBtn.addEventListener("click", async () => {
         />
     </head>
     <body>
+      <div id="page-fade-cover">
+        <!-- self contained div for loading cover -->
+        <style>
+            #page-fade-cover {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #fff;
+            z-index: 99999;
+            opacity: 1;
+            transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+            pointer-events: auto;
+            }
+            #page-fade-cover.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            }
+        </style>
+        <script>
+            function fadeCover() {
+            var cover = document.getElementById('page-fade-cover');
+            if (cover) cover.classList.add('fade-out');
+            setTimeout(function() {
+                if (cover) cover.style.display = 'none';
+            }, 600);
+            window.removeEventListener('DOMContentLoaded', fadeCover);
+            }
+
+            window.addEventListener('DOMContentLoaded', fadeCover);
+        </script>
+        </div>
         <header>
         <h1>
             <a
@@ -811,38 +843,6 @@ exportBtn.addEventListener("click", async () => {
         <script src="hamburger-menu.js"></script>
         <script src="trading-card.js"></script>
         <script src="project-page.js"></script>
-        <div id="page-fade-cover">
-        <!-- self contained div for loading cover -->
-        <style>
-            #page-fade-cover {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #fff;
-            z-index: 99999;
-            opacity: 1;
-            transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
-            pointer-events: auto;
-            }
-            #page-fade-cover.fade-out {
-            opacity: 0;
-            pointer-events: none;
-            }
-        </style>
-        <script>
-            function fadeCover() {
-            var cover = document.getElementById('page-fade-cover');
-            if (cover) cover.classList.add('fade-out');
-            setTimeout(function() {
-                if (cover) cover.style.display = 'none';
-            }, 600);
-            window.removeEventListener('DOMContentLoaded', fadeCover);
-            }
-
-            window.addEventListener('DOMContentLoaded', fadeCover);
-        </script>
-        </div>
     </body>
     </html>
 `;

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (loadingDiv) {
     setTimeout(() => {
       loadingDiv.style.opacity = '0';
-    }, 100);
+    }, 50);
     setTimeout(() => {
       loadingDiv.style.display = 'none';
     }, 600);
@@ -13,12 +13,11 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   // Check if intro has already played this session
   const body = document.body;
-  if(sessionStorage.getItem('lastPage') === window.location.href){
-    body.classList.add('initial'); 
-  }else{
-    if (!sessionStorage.getItem('introPlayed')) {
-      body.classList.add('initial'); 
-    }
+  if (!sessionStorage.getItem('introPlayed')) {
+    setTimeout(() => {
+      window.scrollTo(0, 0); // Ensure scroll is at top before adding class
+      body.classList.add('initial');
+    }, 0); // Next tick
   }
   sessionStorage.setItem('lastPage', window.location.href);
 });

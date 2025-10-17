@@ -769,19 +769,15 @@ footer {
 }
 
 .loading{
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
+  inset: 0;
   width: 100vw;
-  height: 100dvh;
-  background: rgb(255, 255, 255);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: #222;
-  z-index: 1000000;
-  transition: opacity 0.5s ease;
+  height: 100vh;
+  background: #fff;
+  z-index: 99999;
+  opacity: 1;
+  transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+  pointer-events: auto;
 }
 .loading.hidden{
   display: none;
