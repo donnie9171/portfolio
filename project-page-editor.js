@@ -330,7 +330,7 @@ function renderImageBlockPreview(data, blockId) {
         </figure>`;
       } else {
         return `<figure>
-          <img src="${img.src}" alt="${img.caption}" style="width:100%;height:auto;display:block;" />
+          <img loading="lazy" src="${img.src}" alt="${img.caption}" style="width:100%;height:auto;display:block;" />
           ${img.caption ? `<figcaption>${renderMarkdown(img.caption)}</figcaption>` : ""}
         </figure>`;
       }
