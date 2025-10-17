@@ -1,7 +1,7 @@
 ## Types of blocks
 
 ### Title block
-<img src="assets/UI design/editor screenshot 1.png" alt="Editor Screenshot 1" style="max-width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08); margin:1em 0;" />
+<img src="assets/UI design/editor screenshot 1.avif" alt="Editor Screenshot 1" style="max-width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08); margin:1em 0;" />
 
 ```
 {
@@ -25,7 +25,7 @@
 }
 ```
 ### Text block
-<img src="assets/UI design/editor screenshot 2.png" alt="Editor Screenshot 1" style="max-width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08); margin:1em 0;" />
+<img src="assets/UI design/editor screenshot 2.avif" alt="Editor Screenshot 1" style="max-width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08); margin:1em 0;" />
 
 ```
 {
@@ -35,7 +35,7 @@
 ```
 
 ### Image block
-<img src="assets/UI design/editor screenshot 3.png" alt="Editor Screenshot 1" style="max-width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08); margin:1em 0;" />
+<img src="assets/UI design/editor screenshot 3.avif" alt="Editor Screenshot 1" style="max-width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08); margin:1em 0;" />
 
 ```
 {
@@ -53,7 +53,7 @@
 ```
 
 ### Quote block
-<img src="assets/UI design/editor screenshot 4.png" alt="Editor Screenshot 1" style="max-width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08); margin:1em 0;" />
+<img src="assets/UI design/editor screenshot 4.avif" alt="Editor Screenshot 1" style="max-width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08); margin:1em 0;" />
 
 ```
 {
@@ -63,7 +63,7 @@
 ```
 
 ### Cardbox block
-<img src="assets/UI design/editor screenshot 5.png" alt="Editor Screenshot 1" style="max-width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08); margin:1em 0;" />
+<img src="assets/UI design/editor screenshot 5.avif" alt="Editor Screenshot 1" style="max-width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08); margin:1em 0;" />
 
 ```
 {

@@ -712,7 +712,7 @@ exportBtn.addEventListener("click", async () => {
   const footerHTML = `
         </main>
         <button class="deck" id="deckButton">
-        <img src="assets/images/trading-card-button.png" alt="" />
+        <img src="assets/images/trading-card-button.avif" alt="" />
         </button>
         <footer>
         <p>

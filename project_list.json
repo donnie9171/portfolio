@@ -2,7 +2,7 @@
   {
     "title": "Internship at Scratch!",
     "description": "Prototyped AI related features for Scratch Lab.",
-    "thumbnail": "assets/cards/internship_cardthumb.jpeg",
+    "thumbnail": "assets/cards/internship_cardthumb.avif",
     "page": "scratch-internship.html",
     "dna": [34, 33, 33],
     "highlight": true,
@@ -11,7 +11,7 @@
   {
     "title": "MEW",
     "description": "Node based AI as a material for Scratch projects.",
-    "thumbnail": "assets/cards/mew_cardthumb.png",
+    "thumbnail": "assets/cards/mew_cardthumb.avif",
     "page": "mew.html",
     "dna": [65, 15, 20],
     "highlight": true,
@@ -20,7 +20,7 @@
   {
     "title": "Matchbox",
     "description": "Affordable STEAM DIY kits made from upcycled keyboards!",
-    "thumbnail": "assets/cards/matchbox_cardthumb.png",
+    "thumbnail": "assets/cards/matchbox_cardthumb.avif",
     "page": "matchbox.html",
     "dna": [60, 15, 25],
     "highlight": true,
@@ -29,7 +29,7 @@
   {
     "title": "Scratch Day Taiwan",
     "description": "Organized Scratch Day in Taiwan since 2019.",
-    "thumbnail": "assets/cards/scratchdaytaiwan_cardthumb.jpg",
+    "thumbnail": "assets/cards/scratchdaytaiwan_cardthumb.avif",
     "page": "http://scratchday.tw/",
     "dna": [10, 25, 65],
     "highlight": true,
@@ -38,7 +38,7 @@
   {
     "title": "Secrets of Scratch",
     "description": "Published a book about making Scratch games.",
-    "thumbnail": "assets/cards/scratchbook_cardthumb.png",
+    "thumbnail": "assets/cards/scratchbook_cardthumb.avif",
     "page": "https://www.youtube.com/watch?v=BBjIkd6U1Kk",
     "dna": [30, 30, 40],
     "highlight": true,
@@ -47,7 +47,7 @@
   {
     "title": "Visioneers HKU",
     "description": "RA & project lead at the Human-systems Interaction and Simulation lab in HKU.",
-    "thumbnail": "assets/cards/visioneers_cardthumb.png",
+    "thumbnail": "assets/cards/visioneers_cardthumb.avif",
     "page": "https://www.youtube.com/watch?v=1o_HK_-Jb_Y",
     "dna": [70, 25, 5],
     "highlight": true,
@@ -56,7 +56,7 @@
   {
     "title": "ScratchGO",
     "description": "The power of Scratch, in the palm of your hand.",
-    "thumbnail": "assets/cards/scratchgo_cardthumb.png",
+    "thumbnail": "assets/cards/scratchgo_cardthumb.avif",
     "page": "https://scratchgo.app/",
     "dna": [70, 25, 5],
     "highlight": false,
@@ -65,7 +65,7 @@
   {
     "title": "FireZine '24",
     "description": "Project recap zine for everything my friends and I worked on in 2024!",
-    "thumbnail": "assets/cards/firezine_cardthumb.png",
+    "thumbnail": "assets/cards/firezine_cardthumb.avif",
     "page": "portfolio.html",
     "dna": [20, 75, 5],
     "highlight": false,
@@ -74,7 +74,7 @@
   {
     "title": "Refactorman!",
     "description": "Comic book universe about software engineering!",
-    "thumbnail": "assets/cards/refactorman_cardthumb.png",
+    "thumbnail": "assets/cards/refactorman_cardthumb.avif",
     "page": "portfolio.html",
     "dna": [35, 60, 5],
     "highlight": false,
@@ -83,7 +83,7 @@
   {
     "title": "Matchbox Merch",
     "description": "Cool merch designed for the Matchbox project.",
-    "thumbnail": "assets/cards/matchboxmerch_cardthumb.png",
+    "thumbnail": "assets/cards/matchboxmerch_cardthumb.avif",
     "page": "portfolio.html",
     "dna": [5, 90, 5],
     "highlight": false,
@@ -92,7 +92,7 @@
   {
     "title": "ARTZINE",
     "description": "Zine of art projects made during 2020-24.",
-    "thumbnail": "assets/cards/artzine_cardthumb.png",
+    "thumbnail": "assets/cards/artzine_cardthumb.avif",
     "page": "portfolio.html",
     "dna": [5, 85, 10],
     "highlight": false,
@@ -103,7 +103,7 @@
   {
     "title": "Pizza-Man!",
     "description": "A cheesy comic.",
-    "thumbnail": "assets/cards/pizzaman_cardthumb.png",
+    "thumbnail": "assets/cards/pizzaman_cardthumb.avif",
     "page": "portfolio.html",
     "dna": [25, 70, 5],
     "highlight": false,
