@@ -9,15 +9,6 @@
     "keywords": ["2025", "Intern", "Scratch", "Software", "AI", "React", "Typescript", "Docker"]
   },
   {
-    "title": "MEW",
-    "description": "Node based AI as a material for Scratch projects.",
-    "thumbnail": "assets/cards/mew_cardthumb.avif",
-    "page": "mew.html",
-    "dna": [65, 15, 20],
-    "highlight": true,
-    "keywords": ["2025", "Main Developer", "Final Year Project", "Scratch", "AI", "Software"]
-  },
-  {
     "title": "Matchbox",
     "description": "Affordable STEAM DIY kits made from upcycled keyboards!",
     "thumbnail": "assets/cards/matchbox_cardthumb.avif",
@@ -25,6 +16,15 @@
     "dna": [60, 15, 25],
     "highlight": true,
     "keywords": ["2024-25", "Project Lead", "Product Development", "3D Printing", "PCB Design", "Upcycling"]
+  },
+  {
+    "title": "MEW",
+    "description": "Node based AI as a material for Scratch projects.",
+    "thumbnail": "assets/cards/mew_cardthumb.avif",
+    "page": "mew.html",
+    "dna": [65, 15, 20],
+    "highlight": true,
+    "keywords": ["2025", "Main Developer", "Final Year Project", "Scratch", "AI", "Software"]
   },
   {
     "title": "Scratch Day Taiwan",
@@ -39,7 +39,7 @@
     "title": "Secrets of Scratch",
     "description": "Published a book about making Scratch games.",
     "thumbnail": "assets/cards/scratchbook_cardthumb.avif",
-    "page": "https://www.youtube.com/watch?v=BBjIkd6U1Kk",
+    "page": "secretsofscratch.html",
     "dna": [30, 30, 40],
     "highlight": true,
     "keywords": ["2019-20", "Author", "Illustrator", "Scratch", "Graphic Design", "Publishing"]

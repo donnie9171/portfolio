@@ -28,6 +28,10 @@ const BLOCK_TYPES = {
     card: []
   },
   separator: {},
+  youtube: {
+    url: "", // e.g. https://www.youtube.com/embed/2Ti-4tyv9Lg
+    card: []
+  },
   custom: {
     html: ""
   }
@@ -206,6 +210,10 @@ function renderBlockEditor(block, idx) {
     case "separator":
       html += `<em>Separator line</em>`;
       break;
+    case "youtube":
+      html += `<input type="text" placeholder="YouTube embed URL" value="${block.data.url}" data-field="url" data-idx="${idx}" /><br/>
+        <input type="text" placeholder="Cards (comma separated)" value="${block.data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
+      break;
     case "custom":
       html += `<textarea placeholder="Custom HTML" data-field="html" data-idx="${idx}">${block.data.html || ""}</textarea><br/>`;
       break;
@@ -367,6 +375,22 @@ function renderCardboxBlockPreview(data, blockId) {
   return `<div style="background:#eaf3ff;padding:1em;border-radius:8px;margin:1em 0; ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}">Cards: ${data["card-shown"].join(', ')}</div>`;
 }
 
+function renderYoutubeBlockPreview(data, blockId) {
+  return `
+    <section class="project-block" id="preview-block-${blockId}" data-block-id="${blockId}" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}>
+      <div class="video-wrapper">
+        <iframe
+          src="${data.url}"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+  `;
+}
+
 function renderCustomBlockPreview(data, blockId) {
   return data.html;
 }
@@ -385,6 +409,8 @@ function renderBlockPreview(block) {
       return renderSeparatorBlockPreview(block.blockId);
     case "cardbox":
       return renderCardboxBlockPreview(block.data, block.blockId);
+    case "youtube":
+      return renderYoutubeBlockPreview(block.data, block.blockId);
     case "custom":
       return renderCustomBlockPreview(block.data, block.blockId);
     default:
