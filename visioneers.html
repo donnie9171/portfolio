@@ -105,9 +105,7 @@ I am a huge sci-fi nerd. Could you tell by now?</div></section>
     <section id="preview-block-block-mguu6bgw-rl0fa" data-block-id="block-mguu6bgw-rl0fa" class="project-block large-image">
       <div class="project-images large-image no-ratio" style="--img-count: 1;">
         <figure>
-          <img loading="lazy" src="assets/images/visioneers3.gif" alt="Giant videogame spaceship cockpit that shakes violently to make you feel every single impact in space?! 
-
-Y E S" style="width:100%;height:auto;display:block;" />
+          <video src="assets/images/visioneers8.mp4" controls autoplay muted loop playsinline style="width:100%;height:auto;display:block;"></video>
           <figcaption>Giant videogame spaceship cockpit that shakes violently to make you feel every single impact in space?! <br/>Y E S</figcaption>
         </figure>
       </div>
@@ -125,7 +123,22 @@ The hardware of the project revolves around 2 main components:
       </div>
     </section>
   <section class="project-block center-text" id="preview-block-block-mguvmwyg-47g9k" data-block-id="block-mguvmwyg-47g9k" ><div>On top of the motion platform, Daniel, Bryan, and Hei installed physical controls for the player to interface with the game. The controls  featured:
-<ul><li>An analogue throttle, hacked together from a broken racing simulator handbrake and a potentiometer.</li><li>A large control panel, complete with push buttons that light up, engine switches, and an emergency stop button that would park the platform in case of any malfunction.</li><li>A flight simulator joystick with roll, pitch, and yaw input, also a trigger for firing on the enemy bugs in the game.</li></ul><h3>Software   </h3>
+<ul><li>An analogue throttle, hacked together from a broken racing simulator handbrake and a potentiometer.</li><li>A large control panel, complete with push buttons that light up, engine switches, and an emergency stop button that would park the platform in case of any malfunction.</li><li>A flight simulator joystick with roll, pitch, and yaw input, also a trigger for firing on the enemy bugs in the game.</li></ul></div></section>
+    <section id="preview-block-block-mgv4mhvh-sg9eb" data-block-id="block-mgv4mhvh-sg9eb" class="project-block large-image">
+      <div class="project-images large-image" style="--img-count: 3;">
+        <figure>
+          <img loading="lazy" src="assets/images/visioneers7.avif" alt="The control panel and throttle" style="width:100%;height:auto;display:block;" />
+          <figcaption>The control panel and throttle</figcaption>
+        </figure><figure>
+          <img loading="lazy" src="assets/images/visioneers6.avif" alt="Daniel, Bryan, and Hei (left to right)" style="width:100%;height:auto;display:block;" />
+          <figcaption>Daniel, Bryan, and Hei (left to right)</figcaption>
+        </figure><figure>
+          <img loading="lazy" src="assets/images/visioneers5.avif" alt="The flight simulator joystick" style="width:100%;height:auto;display:block;" />
+          <figcaption>The flight simulator joystick</figcaption>
+        </figure>
+      </div>
+    </section>
+  <section class="project-block center-text" id="preview-block-block-mgv4mad4-efroj" data-block-id="block-mgv4mad4-efroj" ><div><h3>Software   </h3>
 The software was assembled in Unity. I was lucky to find an <a href="https://unity.com/demos/urp-3d-sample" style="color: inherit" target="_blank" rel="noopener">official Unity demo project</a> that already had the stunning visuals and perfect setting as a starting point. Though, the original demo was created as an immersive animation, not as an interactive game, so we had to adjust many parts to make it fit our project. To enable the player to fly around freely, I took the spaceship off the preplanned rails and wired up controls to the inputs that the others made. From there, Bryan and I also implemented:
 <ul><li>Health tracking system: Each entity now had a health assigned to it and will explode when health reaches 0.</li><li>Machine guns! I animated the guns on the player's ship model and added muzzle flash and visual flair and all that.</li><li>Collisions: the player needed to FEEL the impact, so we added colliders to EVERYTHING! All the astroids, all the spaceships, all the giant alien worms!</li></ul><h3>Software + Hardware integration</h3>
 This wouldn't be a MR game if we didn't do something interesting with our unique setup!
@@ -141,7 +154,7 @@ This wouldn't be a MR game if we didn't do something interesting with our unique
         ></iframe>
       </div>
     </section>
-  
+  <section class="project-block" id="preview-block-block-mgv4v44e-7nssz" data-block-id="block-mgv4v44e-7nssz"><div class="separator line"></div></section>
         </main>
         <button class="deck" id="deckButton">
         <img src="assets/images/trading-card-button.avif" alt="" />
@@ -287,7 +300,7 @@ This wouldn't be a MR game if we didn't do something interesting with our unique
       "size": "large",
       "images": [
         {
-          "src": "assets/images/visioneers3.gif",
+          "src": "assets/images/visioneers8.mp4",
           "caption": "Giant videogame spaceship cockpit that shakes violently to make you feel every single impact in space?! \n\nY E S"
         }
       ],
@@ -322,10 +335,40 @@ This wouldn't be a MR game if we didn't do something interesting with our unique
   {
     "type": "text",
     "data": {
-      "text": "On top of the motion platform, Daniel, Bryan, and Hei installed physical controls for the player to interface with the game. The controls  featured:\n- An analogue throttle, hacked together from a broken racing simulator handbrake and a potentiometer.\n- A large control panel, complete with push buttons that light up, engine switches, and an emergency stop button that would park the platform in case of any malfunction.\n- A flight simulator joystick with roll, pitch, and yaw input, also a trigger for firing on the enemy bugs in the game.\n### Software   \nThe software was assembled in Unity. I was lucky to find an [official Unity demo project](https://unity.com/demos/urp-3d-sample) that already had the stunning visuals and perfect setting as a starting point. Though, the original demo was created as an immersive animation, not as an interactive game, so we had to adjust many parts to make it fit our project. To enable the player to fly around freely, I took the spaceship off the preplanned rails and wired up controls to the inputs that the others made. From there, Bryan and I also implemented:\n- Health tracking system: Each entity now had a health assigned to it and will explode when health reaches 0.\n- Machine guns! I animated the guns on the player's ship model and added muzzle flash and visual flair and all that.\n- Collisions: the player needed to FEEL the impact, so we added colliders to EVERYTHING! All the astroids, all the spaceships, all the giant alien worms!\n### Software + Hardware integration\nThis wouldn't be a MR game if we didn't do something interesting with our unique setup!\n- The motion platform responds dynamically to the player's movements in game. Due to physics and other such pesky rules about our reality, we cannot map the in-game movement 1:1 to the motion platform. So we did our best approximating the movement to prioritize making the feedback _feel correct_ as opposed to making the feedback _actually correct_.\n- As the player's ship takes damage, the engines become less and less stable. This is translated to a constant rumbling from the motion platform that increases as the game goes on. This can make for some chaotic and awesome moments of frenzy!\n- Little haptic details like the rumbling of the machine guns or the exponentially increasing rumble when the player hits overdrive throttle and begins to pick up speed at an unsustainable pace can make the game feel so much more alive!   ",
+      "text": "On top of the motion platform, Daniel, Bryan, and Hei installed physical controls for the player to interface with the game. The controls  featured:\n- An analogue throttle, hacked together from a broken racing simulator handbrake and a potentiometer.\n- A large control panel, complete with push buttons that light up, engine switches, and an emergency stop button that would park the platform in case of any malfunction.\n- A flight simulator joystick with roll, pitch, and yaw input, also a trigger for firing on the enemy bugs in the game.\n",
       "card": []
     },
     "blockId": "block-mguvmwyg-47g9k"
+  },
+  {
+    "type": "image",
+    "data": {
+      "size": "large",
+      "images": [
+        {
+          "src": "assets/images/visioneers7.avif",
+          "caption": "The control panel and throttle"
+        },
+        {
+          "src": "assets/images/visioneers6.avif",
+          "caption": "Daniel, Bryan, and Hei (left to right)"
+        },
+        {
+          "src": "assets/images/visioneers5.avif",
+          "caption": "The flight simulator joystick"
+        }
+      ],
+      "card": []
+    },
+    "blockId": "block-mgv4mhvh-sg9eb"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "### Software   \nThe software was assembled in Unity. I was lucky to find an [official Unity demo project](https://unity.com/demos/urp-3d-sample) that already had the stunning visuals and perfect setting as a starting point. Though, the original demo was created as an immersive animation, not as an interactive game, so we had to adjust many parts to make it fit our project. To enable the player to fly around freely, I took the spaceship off the preplanned rails and wired up controls to the inputs that the others made. From there, Bryan and I also implemented:\n- Health tracking system: Each entity now had a health assigned to it and will explode when health reaches 0.\n- Machine guns! I animated the guns on the player's ship model and added muzzle flash and visual flair and all that.\n- Collisions: the player needed to FEEL the impact, so we added colliders to EVERYTHING! All the astroids, all the spaceships, all the giant alien worms!\n### Software + Hardware integration\nThis wouldn't be a MR game if we didn't do something interesting with our unique setup!\n- The motion platform responds dynamically to the player's movements in game. Due to physics and other such pesky rules about our reality, we cannot map the in-game movement 1:1 to the motion platform. So we did our best approximating the movement to prioritize making the feedback _feel correct_ as opposed to making the feedback _actually correct_.\n- As the player's ship takes damage, the engines become less and less stable. This is translated to a constant rumbling from the motion platform that increases as the game goes on. This can make for some chaotic and awesome moments of frenzy!\n- Little haptic details like the rumbling of the machine guns or the exponentially increasing rumble when the player hits overdrive throttle and begins to pick up speed at an unsustainable pace can make the game feel so much more alive!   ",
+      "card": []
+    },
+    "blockId": "block-mgv4mad4-efroj"
   },
   {
     "type": "text",
@@ -342,6 +385,11 @@ This wouldn't be a MR game if we didn't do something interesting with our unique
       "card": []
     },
     "blockId": "block-mguwqm1w-lhn1p"
+  },
+  {
+    "type": "separator",
+    "data": {},
+    "blockId": "block-mgv4v44e-7nssz"
   }
 ]
 </script>

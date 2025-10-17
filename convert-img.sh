@@ -6,8 +6,8 @@ if ! command -v magick &> /dev/null; then
     exit 1
 fi
 
-# Find and convert images
-find . -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' | while read file; do
+# Find and convert images (PNG, JPG, JPEG, HEIC)
+find . -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.heic' | while read file; do
     # Convert to AVIF
     magick "$file" -strip -quality 85 "${file%.*}.avif" && rm "$file"
     echo "Converted $file to AVIF."
@@ -17,5 +17,5 @@ done
 if [ "$(find . -iname '*.avif' | wc -l)" -gt 0 ]; then
     echo "AVIF conversion completed. You can now commit your changes."
 else
-    echo "No PNG or JPG files found. No conversion needed."
+    echo "No PNG, JPG, JPEG, or HEIC files found. No conversion needed."
 fi
