@@ -29,7 +29,7 @@ const BLOCK_TYPES = {
   },
   separator: {},
   youtube: {
-    url: "", // e.g. https://www.youtube.com/embed/2Ti-4tyv9Lg
+    id: "", // e.g. 2Ti-4tyv9Lg
     card: []
   },
   custom: {
@@ -211,7 +211,7 @@ function renderBlockEditor(block, idx) {
       html += `<em>Separator line</em>`;
       break;
     case "youtube":
-      html += `<input type="text" placeholder="YouTube embed URL" value="${block.data.url}" data-field="url" data-idx="${idx}" /><br/>
+      html += `<input type="text" placeholder="YouTube Project ID (e.g. 2Ti-4tyv9Lg)" value="${block.data.id}" data-field="id" data-idx="${idx}" /><br/>
         <input type="text" placeholder="Cards (comma separated)" value="${block.data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
       break;
     case "custom":
@@ -376,11 +376,12 @@ function renderCardboxBlockPreview(data, blockId) {
 }
 
 function renderYoutubeBlockPreview(data, blockId) {
+  const embedUrl = data.id ? `https://www.youtube.com/embed/${data.id}` : "";
   return `
     <section class="project-block" id="preview-block-${blockId}" data-block-id="${blockId}" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}>
       <div class="video-wrapper">
         <iframe
-          src="${data.url}"
+          src="${embedUrl}"
           width="100%"
           height="100%"
           frameborder="0"
