@@ -30,7 +30,7 @@
     "title": "Scratch Day Taiwan",
     "description": "Organized Scratch Day in Taiwan since 2019.",
     "thumbnail": "assets/cards/scratchdaytaiwan_cardthumb.avif",
-    "page": "http://scratchday.tw/",
+    "page": "scratchdaytw.html",
     "dna": [10, 25, 65],
     "highlight": true,
     "keywords": ["2019-Present", "Organizer", "Scratch", "Community", "Event Planning", "Volunteer"]
