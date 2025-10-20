@@ -1020,3 +1020,30 @@ color: var(--orange);
   gap: 1rem;
 }
 }
+
+/* Add to styles.css for custom scrollbars */
+body, html {
+  /* scrollbar-width: thin; */
+  scrollbar-color: #0000003f #fafafa;
+}
+
+/* For Webkit browsers (Chrome, Safari, Edge) */
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  width: 10px;
+  background: #fafafa;
+  border: none;
+}
+
+body::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 8px;
+  border: none;
+}
+
+body::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track {
+  background: #fafafa;
+  border: none;
+}
