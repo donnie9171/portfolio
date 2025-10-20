@@ -208,6 +208,8 @@ video{
 @media (max-width: 1500px) {
 	.project-block{
 		margin-left: calc((100% - 1250px)/2);
+		margin-top: 1em;
+		margin-bottom: 1em;
 	}
 	.project-block.large-image{
 		margin-left: calc((100% - 1250px)/2);
@@ -226,14 +228,20 @@ video{
 	}
 	.project-block{
 		margin: 0 auto;
+		margin-top: 1em;
+		margin-bottom: 1em;
 	}
 	.project-block.large-image{
 		margin: 0 auto;
+		margin-top: 1em;
+		margin-bottom: 1em;
 	}
 	.project-images.non-mobile {
 		margin: 0 auto;
 	}
 	.project-block.center-text{
 		margin: 0 auto;
+		margin-top: 1em;
+		margin-bottom: 1em;
 	}
 }

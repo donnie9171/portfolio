@@ -226,7 +226,6 @@ function renderBlockList() {
   blockListEl.innerHTML = blocks.map((block, idx) => `<li>${renderBlockEditor(block, idx)}</li>`).join("");
 }
 
-// Add a simple markdown-to-HTML converter (basic bold, italic, links, lists, code)
 function renderMarkdown(md) {
   if (!md) return "";
   let html = md
