@@ -29,7 +29,10 @@ const BLOCK_TYPES = {
   },
   separator: {},
   youtube: {
-    id: "", // e.g. 2Ti-4tyv9Lg
+    size: "fit",
+    videos: [{ id: "", caption: "" }],
+    autoplay: false,
+    loop: false,
     card: []
   },
   custom: {
@@ -120,6 +123,38 @@ importBtn.addEventListener("click", async () => {
             ...block,
             blockId: block.blockId || generateBlockId()
         }));
+
+        // When loading blocks from metadata (e.g., after import or on page load)
+        blocks = metadata.map(block => {
+          if (block.type === "youtube") {
+            // If old format: has 'id' but not 'videos'
+            if (block.data && block.data.id && !block.data.videos) {
+              block.data = {
+                size: "fit",
+                videos: [{ id: block.data.id, caption: "" }],
+                autoplay: false,
+                loop: false,
+                card: block.data.card || []
+              };
+            }
+            // If old format: has 'url' but not 'videos'
+            if (block.data && block.data.url && !block.data.videos) {
+              // Try to extract YouTube ID from URL
+              const match = block.data.url.match(/embed\/([a-zA-Z0-9_-]+)/);
+              const id = match ? match[1] : "";
+              block.data = {
+                size: "fit",
+                videos: [{ id, caption: "" }],
+                autoplay: false,
+                loop: false,
+                card: block.data.card || []
+              };
+            }
+          }
+          block.blockId = block.blockId || generateBlockId();
+          return block;
+        });
+
         saveBlocks(blocks);
         renderBlockList();
         renderPreview();
@@ -170,6 +205,38 @@ function renderImageBlockEditor(data, idx) {
   return html;
 }
 
+function renderYoutubeBlockEditor(data, idx) {
+  let html = `
+    <label>
+      Size:
+      <select data-field="size" data-idx="${idx}">
+        <option value="large"${data.size === "large" ? " selected" : ""}>Large</option>
+        <option value="fit"${data.size === "fit" ? " selected" : ""}>Fit</option>
+      </select>
+    </label>
+    <br/>
+    <label>
+      <input type="checkbox" data-field="autoplay" data-idx="${idx}" ${data.autoplay ? "checked" : ""} />
+      Autoplay
+    </label>
+    <br/>
+    <label>
+      <input type="checkbox" data-field="loop" data-idx="${idx}" ${data.loop ? "checked" : ""} />
+      Loop
+    </label>
+    <br/>
+  `;
+  data.videos.forEach((vid, vidIdx) => {
+    html += `
+      <input type="text" placeholder="YouTube Project ID (e.g. 2Ti-4tyv9Lg)" value="${vid.id}" data-field="videos.${vidIdx}.id" data-idx="${idx}" /><br/>
+      <textarea placeholder="Video caption (markdown supported)" data-field="videos.${vidIdx}.caption" data-idx="${idx}">${vid.caption}</textarea><br/>
+    `;
+  });
+  html += `<button data-action="add-video" data-idx="${idx}" style="background:#3a7afe;color:#fff;border:none;border-radius:4px;padding:0.2em 0.7em;cursor:pointer;">Add Video</button><br/>`;
+  html += `<input type="text" placeholder="Cards (comma separated)" value="${data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
+  return html;
+}
+
 
 function renderBlockEditor(block, idx) {
   // Minimal editor for each block type
@@ -211,8 +278,7 @@ function renderBlockEditor(block, idx) {
       html += `<em>Separator line</em>`;
       break;
     case "youtube":
-      html += `<input type="text" placeholder="YouTube Project ID (e.g. 2Ti-4tyv9Lg)" value="${block.data.id}" data-field="id" data-idx="${idx}" /><br/>
-        <input type="text" placeholder="Cards (comma separated)" value="${block.data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
+      html += renderYoutubeBlockEditor(block.data, idx);
       break;
     case "custom":
       html += `<textarea placeholder="Custom HTML" data-field="html" data-idx="${idx}">${block.data.html || ""}</textarea><br/>`;
@@ -375,17 +441,48 @@ function renderCardboxBlockPreview(data, blockId) {
 }
 
 function renderYoutubeBlockPreview(data, blockId) {
-  const embedUrl = data.id ? `https://www.youtube.com/embed/${data.id}` : "";
+  const videoCount = data.videos.filter(vid => vid.id).length;
+  if (videoCount === 0) return "";
+
+  // Build figure HTML for each video
+  const figures = data.videos
+    .filter(vid => vid.id)
+    .map(vid => {
+      // Build YouTube embed URL with autoplay/loop if needed
+      let params = [];
+      if (data.autoplay) params.push("autoplay=1", "mute=1");
+      if (data.loop) params.push(`playlist=${vid.id}`, "loop=1");
+      const paramStr = params.length ? "?" + params.join("&") : "";
+      const embedUrl = `https://www.youtube.com/embed/${vid.id}${paramStr}`;
+      return `<figure>
+        <div class="video-wrapper">
+          <iframe
+            src="${embedUrl}"
+            width="100%"
+            height="100%"
+            frameborder="0"
+            allowfullscreen
+            allow="autoplay"
+          ></iframe>
+        </div>
+        ${vid.caption ? `<figcaption>${renderMarkdown(vid.caption)}</figcaption>` : ""}
+      </figure>`;
+    })
+    .join("");
+
+  // Build classes and styles
+  let classes = "project-videos";
+  if (data.size === "large") classes += " large-video";
+  if (data.noRatio) classes += " no-ratio";
+  if (data.noShadow) classes += " no-shadow";
+
+  // Build data-card-event attribute if needed
+  const cardAttr = data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : "";
+
   return `
-    <section class="project-block" id="preview-block-${blockId}" data-block-id="${blockId}" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}>
-      <div class="video-wrapper">
-        <iframe
-          src="${embedUrl}"
-          width="100%"
-          height="100%"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
+    <section id="preview-block-${blockId}" data-block-id="${blockId}" class="project-block${data.size === "large" ? " large-video" : " center-text"}">
+      <div class="${classes}" style="--video-count: ${videoCount};"${cardAttr}>
+        ${figures}
       </div>
     </section>
   `;
@@ -581,6 +678,13 @@ function addImageToBlock(idx) {
   renderPreview();
 }
 
+function addVideoToBlock(idx) {
+  blocks[idx].data.videos.push({ id: "", caption: "" });
+  saveBlocks(blocks);
+  renderBlockList();
+  renderPreview();
+}
+
 // --- Drag and Drop with Insert Indicator ---
 let dragSrcIdx = null;
 let dragOverIdx = null;
@@ -687,6 +791,9 @@ blockListEl.addEventListener("click", e => {
   }
   if (action === "add-image" && !isNaN(idx)) {
     addImageToBlock(idx);
+  }
+  if (action === "add-video" && !isNaN(idx)) {
+    addVideoToBlock(idx);
   }
 });
 

@@ -132,6 +132,33 @@
 	margin: 0 auto;
 }
 
+.project-videos {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	justify-content: space-between;
+	max-width: 1000px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.project-videos figure {
+	flex: 1 1 300px;
+	max-width: calc(100% / var(--video-count, 2) - 0.5em);
+    margin: 0;
+	object-fit: cover;
+    overflow: hidden;
+}
+
+.project-videos figcaption {
+	margin-top: 0.3em;
+	margin-bottom: 0.5em;
+	font-size: 0.8em;
+	color: #757575;
+	text-align: center;
+	line-height: 1.3;
+}
+
 /* Project Images Figure Styling */
 .project-images figure {
 	flex: 1 1 300px;
@@ -171,6 +198,13 @@
 		gap: 0.5em;
 	}
 	.project-images figure {
+		max-width: 100%;
+		flex-basis: 100%;
+	}
+	.project-videos {
+		gap: 0.5em;
+	}
+	.project-videos figure {
 		max-width: 100%;
 		flex-basis: 100%;
 	}
