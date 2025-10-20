@@ -144,7 +144,6 @@
 
 .project-videos figure {
 	flex: 1 1 300px;
-	max-width: calc(100% / var(--video-count, 2) - 0.5em);
     margin: 0;
 	object-fit: cover;
     overflow: hidden;
@@ -162,7 +161,6 @@
 /* Project Images Figure Styling */
 .project-images figure {
 	flex: 1 1 300px;
-	max-width: calc(100% / var(--img-count, 2) - 0.5em);
     margin: 0;
 	object-fit: cover;
     overflow: hidden;
