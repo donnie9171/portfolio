@@ -1021,7 +1021,7 @@ exportBtn.addEventListener("click", async () => {
         </p>
         <p>by Enoch (I-Nuo) Kang 康以諾</p>
         </footer>
-        <script src="hamburger-menu.js"></script>
+        <script src="header-menu.js"></script>
         <script src="trading-card.js"></script>
         <script src="project-page.js"></script>
     </body>

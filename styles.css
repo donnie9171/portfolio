@@ -245,6 +245,18 @@ header {
   border-bottom-right-radius: var(--border-radius);
 }
 
+/* Add to styles.css */
+.header-hidden {
+  transform: translateY(-100%);
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+
 .initial header{
   display: none;
 }
@@ -316,6 +328,7 @@ header h1 {
   user-select: none;
   cursor: grab;
   pointer-events: none;
+  z-index: 200;
 }
 
 .cube:hover {
@@ -400,8 +413,8 @@ header h1 {
 }
 
 .cube-container{
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-top: calc(var(--cubeSize) * 0.3);
+  margin-bottom: calc(var(--cubeSize) * 0.3);
   position: relative;
 }
 
@@ -611,8 +624,8 @@ header h1 {
 
 @media (min-width: 850px) {
   .cube-container{
-    margin-top: 2rem;
-    margin-bottom: 3rem;
+  margin-top: calc(var(--cubeSize) * 0.3);
+  margin-bottom: calc(var(--cubeSize) * 0.3);
   }
 
   /* .card-container {
@@ -683,7 +696,7 @@ footer {
   width: 80px;
   height: 80px;
   opacity: 0.5;
-  z-index: 5;
+  z-index: 500;
   pointer-events: none;
 }
 
