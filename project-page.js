@@ -93,3 +93,58 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.updateFloatingMenu = updateFloatingMenu;
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Load YouTube IFrame API
+  const tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  const firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  // Attach the player setup script (runs after DOM update)
+  setTimeout(() => {
+    if (!window._ytPlayers) window._ytPlayers = {};
+    window.onYouTubeIframeAPIReady = function() {
+      document.querySelectorAll('.yt-api-player').forEach(function(el) {
+        const ytid = el.getAttribute('data-ytid');
+        const autoplay = el.getAttribute('data-autoplay') === '1';
+        const loop = el.getAttribute('data-loop') === '1';
+        if (!window._ytPlayers[el.id]) {
+          window._ytPlayers[el.id] = new YT.Player(el.id, {
+            videoId: ytid,
+            playerVars: {
+              modestbranding: 1,
+              autoplay: autoplay ? 1 : 0,
+              controls: 1,
+              showinfo: 0,
+              rel: 0,
+              mute: autoplay ? 1 : 0,
+              origin: window.location.origin
+            },
+            events: {
+              'onReady': function(event) {
+                if (autoplay) event.target.playVideo();
+              },
+              'onStateChange': function(event) {
+                const player = event.target;
+                if (loop && event.data === YT.PlayerState.PLAYING) {
+                  const remains = player.getDuration() - player.getCurrentTime();
+                  if (player._rewindTO) clearTimeout(player._rewindTO);
+                  player._rewindTO = setTimeout(function() {
+                    player.seekTo(0);
+                  }, (remains - 0.1) * 1000);
+                }
+                if (loop && event.data === YT.PlayerState.ENDED) {
+                  player.seekTo(0);
+                  player.playVideo();
+                }
+              }
+            }
+          });
+        }
+      });
+    };
+    // If API is already loaded, call the setup immediately
+    if (window.YT && window.YT.Player) window.onYouTubeIframeAPIReady();
+  }, 0);
+});

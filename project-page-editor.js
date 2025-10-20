@@ -444,40 +444,88 @@ function renderYoutubeBlockPreview(data, blockId) {
   const videoCount = data.videos.filter(vid => vid.id).length;
   if (videoCount === 0) return "";
 
+  // Ensure the YouTube API script is only added once
+  if (!window._ytApiScriptAdded) {
+    window._ytApiScriptAdded = true;
+    setTimeout(() => {
+      if (!document.getElementById('yt-iframe-api')) {
+        const tag = document.createElement('script');
+        tag.id = 'yt-iframe-api';
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.body.appendChild(tag);
+      }
+    }, 0);
+  }
+
+  // Generate unique player IDs for each video
+  const playerIds = data.videos.map((vid, i) => `yt-player-${blockId}-${i}`);
+
   // Build figure HTML for each video
   const figures = data.videos
     .filter(vid => vid.id)
-    .map(vid => {
-      // Build YouTube embed URL with autoplay/loop if needed
-      let params = [];
-      if (data.autoplay) params.push("autoplay=1", "mute=1");
-      if (data.loop) params.push(`playlist=${vid.id}`, "loop=1");
-      const paramStr = params.length ? "?" + params.join("&") : "";
-      const embedUrl = `https://www.youtube.com/embed/${vid.id}${paramStr}`;
+    .map((vid, i) => {
       return `<figure>
         <div class="video-wrapper">
-          <iframe
-            src="${embedUrl}"
-            width="100%"
-            height="100%"
-            frameborder="0"
-            allowfullscreen
-            allow="autoplay"
-          ></iframe>
+          <div id="${playerIds[i]}" class="yt-api-player" data-ytid="${vid.id}" data-autoplay="${data.autoplay ? 1 : 0}" data-loop="${data.loop ? 1 : 0}"></div>
         </div>
         ${vid.caption ? `<figcaption>${renderMarkdown(vid.caption)}</figcaption>` : ""}
       </figure>`;
     })
     .join("");
 
-  // Build classes and styles
+  // Classes and styles
   let classes = "project-videos";
   if (data.size === "large") classes += " large-video";
   if (data.noRatio) classes += " no-ratio";
   if (data.noShadow) classes += " no-shadow";
-
-  // Build data-card-event attribute if needed
   const cardAttr = data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : "";
+
+  // Attach the player setup script (runs after DOM update)
+  setTimeout(() => {
+    if (!window._ytPlayers) window._ytPlayers = {};
+    window.onYouTubeIframeAPIReady = function() {
+      document.querySelectorAll('.yt-api-player').forEach(function(el) {
+        const ytid = el.getAttribute('data-ytid');
+        const autoplay = el.getAttribute('data-autoplay') === '1';
+        const loop = el.getAttribute('data-loop') === '1';
+        if (!window._ytPlayers[el.id]) {
+          window._ytPlayers[el.id] = new YT.Player(el.id, {
+            videoId: ytid,
+            playerVars: {
+              modestbranding: 1,
+              autoplay: autoplay ? 1 : 0,
+              controls: 1,
+              showinfo: 0,
+              rel: 0,
+              mute: autoplay ? 1 : 0,
+              origin: window.location.origin
+            },
+            events: {
+              'onReady': function(event) {
+                if (autoplay) event.target.playVideo();
+              },
+              'onStateChange': function(event) {
+                const player = event.target;
+                if (loop && event.data === YT.PlayerState.PLAYING) {
+                  const remains = player.getDuration() - player.getCurrentTime();
+                  if (player._rewindTO) clearTimeout(player._rewindTO);
+                  player._rewindTO = setTimeout(function() {
+                    player.seekTo(0);
+                  }, (remains - 0.1) * 1000);
+                }
+                if (loop && event.data === YT.PlayerState.ENDED) {
+                  player.seekTo(0);
+                  player.playVideo();
+                }
+              }
+            }
+          });
+        }
+      });
+    };
+    // If API is already loaded, call the setup immediately
+    if (window.YT && window.YT.Player) window.onYouTubeIframeAPIReady();
+  }, 0);
 
   return `
     <section id="preview-block-${blockId}" data-block-id="${blockId}" class="project-block${data.size === "large" ? " large-video" : " center-text"}">

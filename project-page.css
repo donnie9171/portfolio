@@ -221,12 +221,26 @@
   line-height: 1.5;
 }
 .video-wrapper {
-  aspect-ratio: 714 / 402;
+  aspect-ratio: 16 / 9;
   width: 100%;
-  margin: 0 auto;   /* optional, for centering */
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  background: #000;
   position: relative;
   border-radius: 6px;
   overflow: hidden;
+}
+
+.video-wrapper iframe,
+.video-wrapper .yt-api-player {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 video{
