@@ -208,6 +208,10 @@
   .trading-card-detail-content .trading-card-modal-card {
     border-radius: 1rem;
   }
+  .trading-card-grid-container {
+  height: calc(100% - 75px);
+  margin-top: 75px;
+  }
 }
 
 s {

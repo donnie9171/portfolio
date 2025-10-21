@@ -54,6 +54,15 @@
     "keywords": ["2023-24", "Research Assistant", "Project Lead", "VR", "Unity", "Branding", "Marketing"]
   },
   {
+    "title": "Eco City",
+    "description": "Project lead and frontend developer for an app gamifying a sustainability initiative to raise awareness.",
+    "thumbnail": "assets/cards/ecocity_cardthumb.avif",
+    "page": "ecocity.html",
+    "dna": [50, 45, 5],
+    "highlight": true,
+    "keywords": ["2020-21", "Project Lead", "Frontend Developer", "Unity"]
+  },
+  {
     "title": "ScratchGO",
     "description": "The power of Scratch, in the palm of your hand.",
     "thumbnail": "assets/cards/scratchgo_cardthumb.avif",

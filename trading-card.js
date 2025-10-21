@@ -42,7 +42,9 @@ function showTradingCardModal(cardNames = []) {
   // Add top message
   const topMessage = document.createElement('div');
   topMessage.className = 'trading-card-modal-message';
-  topMessage.textContent = 'Find all the hidden cards!';
+  // Update top message to show actual count and put count on a new line
+  const foundCount = getTradingCardStorage().length;
+  topMessage.innerHTML = `Find all the hidden cards!${(window.innerWidth < 600) ? '<br>' : ' '}(${foundCount}/36 found)`;
   content.appendChild(topMessage);
 
     // Close button
@@ -129,6 +131,10 @@ function showTradingCardModal(cardNames = []) {
     grid = modal.querySelector('.trading-card-modal-grid');
     closeBtn = modal.querySelector('.trading-card-modal-close');
   }
+
+  foundCount = getTradingCardStorage().length;
+  topMessage = modal.querySelector('.trading-card-modal-message');
+  topMessage.innerHTML = `Find all the hidden cards!${(window.innerWidth < 600) ? '<br>' : ' '}(${foundCount}/36 found)`;
 
   // Update cards content
   grid.innerHTML = '';
