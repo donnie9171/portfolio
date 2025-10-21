@@ -172,7 +172,8 @@
 .trading-card-modal-top-image{
   width: 150px;
   position: absolute;
-  top: -77px;
+  top: 25px;
+  z-index: 1000;
   left: 0;
   right: 0;
   margin: auto;

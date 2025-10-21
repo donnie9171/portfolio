@@ -64,7 +64,7 @@ function showTradingCardModal(cardNames = []) {
     topImage.src = 'assets/images/trading-card-top-image.avif';
     topImage.alt = '';
     topImage.className = 'trading-card-modal-top-image';
-    content.appendChild(topImage);
+    modal.appendChild(topImage);
 
     // Cards grid
     grid = document.createElement('div');
