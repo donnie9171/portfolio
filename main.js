@@ -496,14 +496,17 @@ if (
     initialCubeIdleRotation = false;
     rotateCubeTo(-90, 0);
   };
-  document.querySelector(".show-all-btn").onclick = function () {
-    showAllProjects = true;
-    // spawn in the remaining projects
-    spawnProjectCards(loadedProjects, null);
-    const showAllMessage = document.querySelector(".show-all-message");
-    if (showAllMessage) {
-      showAllMessage.classList.add("hidden");
-    }
+  const showAllBtn = document.querySelector(".show-all-btn");
+  if (showAllBtn) {
+    showAllBtn.onclick = function () {
+      showAllProjects = true;
+      // spawn in the remaining projects
+      spawnProjectCards(loadedProjects, null);
+      const showAllMessage = document.querySelector(".show-all-message");
+      if (showAllMessage) {
+        showAllMessage.classList.add("hidden");
+      }
+    };
   }
 });
 
