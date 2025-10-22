@@ -1025,6 +1025,7 @@ color: var(--orange);
 body, html {
   /* scrollbar-width: thin; */
   scrollbar-color: #0000003f #fafafa;
+  scrollbar-gutter: stable;
 }
 
 /* For Webkit browsers (Chrome, Safari, Edge) */
