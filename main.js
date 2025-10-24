@@ -194,6 +194,11 @@ function spawnProjectCards(projects, thisUpdate){
     card.className = "card";
     card.style.opacity = "0";
     card.style.transform = "scale(0.95)";
+    // Determine language
+    const lang = window.currentLanguage || 'en';
+    const title = lang.startsWith('zh') && project.ZHtitle ? project.ZHtitle : project.title;
+    const desc = lang.startsWith('zh') && project.ZHdescription ? project.ZHdescription : project.description;
+    const keywords = lang.startsWith('zh') && project.ZHkeywords ? project.ZHkeywords : project.keywords;
     card.innerHTML = `
         <div class="card-dna-bar">
           <div class="card-dna-segment tech" style="width: ${techPercent}%;"></div>
@@ -201,12 +206,12 @@ function spawnProjectCards(projects, thisUpdate){
           <div class="card-dna-segment edu" style="width: ${eduPercent}%;"></div>
         </div>
         <a href="${project.page}" class="card-link">
-          <img src="${project.thumbnail}" alt="${project.title}" class="card-thumb" loading="${project.highlight ? 'eager' : 'lazy'}">
+          <img src="${project.thumbnail}" alt="${title}" class="card-thumb" loading="${project.highlight ? 'eager' : 'lazy'}">
           <div class="card-info">
-            <p class="card-title">${project.title}</p>
-            <p class="card-desc">${project.description}</p>
-            <div class="card-keywords">${project.keywords.map(kw => `<span class='keyword-tag'>${kw}</span>`).join('')}</div>
-            <button class="view-project-button">View Project</button>
+            <p class="card-title">${title}</p>
+            <p class="card-desc">${desc}</p>
+            <div class="card-keywords">${keywords.map(kw => `<span class='keyword-tag'>${kw}</span>`).join('')}</div>
+            <button class="view-project-button">${lang.startsWith('zh') ? '查看專案' : 'View Project'}</button>
           </div>
         </a>
       `;

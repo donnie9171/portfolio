@@ -6,7 +6,10 @@
     "page": "scratch-internship.html",
     "dna": [34, 33, 33],
     "highlight": true,
-    "keywords": ["2025", "Intern", "Scratch", "Software", "AI", "React", "Typescript", "Docker"]
+    "keywords": ["2025", "Intern", "Scratch", "Software", "AI", "React", "Typescript", "Docker"],
+    "ZHtitle": "與 Scratch 實習！",
+    "ZHdescription": "為 Scratch Lab 開發和測試 AI 相關的功能。",
+    "ZHkeywords": ["2025", "實習生", "Scratch", "軟體", "AI", "React", "Typescript", "Docker"]
   },
   {
     "title": "Matchbox",
@@ -16,6 +19,9 @@
     "dna": [60, 15, 25],
     "highlight": true,
     "keywords": ["2024-25", "Project Lead", "Product Development", "3D Printing", "PCB Design", "Upcycling"]
+    ,"ZHtitle": "Matchbox 創客套件",
+    "ZHdescription": "用回收鍵盤製作的平價 STEAM DIY 套件！",
+    "ZHkeywords": ["2024-25", "專案負責人", "產品開發", "3D 列印", "PCB 設計", "升級再造"]
   },
   {
     "title": "MEW",
@@ -25,6 +31,9 @@
     "dna": [65, 15, 20],
     "highlight": true,
     "keywords": ["2025", "Main Developer", "Final Year Project", "Scratch", "AI", "Software"]
+    ,"ZHtitle": "MEW AI 系統",
+    "ZHdescription": "以節點為基礎的 AI，作為 Scratch 專案的素材。",
+    "ZHkeywords": ["2025", "主要開發者", "畢業專題", "Scratch", "AI", "軟體"]
   },
   {
     "title": "Scratch Day Taiwan",
@@ -34,6 +43,9 @@
     "dna": [10, 25, 65],
     "highlight": true,
     "keywords": ["2019-Present", "Organizer", "Scratch", "Community", "Event Planning", "Volunteer"]
+    ,"ZHtitle": "Scratch Day 台灣",
+    "ZHdescription": "自 2019 年起在台灣舉辦 Scratch Day。",
+    "ZHkeywords": ["2019-至今", "主辦人", "Scratch", "社群", "活動規劃", "志工"]
   },
   {
     "title": "Secrets of Scratch",
@@ -43,6 +55,9 @@
     "dna": [30, 30, 40],
     "highlight": true,
     "keywords": ["2019-20", "Author", "Illustrator", "Scratch", "Graphic Design", "Publishing"]
+    ,"ZHtitle": "Scratch 的秘密",
+    "ZHdescription": "出版了一本關於製作 Scratch 遊戲的書。",
+    "ZHkeywords": ["2019-20", "作者", "插畫家", "Scratch", "平面設計", "出版"]
   },
   {
     "title": "Visioneers HKU",
@@ -52,6 +67,9 @@
     "dna": [70, 25, 5],
     "highlight": true,
     "keywords": ["2023-24", "Research Assistant", "Project Lead", "VR", "Unity", "Branding", "Marketing"]
+    ,"ZHtitle": "Visioneers 香港大學",
+    "ZHdescription": "在香港大學人機互動與模擬實驗室擔任研究助理及專案負責人。",
+    "ZHkeywords": ["2023-24", "研究助理", "專案負責人", "VR", "Unity", "品牌", "行銷"]
   },
   {
     "title": "Eco City",
@@ -61,6 +79,9 @@
     "dna": [50, 45, 5],
     "highlight": true,
     "keywords": ["2020-21", "Project Lead", "Frontend Developer", "Unity"]
+    ,"ZHtitle": "Eco City 環保小鎮",
+    "ZHdescription": "一款以遊戲化推廣永續發展的應用程式，擔任專案負責人及前端開發。",
+    "ZHkeywords": ["2020-21", "專案負責人", "前端開發", "Unity"]
   },
   {
     "title": "ScratchGO",
@@ -70,6 +91,9 @@
     "dna": [70, 25, 5],
     "highlight": false,
     "keywords": ["2022-24", "Main Developer", "HTML", "CSS", "JS", "React"]
+    ,"ZHtitle": "ScratchGO 行動版",
+    "ZHdescription": "把 Scratch 的力量帶到你的掌心。",
+    "ZHkeywords": ["2022-24", "主要開發者", "HTML", "CSS", "JS", "React"]
   },
   {
     "title": "FireZine '24",
@@ -79,6 +103,9 @@
     "dna": [20, 75, 5],
     "highlight": false,
     "keywords": ["2024", "Author", "Illustrator", "Editor", "Graphic Design", "Storytelling"]
+    ,"ZHtitle": "FireZine 2024 年刊",
+    "ZHdescription": "2024 年我和朋友們所有專案的回顧特刊！",
+    "ZHkeywords": ["2024", "作者", "插畫家", "編輯", "平面設計", "故事敘述"]
   },
   {
     "title": "Refactorman!",
@@ -88,6 +115,9 @@
     "dna": [35, 60, 5],
     "highlight": false,
     "keywords": ["2024", "Author", "Illustrator", "Comic", "Storytelling", "Graphic Design", "Silly", "Goofy"]
+    ,"ZHtitle": "Refactorman! 重構俠",
+    "ZHdescription": "以軟體工程為主題的漫畫宇宙！",
+    "ZHkeywords": ["2024", "作者", "插畫家", "漫畫", "故事敘述", "平面設計", "搞笑", "趣味"]
   },
   {
     "title": "Matchbox Merch",
@@ -97,6 +127,9 @@
     "dna": [5, 90, 5],
     "highlight": false,
     "keywords": ["2024-25", "Designer", "Graphic Design", "Storytelling", "Branding", "Merch"]
+    ,"ZHtitle": "Matchbox 週邊商品",
+    "ZHdescription": "為 Matchbox 專案設計的酷炫週邊商品。",
+    "ZHkeywords": ["2024-25", "設計師", "平面設計", "故事敘述", "品牌", "週邊商品"]
   },
   {
     "title": "ARTZINE",
@@ -106,6 +139,9 @@
     "dna": [5, 85, 10],
     "highlight": false,
     "keywords": ["2020-24", "Artist", "Editor", "Graphic Design", "Storytelling", "Zine", "Art"]
+    ,"ZHtitle": "ARTZINE 藝術誌",
+    "ZHdescription": "2020-24 年間創作的藝術專案合輯。",
+    "ZHkeywords": ["2020-24", "藝術家", "編輯", "平面設計", "故事敘述", "誌", "藝術"]
 
   },
 
@@ -117,5 +153,8 @@
     "dna": [25, 70, 5],
     "highlight": false,
     "keywords": ["2024", "Illustrator", "Comic", "Storytelling", "Graphic Design", "Cheese"]
+    ,"ZHtitle": "Pizza-Man! 披薩人",
+    "ZHdescription": "一部充滿起司的漫畫。",
+    "ZHkeywords": ["2024", "插畫家", "漫畫", "故事敘述", "平面設計", "起司"]
   }
 ]

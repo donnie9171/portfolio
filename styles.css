@@ -282,7 +282,7 @@ header h1 {
   background: none;
   padding: 0;
   margin-right: 16px;
-  fill: currentColor;
+  fill: black;
   transition: fill 0.2s;
 }
 
@@ -290,52 +290,6 @@ header h1 {
   fill: var(--orange);
 }
 
-@media (max-width: 600px) {
-  header {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .main-nav {
-    margin-left: 0;
-  }
-  .nav-list {
-    flex-direction: column;
-    position: absolute;
-    top: 40px; /* Show menu a bit lower below header */
-    right: 0;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-    gap: 0;
-    display: none;
-    z-index: 10;
-    align-items: flex-end;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: var(--border-radius);
-    width: max-content;
-  }
-  .nav-list.open {
-    display: flex;
-  }
-  .nav-toggle {
-    display: block;
-  }
-
-    .view-project-button{
-    display: none;
-  }
-
-  .card-keywords {
-    display: none;
-  }
-
-  .translate{
-    margin-right: 0;
-  }
-}
 
 .cube {
   position: relative;
@@ -1081,3 +1035,58 @@ html::-webkit-scrollbar-track {
 	background: none;
 }
 
+@media (max-width: 600px) {
+  header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .main-nav {
+    margin-left: 0;
+  } 
+  .nav-list {
+    flex-direction: column;
+    position: absolute;
+    top: 40px; /* Show menu a bit lower below header */
+    right: 0;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    gap: 0;
+    display: none;
+    z-index: 10;
+    align-items: flex-end;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: var(--border-radius);
+    width: max-content;
+  }
+  .nav-list.open {
+    display: flex;
+  }
+  .nav-toggle {
+    display: block;
+  }
+
+    .view-project-button{
+    display: none;
+  }
+
+  .card-keywords {
+    display: none;
+  }
+
+  .translate{
+    margin-right: 0;
+  }
+  footer {
+    height: 200px;
+  }
+}
+
+.bigwords{
+  font-size: calc(var(--cubeSize) * 0.5) !important;
+  font-weight: 1600 !important;
+  line-height: 1.1 !important;
+}

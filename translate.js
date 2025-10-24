@@ -1,23 +1,32 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // Set global language variable
   var path = window.location.pathname;
-  if (path.endsWith('.zh.html')) {
-    window.currentLanguage = 'zh';
-  } else {
-    window.currentLanguage = 'en';
+  var preferredLang = localStorage.getItem('preferredLanguage');
+  var isZhPage = path.endsWith('.zh.html');
+  var isEnPage = path.endsWith('.html') && !isZhPage;
+
+  // If user has a preference, redirect if necessary
+  if (preferredLang === 'zh' && isEnPage) {
+    window.location.href = path.replace('.html', '.zh.html');
+    return;
+  } else if (preferredLang === 'en' && isZhPage) {
+    window.location.href = path.replace('.zh.html', '.html');
+    return;
   }
+
+  // Set global language variable
+  window.currentLanguage = isZhPage ? 'zh' : 'en';
 
   const translateBtn = document.querySelector('.translate');
   if (!translateBtn) return;
   translateBtn.addEventListener('click', function () {
     if (window.currentLanguage === 'zh') {
-      // Switch to regular version
+      localStorage.setItem('preferredLanguage', 'en');
       window.location.href = path.replace('.zh.html', '.html');
-    } else if (path.endsWith('.html')) {
-      // Switch to zh version
+    } else if (isEnPage) {
+      localStorage.setItem('preferredLanguage', 'zh');
       window.location.href = path.replace('.html', '.zh.html');
     } else {
-      // Fallback: go to index.zh.html
+      localStorage.setItem('preferredLanguage', 'zh');
       window.location.href = 'index.zh.html';
     }
   });
