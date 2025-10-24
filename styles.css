@@ -275,6 +275,21 @@ header h1 {
   margin-left: auto;
 }
 
+.translate{
+  width: 45px;
+  height: 45px;
+  border: none;
+  background: none;
+  padding: 0;
+  margin-right: 16px;
+  fill: currentColor;
+  transition: fill 0.2s;
+}
+
+.translate:hover{
+  fill: var(--orange);
+}
+
 @media (max-width: 600px) {
   header {
     flex-direction: row;
@@ -287,9 +302,8 @@ header h1 {
   .nav-list {
     flex-direction: column;
     position: absolute;
-    top: 20px; /* Show menu a bit lower below header */
+    top: 40px; /* Show menu a bit lower below header */
     right: 0;
-    left: auto;
     background: #fff;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     gap: 0;
@@ -301,6 +315,7 @@ header h1 {
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: var(--border-radius);
+    width: max-content;
   }
   .nav-list.open {
     display: flex;
@@ -315,6 +330,10 @@ header h1 {
 
   .card-keywords {
     display: none;
+  }
+
+  .translate{
+    margin-right: 0;
   }
 }
 
@@ -1061,3 +1080,4 @@ html::-webkit-scrollbar-track {
     margin-right: auto;
 	background: none;
 }
+

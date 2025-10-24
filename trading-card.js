@@ -43,9 +43,19 @@ function showTradingCardModal(cardNames = []) {
   const topMessage = document.createElement('div');
   topMessage.className = 'trading-card-modal-message';
   // Update top message to show actual count and put count on a new line
-  const foundCount = getTradingCardStorage().length;
-  topMessage.innerHTML = `Find all the hidden cards!${(window.innerWidth < 600) ? '<br>' : ' '}(${foundCount}/36 found)`;
-  content.appendChild(topMessage);
+const foundCount = getTradingCardStorage().length;
+const countText =
+  window.currentLanguage === 'zh'
+    ? `（已發現 ${foundCount}/36 張）`
+    : `(${foundCount}/36 found)`;
+const isMobile = window.innerWidth < 600;
+topMessage.innerHTML =
+  (window.currentLanguage === 'zh'
+    ? '找到所有隱藏卡片！'
+    : 'Find all the hidden cards!')
+  + (isMobile ? '<br>' : ' ')
+  + countText;
+content.appendChild(topMessage);
 
     // Close button
     closeBtn = document.createElement('button');
@@ -134,7 +144,17 @@ function showTradingCardModal(cardNames = []) {
 
   foundCount = getTradingCardStorage().length;
   topMessage = modal.querySelector('.trading-card-modal-message');
-  topMessage.innerHTML = `Find all the hidden cards!${(window.innerWidth < 600) ? '<br>' : ' '}(${foundCount}/36 found)`;
+const countText =
+  window.currentLanguage === 'zh'
+    ? `（已發現 ${foundCount}/36 張）`
+    : `(${foundCount}/36 found)`;
+const isMobile = window.innerWidth < 600;
+topMessage.innerHTML =
+  (window.currentLanguage === 'zh'
+    ? '找到所有隱藏卡片！'
+    : 'Find all the hidden cards!')
+  + (isMobile ? '<br>' : ' ')
+  + countText;
 
   // Update cards content
   grid.innerHTML = '';
@@ -417,7 +437,10 @@ function notifyNewCard(cardNames) {
     setNewCards([...new Set([...getNewCards(), ...cardNames])]); // merge and dedupe
     setTradingCardStorage([...new Set([...getTradingCardStorage(), ...cardNames])]); // merge and dedupe
     if (cardNames.length === 0) return;
-    const message = cardNames.length === 1 ? 'New card found!' : 'New cards found!';
+    const message =
+      window.currentLanguage === 'zh'
+        ? ('發現新卡片！')
+        : (cardNames.length === 1 ? 'New card found!' : 'New cards found!');
     // Create notification element
     let notification = document.getElementById('tradingCardNotification');
     if (!notification) {
