@@ -2,25 +2,31 @@
 const BLOCK_TYPES = {
   title: {
     title: "",
+    ZHtitle: "",
     subtitle: "",
+    ZHsubtitle: "",
     overview: "",
+    ZHoverview: "",
     people: "",
-    img1: { src: "", caption: "" },
-    img2: { src: "", caption: "" },
-    imgmobile: { src: "", caption: "" },
+    ZHpeople: "",
+    img1: { src: "", caption: "", ZHcaption: "" },
+    img2: { src: "", caption: "", ZHcaption: "" },
+    imgmobile: { src: "", caption: "", ZHcaption: "" },
     card: []
   },
   text: {
     text: "",
+    ZHtext: "",
     card: []
   },
   image: {
     size: "fit",
-    images: [{ src: "", caption: "" }],
+    images: [{ src: "", caption: "", ZHcaption: "" }],
     card: []
   },
   quote: {
     quote: "",
+    ZHquote: "",
     card: []
   },
   cardbox: {
@@ -30,7 +36,7 @@ const BLOCK_TYPES = {
   separator: {},
   youtube: {
     size: "fit",
-    videos: [{ id: "", caption: "" }],
+    videos: [{ id: "", caption: "", ZHcaption: "" }],
     autoplay: false,
     loop: false,
     card: []
@@ -42,6 +48,8 @@ const BLOCK_TYPES = {
 
 const STORAGE_KEY = "projectPageEditorBlocks";
 let selectedBlockId = null;
+
+window.editorLanguage = localStorage.getItem('editorLanguage') || 'en';
 
 // --- Utility Functions ---
 function generateBlockId() {
@@ -57,6 +65,43 @@ function loadBlocks() {
   } catch {
     return [];
   }
+}
+
+function migrateBlocksForLocalization(blocks) {
+  console.log("migrating blocks for localization: ", blocks);
+  blocks.forEach(block => {
+    // Title block
+    if (block.type === "title") {
+      if (!("ZHtitle" in block.data)) block.data.ZHtitle = "";
+      if (!("ZHsubtitle" in block.data)) block.data.ZHsubtitle = "";
+      if (!("ZHoverview" in block.data)) block.data.ZHoverview = "";
+      if (!("ZHpeople" in block.data)) block.data.ZHpeople = "";
+      if (block.data.img1 && !("ZHcaption" in block.data.img1)) block.data.img1.ZHcaption = "";
+      if (block.data.img2 && !("ZHcaption" in block.data.img2)) block.data.img2.ZHcaption = "";
+      if (block.data.imgmobile && !("ZHcaption" in block.data.imgmobile)) block.data.imgmobile.ZHcaption = "";
+    }
+    // Text block
+    if (block.type === "text") {
+      if (!("ZHtext" in block.data)) block.data.ZHtext = "";
+    }
+    // Quote block
+    if (block.type === "quote") {
+      if (!("ZHquote" in block.data)) block.data.ZHquote = "";
+    }
+    // Image block
+    if (block.type === "image" && Array.isArray(block.data.images)) {
+      block.data.images.forEach(img => {
+        if (!("ZHcaption" in img)) img.ZHcaption = "";
+      });
+    }
+    // Youtube block
+    if (block.type === "youtube" && Array.isArray(block.data.videos)) {
+      block.data.videos.forEach(vid => {
+        if (!("ZHcaption" in vid)) vid.ZHcaption = "";
+      });
+    }
+  });
+  return blocks;
 }
 
 // --- DOM Elements ---
@@ -155,6 +200,8 @@ importBtn.addEventListener("click", async () => {
           return block;
         });
 
+        blocks = migrateBlocksForLocalization(blocks);
+
         saveBlocks(blocks);
         renderBlockList();
         renderPreview();
@@ -172,7 +219,55 @@ importBtn.addEventListener("click", async () => {
   input.click();
 });
 
+document.getElementById('language-toggle').addEventListener('click', function() {
+  window.editorLanguage = window.editorLanguage === 'en' ? 'zh' : 'en';
+  localStorage.setItem('editorLanguage', window.editorLanguage);
+  this.textContent = window.editorLanguage === 'en' ? 'English' : '中文';
+  renderBlockList(); // Re-render the editor sidebar
+  renderPreview();   // Re-render the live preview
+});
+
+// Set initial button text on page load
+const langToggleBtn = document.getElementById('language-toggle');
+if (langToggleBtn) {
+  langToggleBtn.textContent = window.editorLanguage === 'en' ? 'English' : '中文';
+}
+
 // --- Render Functions ---
+function renderTitleBlockEditor(data, idx) {
+  let html = '';
+  if (window.editorLanguage === 'en') {
+    html += `<input type="text" placeholder="Title" value="${data.title}" data-field="title" data-idx="${idx}" /><br/>
+      <input type="text" placeholder="Subtitle" value="${data.subtitle}" data-field="subtitle" data-idx="${idx}" /><br/>
+      <textarea placeholder="Overview" data-field="overview" data-idx="${idx}">${data.overview}</textarea><br/>
+      <textarea placeholder="People" data-field="people" data-idx="${idx}">${data.people}</textarea><br/>
+      <input type="text" placeholder="Image 1 caption" value="${data.img1.caption}" data-field="img1.caption" data-idx="${idx}" /><br/>
+      <input type="text" placeholder="Image 2 caption" value="${data.img2.caption}" data-field="img2.caption" data-idx="${idx}" /><br/>
+      <input type="text" placeholder="Mobile Image caption" value="${data.imgmobile.caption}" data-field="imgmobile.caption" data-idx="${idx}" /><br/>`;
+  } else {
+    html += `<input type="text" placeholder="標題" value="${data.ZHtitle}" data-field="ZHtitle" data-idx="${idx}" /><br/>
+      <input type="text" placeholder="副標題" value="${data.ZHsubtitle}" data-field="ZHsubtitle" data-idx="${idx}" /><br/>
+      <textarea placeholder="簡介" data-field="ZHoverview" data-idx="${idx}">${data.ZHoverview}</textarea><br/>
+      <textarea placeholder="成員" data-field="ZHpeople" data-idx="${idx}">${data.ZHpeople}</textarea><br/>
+      <input type="text" placeholder="圖片1說明" value="${data.img1.ZHcaption}" data-field="img1.ZHcaption" data-idx="${idx}" /><br/>
+      <input type="text" placeholder="圖片2說明" value="${data.img2.ZHcaption}" data-field="img2.ZHcaption" data-idx="${idx}" /><br/>
+      <input type="text" placeholder="手機圖片說明" value="${data.imgmobile.ZHcaption}" data-field="imgmobile.ZHcaption" data-idx="${idx}" /><br/>`;
+  }
+  html += `<input type="text" placeholder="Cards (comma separated)" value="${data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
+  return html;
+}
+
+function renderTextBlockEditor(data, idx) {
+  let html = '';
+  if (window.editorLanguage === 'en') {
+    html += `<textarea placeholder="Text" data-field="text" data-idx="${idx}">${data.text}</textarea><br/>`;
+  } else {
+    html += `<textarea placeholder="內容" data-field="ZHtext" data-idx="${idx}">${data.ZHtext}</textarea><br/>`;
+  }
+  html += `<input type="text" placeholder="Cards (comma separated)" value="${data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
+  return html;
+}
+
 function renderImageBlockEditor(data, idx) {
   let html = `
     <label>
@@ -195,12 +290,30 @@ function renderImageBlockEditor(data, idx) {
     <br/>
   `;
   data.images.forEach((img, imgIdx) => {
-    html += `
-      <input type="text" placeholder="Image src" value="${img.src}" data-field="images.${imgIdx}.src" data-idx="${idx}" /><br/>
-      <textarea placeholder="Image caption (markdown supported)" data-field="images.${imgIdx}.caption" data-idx="${idx}">${img.caption}</textarea><br/>
-    `;
+    if (window.editorLanguage === 'en') {
+      html += `
+        <input type="text" placeholder="Image src" value="${img.src}" data-field="images.${imgIdx}.src" data-idx="${idx}" /><br/>
+        <textarea placeholder="Image caption (markdown supported)" data-field="images.${imgIdx}.caption" data-idx="${idx}">${img.caption}</textarea><br/>
+      `;
+    } else {
+      html += `
+        <input type="text" placeholder="圖片連結" value="${img.src}" data-field="images.${imgIdx}.src" data-idx="${idx}" /><br/>
+        <textarea placeholder="圖片說明 (支援 markdown)" data-field="images.${imgIdx}.ZHcaption" data-idx="${idx}">${img.ZHcaption}</textarea><br/>
+      `;
+    }
   });
-    html += `<button data-action="add-image" data-idx="${idx}" style="background:#3a7afe;color:#fff;border:none;border-radius:4px;padding:0.2em 0.7em;cursor:pointer;">Add Image</button><br/>`;
+  html += `<button data-action="add-image" data-idx="${idx}" style="background:#3a7afe;color:#fff;border:none;border-radius:4px;padding:0.2em 0.7em;cursor:pointer;">Add Image</button><br/>`;
+  html += `<input type="text" placeholder="Cards (comma separated)" value="${data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
+  return html;
+}
+
+function renderQuoteBlockEditor(data, idx) {
+  let html = '';
+  if (window.editorLanguage === 'en') {
+    html += `<textarea placeholder="Quote" data-field="quote" data-idx="${idx}">${data.quote}</textarea><br/>`;
+  } else {
+    html += `<textarea placeholder="引用" data-field="ZHquote" data-idx="${idx}">${data.ZHquote}</textarea><br/>`;
+  }
   html += `<input type="text" placeholder="Cards (comma separated)" value="${data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
   return html;
 }
@@ -227,10 +340,17 @@ function renderYoutubeBlockEditor(data, idx) {
     <br/>
   `;
   data.videos.forEach((vid, vidIdx) => {
-    html += `
-      <input type="text" placeholder="YouTube Project ID (e.g. 2Ti-4tyv9Lg)" value="${vid.id}" data-field="videos.${vidIdx}.id" data-idx="${idx}" /><br/>
-      <textarea placeholder="Video caption (markdown supported)" data-field="videos.${vidIdx}.caption" data-idx="${idx}">${vid.caption}</textarea><br/>
-    `;
+    if (window.editorLanguage === 'en') {
+      html += `
+        <input type="text" placeholder="YouTube Project ID (e.g. 2Ti-4tyv9Lg)" value="${vid.id}" data-field="videos.${vidIdx}.id" data-idx="${idx}" /><br/>
+        <textarea placeholder="Video caption (markdown supported)" data-field="videos.${vidIdx}.caption" data-idx="${idx}">${vid.caption}</textarea><br/>
+      `;
+    } else {
+      html += `
+        <input type="text" placeholder="YouTube 專案 ID (如 2Ti-4tyv9Lg)" value="${vid.id}" data-field="videos.${vidIdx}.id" data-idx="${idx}" /><br/>
+        <textarea placeholder="影片說明 (支援 markdown)" data-field="videos.${vidIdx}.ZHcaption" data-idx="${idx}">${vid.ZHcaption}</textarea><br/>
+      `;
+    }
   });
   html += `<button data-action="add-video" data-idx="${idx}" style="background:#3a7afe;color:#fff;border:none;border-radius:4px;padding:0.2em 0.7em;cursor:pointer;">Add Video</button><br/>`;
   html += `<input type="text" placeholder="Cards (comma separated)" value="${data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
@@ -247,28 +367,16 @@ function renderBlockEditor(block, idx) {
   </div>`;
   switch (block.type) {
     case "title":
-      html += `<input type="text" placeholder="Title" value="${block.data.title}" data-field="title" data-idx="${idx}" /><br/>
-        <input type="text" placeholder="Subtitle" value="${block.data.subtitle}" data-field="subtitle" data-idx="${idx}" /><br/>
-        <textarea placeholder="Overview" data-field="overview" data-idx="${idx}">${block.data.overview}</textarea><br/>
-        <textarea placeholder="People" data-field="people" data-idx="${idx}">${block.data.people}</textarea><br/>
-        <input type="text" placeholder="Image 1 src" value="${block.data.img1.src}" data-field="img1.src" data-idx="${idx}" /><br/>
-        <input type="text" placeholder="Image 1 caption" value="${block.data.img1.caption}" data-field="img1.caption" data-idx="${idx}" /><br/>
-        <input type="text" placeholder="Image 2 src" value="${block.data.img2.src}" data-field="img2.src" data-idx="${idx}" /><br/>
-        <input type="text" placeholder="Image 2 caption" value="${block.data.img2.caption}" data-field="img2.caption" data-idx="${idx}" /><br/>
-        <input type="text" placeholder="Mobile Image src" value="${block.data.imgmobile.src}" data-field="imgmobile.src" data-idx="${idx}" /><br/>
-        <input type="text" placeholder="Mobile Image caption" value="${block.data.imgmobile.caption}" data-field="imgmobile.caption" data-idx="${idx}" /><br/>
-        <input type="text" placeholder="Cards (comma separated)" value="${block.data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
+      html += renderTitleBlockEditor(block.data, idx);
       break;
     case "text":
-      html += `<textarea placeholder="Text" data-field="text" data-idx="${idx}">${block.data.text}</textarea><br/>
-        <input type="text" placeholder="Cards (comma separated)" value="${block.data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
+      html += renderTextBlockEditor(block.data, idx);
       break;
     case "image":
       html += renderImageBlockEditor(block.data, idx);
       break;
     case "quote":
-      html += `<textarea placeholder="Quote" data-field="quote" data-idx="${idx}">${block.data.quote}</textarea><br/>
-        <input type="text" placeholder="Cards (comma separated)" value="${block.data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;
+      html += renderQuoteBlockEditor(block.data, idx);
       break;
     case "cardbox":
       html += `<input type="text" placeholder="Cards shown (comma separated)" value="${block.data["card-shown"].join(',')}" data-field="card-shown" data-idx="${idx}" /><br/>
@@ -345,12 +453,21 @@ function renderMarkdown(md) {
 }
 
 function renderTitleBlockPreview(data, blockId) {
+  const lang = window.editorLanguage === 'zh' ? 'zh' : 'en';
+  const title = lang === 'zh' && data.ZHtitle ? data.ZHtitle : data.title;
+  const subtitle = lang === 'zh' && data.ZHsubtitle ? data.ZHsubtitle : data.subtitle;
+  const overview = lang === 'zh' && data.ZHoverview ? data.ZHoverview : data.overview;
+  const people = lang === 'zh' && data.ZHpeople ? data.ZHpeople : data.people;
+  const img1Caption = lang === 'zh' && data.img1.ZHcaption ? data.img1.ZHcaption : data.img1.caption;
+  const img2Caption = lang === 'zh' && data.img2.ZHcaption ? data.img2.ZHcaption : data.img2.caption;
+  const imgmobileCaption = lang === 'zh' && data.imgmobile.ZHcaption ? data.imgmobile.ZHcaption : data.imgmobile.caption;
+
   // Mobile header image
   const mobileImage = data.imgmobile.src
     ? `<div class="project-images mobile-header-image" style="--img-count: 1">
         <figure>
-          <img src="${data.imgmobile.src}" alt="${data.imgmobile.caption}" />
-          ${data.imgmobile.caption ? `<figcaption>${data.imgmobile.caption}</figcaption>` : ""}
+          <img src="${data.imgmobile.src}" alt="${imgmobileCaption}" />
+          ${imgmobileCaption ? `<figcaption>${imgmobileCaption}</figcaption>` : ""}
         </figure>
       </div>`
     : "";
@@ -360,8 +477,8 @@ function renderTitleBlockPreview(data, blockId) {
     .filter(img => img.src)
     .map(img =>
       `<figure>
-        <img src="${img.src}" alt="${img.caption}" />
-        ${img.caption ? `<figcaption>${img.caption}</figcaption>` : ""}
+        <img src="${img.src}" alt="${img === data.img1 ? img1Caption : img2Caption}" />
+        ${(img === data.img1 ? img1Caption : img2Caption) ? `<figcaption>${img === data.img1 ? img1Caption : img2Caption}</figcaption>` : ""}
       </figure>`
     ).join("");
 
@@ -372,17 +489,17 @@ function renderTitleBlockPreview(data, blockId) {
     : "";
 
   // Overview and People
-  const overviewBlock = data.overview
+  const overviewBlock = overview
     ? `<div class="overview">
-        <h2>Overview</h2>
-        <p>${renderMarkdown(data.overview)}</p>
+        <h2>${lang === 'zh' ? '簡介' : 'Overview'}</h2>
+        <p>${renderMarkdown(overview)}</p>
       </div>`
     : "";
 
-  const peopleBlock = data.people
+  const peopleBlock = people
     ? `<div class="people">
-        <h2>People</h2>
-        <p>${renderMarkdown(data.people)}</p>
+        <h2>${lang === 'zh' ? '成員' : 'People'}</h2>
+        <p>${renderMarkdown(people)}</p>
       </div>`
     : "";
 
@@ -395,8 +512,8 @@ function renderTitleBlockPreview(data, blockId) {
     <section class="top-section" id="preview-block-${blockId}" data-block-id="${blockId}">
       <div class="project-block">
         ${mobileImage}
-        <h1${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}>${data.title}</h1>
-        ${data.subtitle ? `<div class="project-subtitle">${data.subtitle}</div>` : ""}
+        <h1${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}>${title}</h1>
+        ${subtitle ? `<div class="project-subtitle">${subtitle}</div>` : ""}
         ${overviewAndPeople}
       </div>
       ${nonMobileImagesBlock}
@@ -405,10 +522,12 @@ function renderTitleBlockPreview(data, blockId) {
 }
 
 function renderTextBlockPreview(data, blockId){
-  return `<section class="project-block center-text" id="preview-block-${blockId}" data-block-id="${blockId}" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}><div>${renderMarkdown(data.text)}</div></section>`;
+  const text = window.editorLanguage === 'zh' && data.ZHtext ? data.ZHtext : data.text;
+  return `<section class="project-block center-text" id="preview-block-${blockId}" data-block-id="${blockId}" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}><div>${renderMarkdown(text)}</div></section>`;
 }
 
 function renderImageBlockPreview(data, blockId) {
+  const lang = window.editorLanguage === 'zh' ? 'zh' : 'en';
   const imgCount = data.images.filter(img => img.src).length;
   if (imgCount === 0) return "";
 
@@ -416,16 +535,17 @@ function renderImageBlockPreview(data, blockId) {
   const figures = data.images
     .filter(img => img.src)
     .map(img => {
+      const caption = lang === 'zh' && img.ZHcaption ? img.ZHcaption : img.caption;
       // Check for mp4 video
       if (img.src.match(/\.(mp4)$/i)) {
         return `<figure>
           <video src="${img.src}" controls autoplay muted loop playsinline style="width:100%;height:auto;display:block;"></video>
-          ${img.caption ? `<figcaption>${renderMarkdown(img.caption)}</figcaption>` : ""}
+          ${caption ? `<figcaption>${renderMarkdown(caption)}</figcaption>` : ""}
         </figure>`;
       } else {
         return `<figure>
-          <img loading="lazy" src="${img.src}" alt="${img.caption}" style="width:100%;height:auto;display:block;" />
-          ${img.caption ? `<figcaption>${renderMarkdown(img.caption)}</figcaption>` : ""}
+          <img loading="lazy" src="${img.src}" alt="${caption}" style="width:100%;height:auto;display:block;" />
+          ${caption ? `<figcaption>${renderMarkdown(caption)}</figcaption>` : ""}
         </figure>`;
       }
     })
@@ -450,7 +570,8 @@ function renderImageBlockPreview(data, blockId) {
 }
 
 function renderQuoteBlockPreview(data, blockId) {
-  return `<section class="project-block center-text" id="preview-block-${blockId}" data-block-id="${blockId}" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}><div class="quote">${renderMarkdown(data.quote)}</div></section>`;
+  const quote = window.editorLanguage === 'zh' && data.ZHquote ? data.ZHquote : data.quote;
+  return `<section class="project-block center-text" id="preview-block-${blockId}" data-block-id="${blockId}" ${data.card && data.card.length ? ` data-card-event="${data.card.join(', ')}"` : ""}><div class="quote">${renderMarkdown(quote)}</div></section>`;
 }
 
 function renderSeparatorBlockPreview(blockId) {
@@ -485,11 +606,12 @@ function renderYoutubeBlockPreview(data, blockId) {
   const figures = data.videos
     .filter(vid => vid.id)
     .map((vid, i) => {
+      const caption = window.editorLanguage === 'zh' && vid.ZHcaption ? vid.ZHcaption : vid.caption;
       return `<figure>
         <div class="video-wrapper">
           <div id="${playerIds[i]}" class="yt-api-player" data-ytid="${vid.id}" data-autoplay="${data.autoplay ? 1 : 0}" data-loop="${data.loop ? 1 : 0}"></div>
         </div>
-        ${vid.caption ? `<figcaption>${renderMarkdown(vid.caption)}</figcaption>` : ""}
+        ${caption ? `<figcaption>${renderMarkdown(caption)}</figcaption>` : ""}
       </figure>`;
     })
     .join("");
@@ -867,6 +989,7 @@ blockListEl.addEventListener("click", e => {
 });
 
 exportBtn.addEventListener("click", async () => {
+
     const pageTitle = blocks.find(b => b.type === "title")?.data.title || "Project";
   // Static header and footer
   const headerHTML = `
@@ -930,6 +1053,12 @@ exportBtn.addEventListener("click", async () => {
             >
         </h1>
         <nav class="main-nav">
+                <button class="translate">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" class="bi bi-translate" viewBox="0 0 16 16">
+  <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z"/>
+  <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31"/>
+</svg>
+        </button>
             <button class="nav-toggle" aria-label="Toggle menu">
             <span class="hamburger"></span>
             </button>
@@ -1049,8 +1178,11 @@ exportBtn.addEventListener("click", async () => {
     </html>
 `;
 
-  // Get the preview content
+  // Render all blocks in English for export
+  const originalLang = window.editorLanguage;
+  window.editorLanguage = 'en';
   const contentHTML = blocks.map(renderBlockPreview).join('');
+  window.editorLanguage = originalLang;
 
   const metadataJSON = JSON.stringify(blocks, null, 2);
 const metadataTag = `<script type="application/json" id="project-metadata">\n${metadataJSON}\n</script>`;
