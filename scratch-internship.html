@@ -1,507 +1,526 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Internship | Enoch Kang</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="trading-card.css" />
-    <link rel="stylesheet" href="project-page.css" />
-    <link rel="preload" href="styles.css" as="style" />
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-        <div id="page-fade-cover">
-    <!-- self contained div for loading cover -->
-      <style>
-        #page-fade-cover {
-          position: fixed;
-          inset: 0;
-          width: 100vw;
-          height: 100vh;
-          background: #fff;
-          z-index: 99999;
-          opacity: 1;
-          transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
-          pointer-events: auto;
-        }
-        #page-fade-cover.fade-out {
-          opacity: 0;
-          pointer-events: none;
-        }
-      </style>
-      <script>
-        function fadeCover() {
-          var cover = document.getElementById('page-fade-cover');
-          if (cover) cover.classList.add('fade-out');
-          setTimeout(function() {
-            if (cover) cover.style.display = 'none';
-          }, 600);
-          window.removeEventListener('DOMContentLoaded', fadeCover);
-        }
 
-        window.addEventListener('DOMContentLoaded', fadeCover);
-      </script>
-    </div>
-    <header>
-      <h1>
-        <a
-          href="index.html"
-          style="color: inherit; text-decoration: none; cursor: pointer"
-          >Enoch Kang</a
-        >
-      </h1>
-      <nav class="main-nav">
-        <button class="nav-toggle" aria-label="Toggle menu">
-          <span class="hamburger"></span>
-        </button>
-        <ul class="nav-list">
-          <li><a href="index.html">Work</a></li>
-          <li><a href="play.html">Play</a></li>
-          <li><a href="about.html">About</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <section class="top-section">
-        <div class="project-block">
-          <div
-            class="project-images mobile-header-image"
-            style="--img-count: 1"
-          >
-            <figure>
-              <img
-                src="assets/images/scratch0.avif"
-                alt="Scratch Internship 1"
-              />
-            </figure>
-          </div>
-          <h1 data-card-event="Internship at Scratch">Scratch Foundation Internship</h1>
-          <div class="project-subtitle">
-            Software Engineering Intern | Jun 2025 - Aug 2025
-          </div>
-          <div class="overview-and-people">
-            <div class="overview">
-              <h2>Overview</h2>
-              <p>
-                I spent a summer interning for the Scratch Lab team at the
-                Scratch Foundation! I designed and prototyped new AI related
-                features for Scratch and even got to meet some folks at LLK in
-                person! It was an unforgettable summer that truly solidified my
-                belief in the power and responsibility of technology to empower
-                the future.
-              </p>
-            </div>
-            <div class="people">
-              <h2>People</h2>
-              <p>Supervisors:<br />Eric Rosenbaum, Andy Forest</p>
-            </div>
-          </div>
-        </div>
-        <div class="project-images non-mobile" style="--img-count: 2">
-          <figure>
-            <img src="assets/images/scratch0.avif" alt="Scratch Internship 1" />
-            <figcaption>
-              Me and my mentor Eric Rosenbaum at Lifelong Kindergarten!
-            </figcaption>
-          </figure>
-          <figure>
-            <img src="assets/images/scratch1.avif" alt="Scratch Internship 2" />
-            <figcaption>A LLK display at the MIT Museum.</figcaption>
-          </figure>
-        </div>
-        <div class="separator line"></div>
-        <div class="project-block center-text">
-          <h2>About the job</h2>
-          <p>
-            <strong>Scratch Foundation</strong> is a nonprofit organization
-            dedicated to supporting creative learning through coding. Scratch,
-            the flagship product, is the world’s largest online coding community
-            for children and teens. It empowers young people to create
-            interactive games, stories, and animations while fostering skills
-            such as creative thinking, systematic reasoning, and collaboration.
-            <br /><br />
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Scratch Foundation Internship | Enoch Kang</title>
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="trading-card.css" />
+        <link rel="stylesheet" href="project-page.css" />
+        <link rel="preload" href="styles.css" as="style" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet"
+        />
+    </head>
+    <body>
+      <div id="page-fade-cover">
+        <!-- self contained div for loading cover -->
+        <style>
+            #page-fade-cover {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #fff;
+            z-index: 99999;
+            opacity: 1;
+            transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+            pointer-events: auto;
+            }
+            #page-fade-cover.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            }
+        </style>
+        <script>
+            function fadeCover() {
+            var cover = document.getElementById('page-fade-cover');
+            if (cover) cover.classList.add('fade-out');
+            setTimeout(function() {
+                if (cover) cover.style.display = 'none';
+            }, 600);
+            window.removeEventListener('DOMContentLoaded', fadeCover);
+            }
 
-            <strong>Scratch Lab</strong> is the experimental research and
-            development team within the Scratch Foundation. Its primary mission
-            is to explore new ideas, prototype innovative features, and conduct
-            playtests to validate future directions for the Scratch platform.
-            The team focuses on speculative projects that push the boundaries of
-            creative learning experiences, including initiatives like Creative
-            AI, hardware integrations, and advanced block-based programming
-            enhancements.
-          </p>
-          <p>
-            As a Scratch Lab Intern, my role involved both team-driven product
-            development and self-directed exploratory work, aligned with the
-            organization’s mission to inspire creative learning for children. My
-            key responsibilities included:
-          </p>
-          <ul>
-            <li>
-              <strong
-                >Supporting Ideation, Prototyping, and Playtesting:</strong
-              >
-              Participating in brainstorming sessions, refining prototype
-              concepts, and helping execute user-facing tests.
-            </li>
-            <li>
-              <strong>Feature Development for the Scratch Platform:</strong>
-              <ul>
-                <li>
-                  Contributing to front-end codebases (HTML, CSS, JavaScript,
-                  React, TypeScript) within official Scratch Foundation
-                  repositories.
-                </li>
-                <li>
-                  Experimenting with block-based programming frameworks,
-                  specifically Blockly, to enhance prototype capabilities.
-                </li>
-              </ul>
-            </li>
-            <li>
-              <strong>Content Creation:</strong>
-              Drafting educational resources and UI elements to guide users in
-              adopting new features.
-            </li>
-            <li>
-              <strong>Collaboration:</strong>
-              Engaging in design discussions, collecting feedback, and
-              iteratively improving prototypes to meet team objectives.
-            </li>
-            <li>
-              <strong>Speculative Research:</strong>
-              Investigating future possibilities for Scratch features and their
-              technical feasibility.
-            </li>
-          </ul>
+            window.addEventListener('DOMContentLoaded', fadeCover);
+        </script>
         </div>
-      </section>
-      <section class="project-block center-text">
-        <h2>Deliverables</h2>
-        <p>
-          Over the three-month internship, I contributed to several projects:
-        </p>
-        <h3>Creative Learning Assistant (CLA) Frontend</h3>
-      </section>
-      <section class="project-block large-image">
-        <div class="project-images no-shadow no-ratio" style="--img-count: 1">
-          <figure>
-            <img
-              src="assets/images/scratch4.avif"
-              alt="Scratch Internship work"
-            />
-            <!-- <figcaption>Me and my mentor Eric R. at Lifelong Kindergarten!</figcaption> -->
-          </figure>
-        </div>
-      </section>
-      <section class="project-block center-text">
-        <p>
-          The CLA is a prototype chatbot designed to assist Scratch users in
-          exploring creative possibilities. The panel
-          <strong>[fig. 2]</strong> sits to the right of the Scratch editor
-          (similar to Copilot in VS Code) and assists the user with various
-          Scratch related AI functionalities. My contributions included:
-        </p>
-        <ul>
-          <li>
-            Implemented chat interface features that support multiple content
-            types:
-            <ul>
-              <li>Text responses <strong>[fig. 4]</strong></li>
-              <li>Code stack previews <strong>[fig. 3]</strong></li>
-              <li>
-                Sprite and project search integration
-                <strong>[fig. 1 and 6]</strong>
-              </li>
+        <header>
+        <h1>
+            <a
+            href="index.html"
+            style="color: inherit; text-decoration: none; cursor: pointer"
+            >Enoch Kang</a
+            >
+        </h1>
+        <nav class="main-nav">
+            <button class="nav-toggle" aria-label="Toggle menu">
+            <span class="hamburger"></span>
+            </button>
+            <ul class="nav-list">
+            <li><a href="index.html">Work</a></li>
+            <li><a href="play.html">Play</a></li>
+            <li><a href="about.html">About</a></li>
             </ul>
-          </li>
-          <li>
-            Designed and integrated starter prompt suggestions to guide new
-            users <strong>[fig. 2]</strong>.
-          </li>
-          <li>
-            Developed UI interactions for collapsible chat panels, improving
-            usability during early playtests.
-          </li>
-        </ul>
-      </section>
+        </nav>
+        </header>
+        <main>
 
-      <section class="project-block center-text">
-        <h3>Blockhelp Prototyping</h3>
-        <div class="project-images no-ratio" style="--img-count: 1">
-          <figure>
-            <img
-              src="assets/images/blockhelp.avif"
-              alt="Scratch Internship work"
-            />
-            <figcaption>
-              fig. 7: Screenshot of blockhelp prototype UI
-            </figcaption>
-          </figure>
-        </div>
-        <p>
-          Blockhelp aims to provide contextual guidance for Scratch programming
-          blocks. I contributed by:
-        </p>
-        <ul>
-          <li>Defining JSON structures for content organization.</li>
-          <li>
-            Implementing an initial UI scaffolding system for glossary
-            components, enabling future design iterations by the team.
-            <strong>[fig. 7]</strong>
-          </li>
-        </ul>
-        <h3>Scratch Lab Deep Linking</h3>
-        <ul>
-          <li>
-            Built, tested, and deployed to production deep link functionality
-            for Scratch Lab projects and editors.
-          </li>
-          <li>
-            Extended this capability to include starter project deep links,
-            streamlining user onboarding for prototypes.
-          </li>
-        </ul>
-        <h3>Transition to Blockly for Rendering</h3>
-        <p>
-          In August, I assisted in transitioning block rendering from Scratch
-          Blocks to Blockly within the CLA and Blockhelp prototypes. This
-          included:
-        </p>
-        <ul>
-          <li>Investigating rendering discrepancies.</li>
-          <li>
-            Refactoring frontend components for compatibility with Blockly’s
-            rendering system.
-          </li>
-        </ul>
-        <h2>Growth and Reflection</h2>
-      </section>
-
-      <section class="project-block large-image">
-        <div class="project-images" style="--img-count: 2">
-          <figure>
-            <img
-              src="assets/images/boston_skyline.avif"
-              alt="Scratch Internship work"
-            />
-            <figcaption>The sky was impossibly blue when I visited!</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/MITSTATA.avif"
-              alt="Scratch Internship work"
-            />
-            <figcaption>
-              A not so clear view of the Stata Center across the road.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-      <section class="project-block center-text">
-        <p>
-          This internship and trip to visit the Lifeling Kindergarten lab at MIT
-          Media Lab has truly been an eye-opening experience. I have never been
-          in an environment where there is so much shared context on the topic
-          of Scratch and STEAM education! It felt like everyone I met was so
-          passionate about education and cared so deeply about the learning
-          experiences of all learners.
-          <br /><br />
-          The internship also challenged me to grow professionally as a
-          programmer. I have never had the opporunity to work in a team managing
-          a system of such scale before. From dreading the never-ending npm
-          errors to eventually learning to navigate the complicated
-          repositories, I've grown to appreciate good systems and architecture
-          even more.
-          <br /><br />
-          Working alongside professional software engineers and designers also
-          taught me many valuable lessons on product development. From all the
-          playtests to long evaluation meetings, everything is handled with so
-          much care that it's incredibly inspiring to see how high the bar is
-          set in terms of what is really good enough for a child. This motivates
-          me to carry out my own development projects with this same standard
-          and eye for quiality.
-        </p>
-      </section>
-
-        <section class="project-block">
-              <div class="separator line"></div>
-        </section>
-
-      <section class="project-block center-text">
-        <h2>Something Fun</h2>
-        <p>
-          This entire adventure wouldn't have been possible if my supervisor and
-          mentor Eric Rosenbaum hadn't given me the opportunity to reach out and
-          share my work with him in the summer of 2024. Throughout the entire
-          journey, despite having to juggle so many responsibilities, Eric still
-          somehow managed to make time to set up these opportunities and even to
-          meet with me in person to work in Boston. I am immensely grateful and
-          knew I had to do something special for him before our last in-person
-          day together at the Media Lab.
-          <br /><br />
-          I wanted to make a thank-you card for Eric. But it couldn't just be
-          any card, it had to feel like I made it... it had to be a
-          <strong>TRADING CARD!</strong>
-        </p>
-      </section>
-      <section class="project-block large-image">
-        <div class="project-images" style="--img-count: 2">
-          <figure>
-            <img
-              src="assets/images/eric-sketch.avif"
-              alt="Scratch Internship work"
-            />
-            <figcaption>
-              I created a sketch based on Eric's DnD character!
-            </figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/eric-linkedin.avif"
-              alt="Scratch Internship work"
-            />
-            <figcaption>
-              Eric posted
-              <a
-                href="https://www.linkedin.com/posts/eric-rosenbaum-107120_heres-a-trailer-i-made-for-the-dd-campaign-activity-7302797968317775873-7lwf/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAADxE_DUBt5KlnUpH921HZmpfquDV2cfGWW0"
-                target="_blank"
-                rel="noopener"
-                style="color: inherit"
-                >this video</a
-              >
-              on his LinkedIn where he generated scenes from his DnD campaign
-              using AI.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-      <section class="project-block center-text">
-        <p>
-            Now that I had the artwork settled, I needed to find some relevant text to put on the card. As I was making this card, I was thinking back on all the ways Eric's work has inspired me in the past and I remembered this quote from an article he'd written a few years back: 
-        </p>
-        <div class="quote">
-            “Even if it’s been done before, you can find your own way. Use your unique weirdness to bring magic to the world.” - Eric Rosenbaum, 2020. <a href="https://medium.com/@eric.rosenbaum/glowdoodle-a-love-letter-to-light-painting-33bc94b17d41" style="color: inherit" target="_blank" rel="noopener">Glowdoodle: A Love Letter to Light Painting </a>
-        </div>
-        <p>
-            This message is very special to me because one our my projects (Matchbox) is directly inspired by the Eric's work on the MakeyMakey. At the start of the project, I would sometimes think to myself: Does Matchbox really contribute something new to the conversation, or am I just spending all this time making something that someone else has already solved? But after having met Eric and been encouraged by his works, I now proudly forge forward into the unknown, following the footsteps left by the giants before us.
-        </p>
-            <div class="cardbox onecard" data-card-event="Eric Rosenbaum">
+    <section class="top-section" id="preview-block-block-mh4huvsv-itqnz" data-block-id="block-mh4huvsv-itqnz">
+      <div class="project-block">
+        <div class="project-images mobile-header-image" style="--img-count: 1">
+        <figure>
+          <img src="assets/images/scratch0.avif" alt="" />
+          
+        </figure>
+      </div>
+        <h1 data-card-event="Internship at Scratch">Scratch Foundation Internship</h1>
+        <div class="project-subtitle">Software Engineering Intern | Jun 2025 - Aug 2025</div>
+        <div class="overview-and-people"><div class="overview">
+        <h2>Overview</h2>
+        <p>I spent a summer interning for the Scratch Lab team at the Scratch Foundation! I designed and prototyped new AI related features for Scratch and even got to meet some folks at LLK in person! It was an unforgettable summer that truly solidified my belief in the power and responsibility of technology to empower the future.</p>
+      </div><div class="people">
+        <h2>People</h2>
+        <p>Supervisors:
+Eric Rosenbaum, Andy Forest</p>
+      </div></div>
+      </div>
+      <div class="project-images non-mobile" style="--img-count: 2">
+        <figure>
+        <img src="assets/images/scratch0.avif" alt="Me and my mentor Eric Rosenbaum at Lifelong Kindergarten!" />
+        <figcaption>Me and my mentor Eric Rosenbaum at Lifelong Kindergarten!</figcaption>
+      </figure><figure>
+        <img src="assets/images/scratch1.avif" alt="A LLK display at the MIT Museum." />
+        <figcaption>A LLK display at the MIT Museum.</figcaption>
+      </figure>
+      </div>
+    </section>
+  <section class="project-block" id="preview-block-block-mh4hy38j-2omzt" data-block-id="block-mh4hy38j-2omzt"><div class="separator line"></div></section><section class="project-block center-text" id="preview-block-block-mh4hy50l-b8b4k" data-block-id="block-mh4hy50l-b8b4k" ><div><h2>About the job</h2>
+<strong>Scratch Foundation</strong>  is a nonprofit organization dedicated to supporting creative learning through coding. Scratch, the flagship product, is the world’s largest online coding community for children and teens. It empowers young people to create interactive games, stories, and animations while fostering skills such as creative thinking, systematic reasoning, and collaboration.</div></section><section class="project-block center-text" id="preview-block-block-mh4i083r-jgw42" data-block-id="block-mh4i083r-jgw42" ><div><strong>Scratch Lab</strong> is the experimental research and development team within the Scratch Foundation. Its primary mission is to explore new ideas, prototype innovative features, and conduct playtests to validate future directions for the Scratch platform. The team focuses on speculative projects that push the boundaries of creative learning experiences, including initiatives like Creative AI, hardware integrations, and advanced block-based programming enhancements.<br/></div></section><section class="project-block center-text" id="preview-block-block-mh4i0mid-1j6zf" data-block-id="block-mh4i0mid-1j6zf" ><div>As a Scratch Lab Intern, my role involved both team-driven product development and self-directed exploratory work, aligned with the organization’s mission to inspire creative learning for children. My key responsibilities included:
+<ul><li><strong>Supporting Ideation, Prototyping, and Playtesting:</strong> Participating in brainstorming sessions, refining prototype concepts, and helping execute user-facing tests.</li><li><strong>Feature Development for the Scratch Platform:</strong></li><ul><li>Contributing to front-end codebases (HTML, CSS, JavaScript, React, TypeScript) within official Scratch Foundation repositories.</li><li>Experimenting with block-based programming frameworks, specifically Blockly, to enhance prototype capabilities.</li></ul><li><strong>Content Creation:</strong> Drafting educational resources and UI elements to guide users in adopting new features.</li><li><strong>Collaboration:</strong> Engaging in design discussions, collecting feedback, and iteratively improving prototypes to meet team objectives.</li><li><strong>Speculative Research:</strong> Investigating future possibilities for Scratch features and their technical feasibility.</li></ul></div></section><section class="project-block center-text" id="preview-block-block-mh4i8b1w-rf0yl" data-block-id="block-mh4i8b1w-rf0yl" ><div><h2>Deliverables</h2>
+Over the three-month internship, I contributed to several projects:
+<h3>Creative Learning Assistant (CLA) Frontend</h3>
+</div></section>
+    <section id="preview-block-block-mh4i9u27-rrtqa" data-block-id="block-mh4i9u27-rrtqa" class="project-block large-image">
+      <div class="project-images large-image no-ratio no-shadow" style="--img-count: 1;">
+        <figure>
+          <img loading="lazy" src="assets/images/scratch4.avif" alt="" style="width:100%;height:auto;display:block;" />
+          
+        </figure>
+      </div>
+    </section>
+  <section class="project-block center-text" id="preview-block-block-mh4ib76c-2nt4m" data-block-id="block-mh4ib76c-2nt4m" ><div>The CLA is a prototype chatbot designed to assist Scratch users in exploring creative possibilities. The panel [fig. 2] sits to the right of the Scratch editor (similar to Copilot in VS Code) and assists the user with various Scratch related AI functionalities. My contributions included:
+<ul><li>Implemented chat interface features that support multiple content types:</li><ul><li>Text responses [fig. 4]</li><li>Code stack previews [fig. 3]</li><li>Sprite and project search integration [fig. 1 and 6]</li></ul><li>Designed and integrated starter prompt suggestions to guide new users [fig. 2].</li><li>Developed UI interactions for collapsible chat panels, improving usability during early playtests.</li></ul></div></section><section class="project-block center-text" id="preview-block-block-mh4if1jn-72jo0" data-block-id="block-mh4if1jn-72jo0" ><div><h3>Blockhelp Prototyping</h3></div></section>
+    <section id="preview-block-block-mh4ie2u0-756hi" data-block-id="block-mh4ie2u0-756hi" class="project-block center-text">
+      <div class="project-images no-ratio" style="--img-count: 1;">
+        <figure>
+          <img loading="lazy" src="assets/images/blockhelp.avif" alt="" style="width:100%;height:auto;display:block;" />
+          
+        </figure>
+      </div>
+    </section>
+  <section class="project-block center-text" id="preview-block-block-mh4ifv9c-iimnx" data-block-id="block-mh4ifv9c-iimnx" ><div>Blockhelp aims to provide contextual guidance for Scratch programming blocks. I contributed by:
+<ul><li>Defining JSON structures for content organization.</li><li>Implementing an initial UI scaffolding system for glossary components, enabling future design iterations by the team. [fig. 7]</li></ul>
+<h3>Scratch Lab Deep Linking</h3>
+<ul><li>Built, tested, and deployed to production deep link functionality for Scratch Lab projects and editors.</li><li>Extended this capability to include starter project deep links, streamlining user onboarding for prototypes.</li></ul>
+<h3>Transition to Blockly for Rendering</h3>
+In August, I assisted in transitioning block rendering from Scratch Blocks to Blockly within the CLA and Blockhelp prototypes. This included:
+<ul><li>Investigating rendering discrepancies.</li><li>Refactoring frontend components for compatibility with Blockly’s rendering system.</li></ul></div></section><section class="project-block" id="preview-block-block-mh4ilqqt-q8aq2" data-block-id="block-mh4ilqqt-q8aq2"><div class="separator line"></div></section><section class="project-block center-text" id="preview-block-block-mh4iieme-o5zvi" data-block-id="block-mh4iieme-o5zvi" ><div><h2>Growth and Reflection</h2></div></section>
+    <section id="preview-block-block-mh4iis5w-0do37" data-block-id="block-mh4iis5w-0do37" class="project-block large-image">
+      <div class="project-images large-image" style="--img-count: 2;">
+        <figure>
+          <img loading="lazy" src="assets/images/boston_skyline.avif" alt="The sky was impossibly blue when I visited!" style="width:100%;height:auto;display:block;" />
+          <figcaption>The sky was impossibly blue when I visited!</figcaption>
+        </figure><figure>
+          <img loading="lazy" src="assets/images/MITSTATA.avif" alt="A not so clear view of the Stata Center across the road." style="width:100%;height:auto;display:block;" />
+          <figcaption>A not so clear view of the Stata Center across the road.</figcaption>
+        </figure>
+      </div>
+    </section>
+  <section class="project-block center-text" id="preview-block-block-mh4ikn1f-1t4yg" data-block-id="block-mh4ikn1f-1t4yg" ><div>This internship and trip to visit the Lifeling Kindergarten lab at MIT Media Lab has truly been an eye-opening experience. I have never been in an environment where there is so much shared context on the topic of Scratch and STEAM education! It felt like everyone I met was so passionate about education and cared so deeply about the learning experiences of all learners.<br/></div></section><section class="project-block center-text" id="preview-block-block-mh4ikrwl-jsnpj" data-block-id="block-mh4ikrwl-jsnpj" ><div>The internship also challenged me to grow professionally as a programmer. I have never had the opporunity to work in a team managing a system of such scale before. From dreading the never-ending npm errors to eventually learning to navigate the complicated repositories, I've grown to appreciate good systems and architecture even more.<br/></div></section><section class="project-block center-text" id="preview-block-block-mh4iksbx-y9rwq" data-block-id="block-mh4iksbx-y9rwq" ><div>Working alongside professional software engineers and designers also taught me many valuable lessons on product development. From all the playtests to long evaluation meetings, everything is handled with so much care that it's incredibly inspiring to see how high the bar is set in terms of what is really good enough for a child. This motivates me to carry out my own development projects with this same standard and eye for quiality.</div></section><section class="project-block" id="preview-block-block-mh4ilt20-fty35" data-block-id="block-mh4ilt20-fty35"><div class="separator line"></div></section><section class="project-block center-text" id="preview-block-block-mh4iyman-rqy0t" data-block-id="block-mh4iyman-rqy0t" ><div><h2>Something Fun</h2>
+This entire adventure wouldn't have been possible if my supervisor and mentor Eric Rosenbaum hadn't given me the opportunity to reach out and share my work with him in the summer of 2024. Throughout the entire journey, despite having to juggle so many responsibilities, Eric still somehow managed to make time to set up these opportunities and even to meet with me in person to work in Boston. I am immensely grateful and knew I had to do something special for him before our last in-person day together at the Media Lab.</div></section><section class="project-block center-text" id="preview-block-block-mh4iz7br-3yexj" data-block-id="block-mh4iz7br-3yexj" ><div>I wanted to make a thank-you card for Eric. But it couldn't just be any card, it had to feel like I made it... it had to be a <strong>TRADING CARD!</strong></div></section>
+    <section id="preview-block-block-mh4izttm-2uvvj" data-block-id="block-mh4izttm-2uvvj" class="project-block large-image">
+      <div class="project-images large-image" style="--img-count: 2;">
+        <figure>
+          <img loading="lazy" src="assets/images/eric-sketch.avif" alt="I created a sketch based on Eric's DnD character!
+" style="width:100%;height:auto;display:block;" />
+          <figcaption>I created a sketch based on Eric's DnD character!
+</figcaption>
+        </figure><figure>
+          <img loading="lazy" src="assets/images/eric-linkedin.avif" alt="Eric posted [this video](https://www.linkedin.com/posts/eric-rosenbaum-107120_heres-a-trailer-i-made-for-the-dd-campaign-activity-7302797968317775873-7lwf) on his LinkedIn where he generated scenes from his DnD campaign using AI.
+" style="width:100%;height:auto;display:block;" />
+          <figcaption>Eric posted <a href="https://www.linkedin.com/posts/eric-rosenbaum-107120_heres-a-trailer-i-made-for-the-dd-campaign-activity-7302797968317775873-7lwf" style="color: inherit" target="_blank" rel="noopener">this video</a> on his LinkedIn where he generated scenes from his DnD campaign using AI.
+</figcaption>
+        </figure>
+      </div>
+    </section>
+  <section class="project-block center-text" id="preview-block-block-mh4j2rq6-qhia1" data-block-id="block-mh4j2rq6-qhia1" ><div>Now that I had the artwork settled, I needed to find some relevant text to put on the card. As I was making this card, I was thinking back on all the ways Eric's work has inspired me in the past and I remembered this quote from an article he'd written a few years back:</div></section><section class="project-block center-text" id="preview-block-block-mh4j356v-hsie4" data-block-id="block-mh4j356v-hsie4" ><div class="quote">“Even if it’s been done before, you can find your own way. Use your unique weirdness to bring magic to the world.” - Eric Rosenbaum, 2020. <a href="https://medium.com/@eric.rosenbaum/glowdoodle-a-love-letter-to-light-painting-33bc94b17d41" style="color: inherit" target="_blank" rel="noopener">Glowdoodle: A Love Letter to Light Painting</a></div></section><section class="project-block center-text" id="preview-block-block-mh4j3zy2-nbo3g" data-block-id="block-mh4j3zy2-nbo3g" ><div>This message is very special to me because one our my projects (Matchbox) is directly inspired by the Eric's work on the MakeyMakey. At the start of the project, I would sometimes think to myself: Does Matchbox really contribute something new to the conversation, or am I just spending all this time making something that someone else has already solved? But after having met Eric and been encouraged by his works, I now proudly forge forward into the unknown, following the footsteps left by the giants before us.</div></section><section  class="project-block center-text">
+<div class="cardbox onecard" data-card-event="Eric Rosenbaum">
           <div class="trading-card-modal-card" style="max-width: 400px;">
             <img src="assets/trading cards/24.avif" alt="">
           </div>
-        </div>
+        </div></section><section class="project-block center-text" id="preview-block-block-mh4j6psq-l2exm" data-block-id="block-mh4j6psq-l2exm"  data-card-event="Eric Rosenbaum"><div>So that's the complete card! I had some help printing them out and cut and glued everything just in time! I had so much fun learning from Eric and the rest of the team, really hope there will be more opprotunities to work together in the future!<br/></div></section>
+        </main>
+        <button class="deck" id="deckButton">
+        <img src="assets/images/trading-card-button.avif" alt="" />
+        </button>
+        <footer>
         <p>
-            So that's the complete card! I had some help printing them out and cut and glued everything just in time! I had so much fun learning from Eric and the rest of the team, really hope there will be more opprotunities to work together in the future!
+            enochkang9171@gmail.com |
+            <a
+            href="https://www.youtube.com/@fireworksstudios9172"
+            target="_blank"
+            aria-label="YouTube"
+            style="
+                vertical-align: middle;
+                display: inline-block;
+                margin: 0 0.2em;
+                margin-top: -2px;
+            "
+            >
+            <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style="vertical-align: middle"
+            >
+                <path
+                d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.117C19.228 3.5 12 3.5 12 3.5s-7.228 0-9.391.569A2.994 2.994 0 0 0 .502 6.186C0 8.36 0 12 0 12s0 3.64.502 5.814a2.994 2.994 0 0 0 2.107 2.117C4.772 20.5 12 20.5 12 20.5s7.228 0 9.391-.569a2.994 2.994 0 0 0 2.107-2.117C24 15.64 24 12 24 12s0-3.64-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+                fill="#FF0000"
+                />
+            </svg>
+            </a>
+            |
+            <a
+            href="https://www.linkedin.com/in/enochkang9171"
+            target="_blank"
+            aria-label="LinkedIn"
+            style="
+                vertical-align: middle;
+                display: inline-block;
+                margin: 0 0.2em;
+                margin-bottom: -4.5px;
+            "
+            >
+            <svg
+                width="22px"
+                height="22px"
+                viewBox="0 0 24 24"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <title>LinkedIn icon</title>
+                <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                fill="#0072B1"
+                />
+            </svg>
+            </a>
+            |
+            <a
+            href="https://github.com/donnie9171"
+            target="_blank"
+            aria-label="GitHub"
+            style="
+                vertical-align: middle;
+                display: inline-block;
+                margin: 0 0.2em;
+                margin-top: -2.5px;
+            "
+            >
+            <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style="vertical-align: middle"
+            >
+                <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.262.82-.582 0-.288-.012-1.243-.018-2.252-3.338.726-4.042-1.415-4.042-1.415-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.304-5.466-1.332-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.3 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.047.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.803 5.625-5.475 5.921.43.371.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.218.699.825.58C20.565 21.796 24 17.297 24 12c0-6.63-5.37-12-12-12z"
+                fill="#181717"
+                />
+            </svg>
+            </a>
         </p>
-      </section>
-    </main>
-    <button class="deck" id="deckButton">
-      <img src="assets/images/trading-card-button.avif" alt="" />
-    </button>
-    <footer>
-      <p>
-        enochkang9171@gmail.com |
-        <a
-          href="https://www.youtube.com/@fireworksstudios9172"
-          target="_blank"
-          aria-label="YouTube"
-          style="
-            vertical-align: middle;
-            display: inline-block;
-            margin: 0 0.2em;
-            margin-top: -2px;
-          "
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style="vertical-align: middle"
-          >
-            <path
-              d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.117C19.228 3.5 12 3.5 12 3.5s-7.228 0-9.391.569A2.994 2.994 0 0 0 .502 6.186C0 8.36 0 12 0 12s0 3.64.502 5.814a2.994 2.994 0 0 0 2.107 2.117C4.772 20.5 12 20.5 12 20.5s7.228 0 9.391-.569a2.994 2.994 0 0 0 2.107-2.117C24 15.64 24 12 24 12s0-3.64-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
-              fill="#FF0000"
-            />
-          </svg>
-        </a>
-        |
-        <a
-          href="https://www.linkedin.com/in/enochkang9171"
-          target="_blank"
-          aria-label="LinkedIn"
-          style="
-            vertical-align: middle;
-            display: inline-block;
-            margin: 0 0.2em;
-            margin-bottom: -4.5px;
-          "
-        >
-          <svg
-            width="22px"
-            height="22px"
-            viewBox="0 0 24 24"
-            role="img"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>LinkedIn icon</title>
-            <path
-              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-              fill="#0072B1"
-            />
-          </svg>
-        </a>
-        |
-        <a
-          href="https://github.com/donnie9171"
-          target="_blank"
-          aria-label="GitHub"
-          style="
-            vertical-align: middle;
-            display: inline-block;
-            margin: 0 0.2em;
-            margin-top: -2.5px;
-          "
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style="vertical-align: middle"
-          >
-            <path
-              d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.262.82-.582 0-.288-.012-1.243-.018-2.252-3.338.726-4.042-1.415-4.042-1.415-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.304-5.466-1.332-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.3 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.047.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.803 5.625-5.475 5.921.43.371.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.218.699.825.58C20.565 21.796 24 17.297 24 12c0-6.63-5.37-12-12-12z"
-              fill="#181717"
-            />
-          </svg>
-        </a>
-      </p>
-      <p>
-        Made with passion and a lot of
-        <a
-          href="https://github.com/donnie9171/portfolio"
-          target="_blank"
-          rel="noopener"
-          style="color: inherit"
-          >persistence</a
-        >
-        (wrangling Copilot).
-      </p>
-      <p>by Enoch (I-Nuo) Kang 康以諾</p>
-    </footer>
-    <script src="header-menu.js"></script>
-    <script src="trading-card.js"></script>
-    <script src="project-page.js"></script>
-  </body>
-</html>
+        <p>
+            Made with passion and a lot of
+            <a
+            href="https://github.com/donnie9171/portfolio"
+            target="_blank"
+            rel="noopener"
+            style="color: inherit"
+            >persistence</a
+            >
+            (wrangling Copilot).
+        </p>
+        <p>by Enoch (I-Nuo) Kang 康以諾</p>
+        </footer>
+        <script src="header-menu.js"></script>
+        <script src="trading-card.js"></script>
+        <script src="project-page.js"></script>
+    <script type="application/json" id="project-metadata">
+[
+  {
+    "type": "title",
+    "data": {
+      "title": "Scratch Foundation Internship",
+      "subtitle": "Software Engineering Intern | Jun 2025 - Aug 2025",
+      "overview": "I spent a summer interning for the Scratch Lab team at the Scratch Foundation! I designed and prototyped new AI related features for Scratch and even got to meet some folks at LLK in person! It was an unforgettable summer that truly solidified my belief in the power and responsibility of technology to empower the future.",
+      "people": "Supervisors:\nEric Rosenbaum, Andy Forest",
+      "img1": {
+        "src": "assets/images/scratch0.avif",
+        "caption": "Me and my mentor Eric Rosenbaum at Lifelong Kindergarten!"
+      },
+      "img2": {
+        "src": "assets/images/scratch1.avif",
+        "caption": "A LLK display at the MIT Museum."
+      },
+      "imgmobile": {
+        "src": "assets/images/scratch0.avif",
+        "caption": ""
+      },
+      "card": [
+        "Internship at Scratch"
+      ]
+    },
+    "blockId": "block-mh4huvsv-itqnz"
+  },
+  {
+    "type": "separator",
+    "data": {},
+    "blockId": "block-mh4hy38j-2omzt"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "## About the job\n**Scratch Foundation**  is a nonprofit organization dedicated to supporting creative learning through coding. Scratch, the flagship product, is the world’s largest online coding community for children and teens. It empowers young people to create interactive games, stories, and animations while fostering skills such as creative thinking, systematic reasoning, and collaboration.",
+      "card": []
+    },
+    "blockId": "block-mh4hy50l-b8b4k"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "**Scratch Lab** is the experimental research and development team within the Scratch Foundation. Its primary mission is to explore new ideas, prototype innovative features, and conduct playtests to validate future directions for the Scratch platform. The team focuses on speculative projects that push the boundaries of creative learning experiences, including initiatives like Creative AI, hardware integrations, and advanced block-based programming enhancements.\n\n",
+      "card": []
+    },
+    "blockId": "block-mh4i083r-jgw42"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "As a Scratch Lab Intern, my role involved both team-driven product development and self-directed exploratory work, aligned with the organization’s mission to inspire creative learning for children. My key responsibilities included:\n\n- **Supporting Ideation, Prototyping, and Playtesting:** Participating in brainstorming sessions, refining prototype concepts, and helping execute user-facing tests.\n- **Feature Development for the Scratch Platform:**\n  - Contributing to front-end codebases (HTML, CSS, JavaScript, React, TypeScript) within official Scratch Foundation repositories.\n  - Experimenting with block-based programming frameworks, specifically Blockly, to enhance prototype capabilities.\n- **Content Creation:** Drafting educational resources and UI elements to guide users in adopting new features.\n- **Collaboration:** Engaging in design discussions, collecting feedback, and iteratively improving prototypes to meet team objectives.\n- **Speculative Research:** Investigating future possibilities for Scratch features and their technical feasibility.",
+      "card": []
+    },
+    "blockId": "block-mh4i0mid-1j6zf"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "## Deliverables\nOver the three-month internship, I contributed to several projects:\n### Creative Learning Assistant (CLA) Frontend\n",
+      "card": []
+    },
+    "blockId": "block-mh4i8b1w-rf0yl"
+  },
+  {
+    "type": "image",
+    "data": {
+      "size": "large",
+      "images": [
+        {
+          "src": "assets/images/scratch4.avif",
+          "caption": ""
+        }
+      ],
+      "card": [],
+      "noRatio": true,
+      "noShadow": true
+    },
+    "blockId": "block-mh4i9u27-rrtqa"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "The CLA is a prototype chatbot designed to assist Scratch users in exploring creative possibilities. The panel [fig. 2] sits to the right of the Scratch editor (similar to Copilot in VS Code) and assists the user with various Scratch related AI functionalities. My contributions included:\n\n- Implemented chat interface features that support multiple content types:\n  - Text responses [fig. 4]\n  - Code stack previews [fig. 3]\n  - Sprite and project search integration [fig. 1 and 6]\n- Designed and integrated starter prompt suggestions to guide new users [fig. 2].\n- Developed UI interactions for collapsible chat panels, improving usability during early playtests.",
+      "card": []
+    },
+    "blockId": "block-mh4ib76c-2nt4m"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "### Blockhelp Prototyping",
+      "card": []
+    },
+    "blockId": "block-mh4if1jn-72jo0"
+  },
+  {
+    "type": "image",
+    "data": {
+      "size": "fit",
+      "images": [
+        {
+          "src": "assets/images/blockhelp.avif",
+          "caption": ""
+        }
+      ],
+      "card": [],
+      "noRatio": true
+    },
+    "blockId": "block-mh4ie2u0-756hi"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "Blockhelp aims to provide contextual guidance for Scratch programming blocks. I contributed by:\n\n- Defining JSON structures for content organization.\n- Implementing an initial UI scaffolding system for glossary components, enabling future design iterations by the team. [fig. 7]\n\n### Scratch Lab Deep Linking\n- Built, tested, and deployed to production deep link functionality for Scratch Lab projects and editors.\n- Extended this capability to include starter project deep links, streamlining user onboarding for prototypes.\n\n### Transition to Blockly for Rendering\nIn August, I assisted in transitioning block rendering from Scratch Blocks to Blockly within the CLA and Blockhelp prototypes. This included:\n\n- Investigating rendering discrepancies.\n- Refactoring frontend components for compatibility with Blockly’s rendering system.",
+      "card": []
+    },
+    "blockId": "block-mh4ifv9c-iimnx"
+  },
+  {
+    "type": "separator",
+    "data": {},
+    "blockId": "block-mh4ilqqt-q8aq2"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "## Growth and Reflection",
+      "card": []
+    },
+    "blockId": "block-mh4iieme-o5zvi"
+  },
+  {
+    "type": "image",
+    "data": {
+      "size": "large",
+      "images": [
+        {
+          "src": "assets/images/boston_skyline.avif",
+          "caption": "The sky was impossibly blue when I visited!"
+        },
+        {
+          "src": "assets/images/MITSTATA.avif",
+          "caption": "A not so clear view of the Stata Center across the road."
+        }
+      ],
+      "card": []
+    },
+    "blockId": "block-mh4iis5w-0do37"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "This internship and trip to visit the Lifeling Kindergarten lab at MIT Media Lab has truly been an eye-opening experience. I have never been in an environment where there is so much shared context on the topic of Scratch and STEAM education! It felt like everyone I met was so passionate about education and cared so deeply about the learning experiences of all learners.\n\n",
+      "card": []
+    },
+    "blockId": "block-mh4ikn1f-1t4yg"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "The internship also challenged me to grow professionally as a programmer. I have never had the opporunity to work in a team managing a system of such scale before. From dreading the never-ending npm errors to eventually learning to navigate the complicated repositories, I've grown to appreciate good systems and architecture even more.\n\n",
+      "card": []
+    },
+    "blockId": "block-mh4ikrwl-jsnpj"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "Working alongside professional software engineers and designers also taught me many valuable lessons on product development. From all the playtests to long evaluation meetings, everything is handled with so much care that it's incredibly inspiring to see how high the bar is set in terms of what is really good enough for a child. This motivates me to carry out my own development projects with this same standard and eye for quiality.",
+      "card": []
+    },
+    "blockId": "block-mh4iksbx-y9rwq"
+  },
+  {
+    "type": "separator",
+    "data": {},
+    "blockId": "block-mh4ilt20-fty35"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "## Something Fun\nThis entire adventure wouldn't have been possible if my supervisor and mentor Eric Rosenbaum hadn't given me the opportunity to reach out and share my work with him in the summer of 2024. Throughout the entire journey, despite having to juggle so many responsibilities, Eric still somehow managed to make time to set up these opportunities and even to meet with me in person to work in Boston. I am immensely grateful and knew I had to do something special for him before our last in-person day together at the Media Lab.",
+      "card": []
+    },
+    "blockId": "block-mh4iyman-rqy0t"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "I wanted to make a thank-you card for Eric. But it couldn't just be any card, it had to feel like I made it... it had to be a **TRADING CARD!**",
+      "card": []
+    },
+    "blockId": "block-mh4iz7br-3yexj"
+  },
+  {
+    "type": "image",
+    "data": {
+      "size": "large",
+      "images": [
+        {
+          "src": "assets/images/eric-sketch.avif",
+          "caption": "I created a sketch based on Eric's DnD character!\n"
+        },
+        {
+          "src": "assets/images/eric-linkedin.avif",
+          "caption": "Eric posted [this video](https://www.linkedin.com/posts/eric-rosenbaum-107120_heres-a-trailer-i-made-for-the-dd-campaign-activity-7302797968317775873-7lwf) on his LinkedIn where he generated scenes from his DnD campaign using AI.\n"
+        }
+      ],
+      "card": []
+    },
+    "blockId": "block-mh4izttm-2uvvj"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "Now that I had the artwork settled, I needed to find some relevant text to put on the card. As I was making this card, I was thinking back on all the ways Eric's work has inspired me in the past and I remembered this quote from an article he'd written a few years back:",
+      "card": []
+    },
+    "blockId": "block-mh4j2rq6-qhia1"
+  },
+  {
+    "type": "quote",
+    "data": {
+      "quote": "“Even if it’s been done before, you can find your own way. Use your unique weirdness to bring magic to the world.” - Eric Rosenbaum, 2020. [Glowdoodle: A Love Letter to Light Painting](https://medium.com/@eric.rosenbaum/glowdoodle-a-love-letter-to-light-painting-33bc94b17d41)",
+      "card": []
+    },
+    "blockId": "block-mh4j356v-hsie4"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "This message is very special to me because one our my projects (Matchbox) is directly inspired by the Eric's work on the MakeyMakey. At the start of the project, I would sometimes think to myself: Does Matchbox really contribute something new to the conversation, or am I just spending all this time making something that someone else has already solved? But after having met Eric and been encouraged by his works, I now proudly forge forward into the unknown, following the footsteps left by the giants before us.",
+      "card": []
+    },
+    "blockId": "block-mh4j3zy2-nbo3g"
+  },
+  {
+    "type": "custom",
+    "data": {
+      "html": "<section  class=\"project-block center-text\">\n<div class=\"cardbox onecard\" data-card-event=\"Eric Rosenbaum\">\n          <div class=\"trading-card-modal-card\" style=\"max-width: 400px;\">\n            <img src=\"assets/trading cards/24.avif\" alt=\"\">\n          </div>\n        </div></section>"
+    },
+    "blockId": "block-mh4j4fbt-r8dhv"
+  },
+  {
+    "type": "text",
+    "data": {
+      "text": "So that's the complete card! I had some help printing them out and cut and glued everything just in time! I had so much fun learning from Eric and the rest of the team, really hope there will be more opprotunities to work together in the future!\n\n",
+      "card": [
+        "Eric Rosenbaum"
+      ]
+    },
+    "blockId": "block-mh4j6psq-l2exm"
+  }
+]
+</script>
+</body>
+    </html>

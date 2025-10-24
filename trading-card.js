@@ -51,7 +51,7 @@ const countText =
 const isMobile = window.innerWidth < 600;
 topMessage.innerHTML =
   (window.currentLanguage === 'zh'
-    ? '找到所有隱藏卡片！'
+    ? '發現所有隱藏卡片！'
     : 'Find all the hidden cards!')
   + (isMobile ? '<br>' : ' ')
   + countText;
@@ -99,12 +99,18 @@ content.appendChild(topMessage);
     // add 2 pointers for up and down if there are new cards out of view of the scroll view
     const upPointer = document.createElement('div');
     upPointer.className = 'trading-card-scroll-pointer up';
-    upPointer.innerHTML = '<span class="new-triangle">▲</span> New!';
+    upPointer.innerHTML =
+      window.currentLanguage === 'zh'
+        ? '<span class="new-triangle">▲</span> 新卡片！'
+        : '<span class="new-triangle">▲</span> New!';
     gridContainer.appendChild(upPointer);
 
     const downPointer = document.createElement('div');
     downPointer.className = 'trading-card-scroll-pointer down';
-    downPointer.innerHTML = '<span class="new-triangle">▼</span> New!';
+    downPointer.innerHTML =
+      window.currentLanguage === 'zh'
+        ? '<span class="new-triangle">▼</span> 新卡片！'
+        : '<span class="new-triangle">▼</span> New!';
     gridContainer.appendChild(downPointer);
 
     // Helper to check if any new cards are above or below the visible area
@@ -151,7 +157,7 @@ const countText =
 const isMobile = window.innerWidth < 600;
 topMessage.innerHTML =
   (window.currentLanguage === 'zh'
-    ? '找到所有隱藏卡片！'
+    ? '發現所有隱藏卡片！'
     : 'Find all the hidden cards!')
   + (isMobile ? '<br>' : ' ')
   + countText;
@@ -205,7 +211,10 @@ if (cards.length === 0) {
         if (newCards.includes(card.title)) {
           const badge = document.createElement('div');
           badge.className = 'trading-card-deck-badge textvariant';
-          badge.innerHTML = '<span>New!</span>';
+          badge.innerHTML =
+          window.currentLanguage === 'zh'
+            ? '<span>新卡片！</span>'
+            : '<span>New!</span>';
           cardDiv.appendChild(badge);
         }
       }

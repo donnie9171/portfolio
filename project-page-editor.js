@@ -311,15 +311,36 @@ function renderMarkdown(md) {
     .replace(/^### (.*)$/gm, '<h3>$1</h3>')
     .replace(/^## (.*)$/gm, '<h2>$1</h2>')
     .replace(/^# (.*)$/gm, '<h1>$1</h1>')
-    // Bulleted lists: - item or * item
-    .replace(/((?:^[-*] .+(?:\n|$))+)/gm, function(match) {
-      const items = match.trim().split('\n').map(line =>
-        line.replace(/^[-*] (.+)/, '<li>$1</li>')
-      ).join('');
-      return `<ul>${items}</ul>`;
-    })
+  // Indented bullets (supports up to 4 levels)
+  html = html.replace(
+    /((?:^(?:\s{0,8}[-*] .+(?:\n|$))+)+)/gm,
+    function (match) {
+      const lines = match.trim().split('\n');
+      let result = '';
+      let stack = [];
+      lines.forEach(line => {
+        const indent = line.match(/^(\s*)/)[1].length;
+        const level = Math.floor(indent / 2); // 2 spaces per level
+        const content = line.replace(/^\s*[-*] (.+)/, '$1');
+        while (stack.length < level + 1) {
+          result += '<ul>';
+          stack.push('ul');
+        }
+        while (stack.length > level + 1) {
+          result += '</ul>';
+          stack.pop();
+        }
+        result += `<li>${content}</li>`;
+      });
+      while (stack.length > 0) {
+        result += '</ul>';
+        stack.pop();
+      }
+      return result;
+    }
+  );
     // Paragraph breaks
-    .replace(/\n{2,}/g, '<br/>');
+    html = html.replace(/\n{2,}/g, '<br/>');
   return html;
 }
 
