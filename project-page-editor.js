@@ -1279,3 +1279,220 @@ expandToggle.addEventListener('click', function() {
 // --- Initial Render ---
 renderBlockList();
 renderPreview();
+
+document.getElementById('output-csv').addEventListener('click', () => {
+  // List of translatable fields per block type
+  const translatableFields = {
+    title: ['title', 'subtitle', 'overview', 'people', 'ZHtitle', 'ZHsubtitle', 'ZHoverview', 'ZHpeople'],
+    text: ['text', 'ZHtext'],
+    quote: ['quote', 'ZHquote'],
+    image: ['images', 'img1', 'img2', 'imgmobile'],
+    youtube: ['videos'],
+  };
+
+  // Helper to flatten fields for CSV
+  function extractFields(block) {
+    const rows = [];
+    const { type, data, blockId } = block;
+
+    if (type === 'title') {
+      ['title', 'subtitle', 'overview', 'people'].forEach(field => {
+        rows.push({
+          blockId,
+          field,
+          en: data[field] || '',
+          zh: data['ZH' + field.charAt(0).toUpperCase() + field.slice(1)] || ''
+        });
+      });
+      // Images
+      ['img1', 'img2', 'imgmobile'].forEach(imgKey => {
+        if (data[imgKey]) {
+          rows.push({
+            blockId,
+            field: `${imgKey}.caption`,
+            en: data[imgKey].caption || '',
+            zh: data[imgKey].ZHcaption || ''
+          });
+        }
+      });
+    }
+    if (type === 'text') {
+      rows.push({
+        blockId,
+        field: 'text',
+        en: data.text || '',
+        zh: data.ZHtext || ''
+      });
+    }
+    if (type === 'quote') {
+      rows.push({
+        blockId,
+        field: 'quote',
+        en: data.quote || '',
+        zh: data.ZHquote || ''
+      });
+    }
+    if (type === 'image') {
+      if (Array.isArray(data.images)) {
+        data.images.forEach((img, idx) => {
+          rows.push({
+            blockId,
+            field: `images[${idx}].caption`,
+            en: img.caption || '',
+            zh: img.ZHcaption || ''
+          });
+        });
+      }
+    }
+    if (type === 'youtube') {
+      if (Array.isArray(data.videos)) {
+        data.videos.forEach((vid, idx) => {
+          rows.push({
+            blockId,
+            field: `videos[${idx}].caption`,
+            en: vid.caption || '',
+            zh: vid.ZHcaption || ''
+          });
+        });
+      }
+    }
+    return rows;
+  }
+
+  // Build CSV rows
+  let csvRows = [['blockId', 'field', 'en', 'zh']];
+  blocks.forEach(block => {
+    extractFields(block).forEach(row => {
+      // Escape quotes for CSV
+      csvRows.push([
+        row.blockId,
+        row.field,
+        `"${(row.en || '').replace(/"/g, '""')}"`,
+        `"${(row.zh || '').replace(/"/g, '""')}"`
+      ]);
+    });
+  });
+
+  // Join rows
+  const csvString = csvRows.map(r => r.join(',')).join('\n');
+
+  // Copy to clipboard and download as file
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(csvString)
+      .then(() => alert('CSV copied to clipboard!'))
+      .catch(() => alert('Failed to copy CSV.'));
+  }
+
+  // Also trigger download
+  const blob = new Blob([csvString], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'translations.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('input-csv').addEventListener('click', () => {
+  // Create file input for CSV upload
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.csv,text/csv';
+  input.style.display = 'none';
+  document.body.appendChild(input);
+
+input.addEventListener('change', async (e) => {
+  const file = input.files[0];
+  if (!file) return;
+  const text = await file.text();
+
+  // Use PapaParse to parse CSV
+  const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+  if (!parsed.data || parsed.data.length === 0) {
+    alert('CSV is empty or invalid.');
+    document.body.removeChild(input);
+    return;
+  }
+
+  // Map for quick block lookup
+  const blockMap = {};
+  blocks.forEach(block => blockMap[block.blockId] = block);
+
+  let updatedCount = 0;
+  parsed.data.forEach(row => {
+    const blockId = row.blockId?.trim();
+    const field = row.field?.trim();
+    const zh = row.zh?.trim();
+    if (!blockId || !field) {
+      console.warn(`[CSV Import] Skipped row due to missing blockId or field:`, row);
+      return;
+    }
+    const block = blockMap[blockId];
+    if (!block) {
+      console.warn(`[CSV Import] Skipped row due to missing block in blockMap:`, row);
+      return;
+    }
+    // ...rest of your update logic...
+// Handle nested fields (e.g. images[0].caption)
+      let target = block.data;
+      let fieldPath = field;
+      let zhField = null;
+      if (field.match(/^images\[(\d+)\]\.caption$/)) {
+        const idx = parseInt(field.match(/^images\[(\d+)\]\.caption$/)[1]);
+        if (target.images && target.images[idx]) {
+          target = target.images[idx];
+          zhField = 'ZHcaption';
+        }
+      } else if (field.match(/^videos\[(\d+)\]\.caption$/)) {
+        const idx = parseInt(field.match(/^videos\[(\d+)\]\.caption$/)[1]);
+        if (target.videos && target.videos[idx]) {
+          target = target.videos[idx];
+          zhField = 'ZHcaption';
+        }
+      } else if (field.match(/^img(1|2|mobile)\.caption$/)) {
+        const imgKey = field.split('.')[0];
+        if (target[imgKey]) {
+          target = target[imgKey];
+          zhField = 'ZHcaption';
+        }
+      } else {
+        // For normal fields, if field is 'text', use 'ZHtext', if 'quote', use 'ZHquote', etc.
+        if (field === 'text') zhField = 'ZHtext';
+        else if (field === 'quote') zhField = 'ZHquote';
+        else if (field === 'people') zhField = 'ZHpeople';
+        else if (field === 'overview') zhField = 'ZHoverview';
+        else if (field === 'subtitle') zhField = 'ZHsubtitle';
+        else if (field === 'title') zhField = 'ZHtitle';
+        else zhField = field.startsWith('ZH') ? field : 'ZH' + field;
+      }
+
+      if (zhField && typeof target === 'object' && zh !== undefined) {
+        target[zhField] = zh;
+        updatedCount++;
+        console.log(`[CSV Import] Updated blockId: ${blockId}, field: ${zhField}, value:`, zh);
+      } else {
+        console.warn(`[CSV Import] Failed to update blockId: ${blockId}, field: ${zhField}. Reason:`,
+          {
+            blockId,
+            field,
+            zhField,
+            targetType: typeof target,
+            zh,
+            block,
+            target
+          }
+        );
+      }
+  });
+
+    saveBlocks(blocks);
+    renderBlockList();
+    renderPreview();
+    alert(`Imported CSV. Updated ${updatedCount} translations.`);
+    document.body.removeChild(input);
+  });
+
+  input.click();
+});
