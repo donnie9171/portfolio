@@ -324,6 +324,7 @@ background-size: var(--s-s, 400%);
   align-items: center;
   justify-content: center;
   text-align: center;
+  z-index: 50;
 }
 
 .trading-card-scroll-pointer.up{
