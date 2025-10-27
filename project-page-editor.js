@@ -1297,62 +1297,56 @@ document.getElementById('output-csv').addEventListener('click', () => {
 
     if (type === 'title') {
       ['title', 'subtitle', 'overview', 'people'].forEach(field => {
-        rows.push({
-          blockId,
-          field,
-          en: data[field] || '',
-          zh: data['ZH' + field.charAt(0).toUpperCase() + field.slice(1)] || ''
-        });
+        const en = data[field] || '';
+        const zh = data['ZH' + field.charAt(0).toUpperCase() + field.slice(1)] || '';
+        if (en || zh) {
+          rows.push({ blockId, field, en, zh });
+        }
       });
       // Images
       ['img1', 'img2', 'imgmobile'].forEach(imgKey => {
         if (data[imgKey]) {
-          rows.push({
-            blockId,
-            field: `${imgKey}.caption`,
-            en: data[imgKey].caption || '',
-            zh: data[imgKey].ZHcaption || ''
-          });
+          const en = data[imgKey].caption || '';
+          const zh = data[imgKey].ZHcaption || '';
+          if (en || zh) {
+            rows.push({ blockId, field: `${imgKey}.caption`, en, zh });
+          }
         }
       });
     }
     if (type === 'text') {
-      rows.push({
-        blockId,
-        field: 'text',
-        en: data.text || '',
-        zh: data.ZHtext || ''
-      });
+      const en = data.text || '';
+      const zh = data.ZHtext || '';
+      if (en || zh) {
+        rows.push({ blockId, field: 'text', en, zh });
+      }
     }
     if (type === 'quote') {
-      rows.push({
-        blockId,
-        field: 'quote',
-        en: data.quote || '',
-        zh: data.ZHquote || ''
-      });
+      const en = data.quote || '';
+      const zh = data.ZHquote || '';
+      if (en || zh) {
+        rows.push({ blockId, field: 'quote', en, zh });
+      }
     }
     if (type === 'image') {
       if (Array.isArray(data.images)) {
         data.images.forEach((img, idx) => {
-          rows.push({
-            blockId,
-            field: `images[${idx}].caption`,
-            en: img.caption || '',
-            zh: img.ZHcaption || ''
-          });
+          const en = img.caption || '';
+          const zh = img.ZHcaption || '';
+          if (en || zh) {
+            rows.push({ blockId, field: `images[${idx}].caption`, en, zh });
+          }
         });
       }
     }
     if (type === 'youtube') {
       if (Array.isArray(data.videos)) {
         data.videos.forEach((vid, idx) => {
-          rows.push({
-            blockId,
-            field: `videos[${idx}].caption`,
-            en: vid.caption || '',
-            zh: vid.ZHcaption || ''
-          });
+          const en = vid.caption || '';
+          const zh = vid.ZHcaption || '';
+          if (en || zh) {
+            rows.push({ blockId, field: `videos[${idx}].caption`, en, zh });
+          }
         });
       }
     }
@@ -1363,7 +1357,7 @@ document.getElementById('output-csv').addEventListener('click', () => {
   let csvRows = [['blockId', 'field', 'en', 'zh']];
   blocks.forEach(block => {
     extractFields(block).forEach(row => {
-      // Escape quotes for CSV
+      // Only include rows where at least one of en/zh is non-empty
       csvRows.push([
         row.blockId,
         row.field,
@@ -1372,6 +1366,12 @@ document.getElementById('output-csv').addEventListener('click', () => {
       ]);
     });
   });
+
+  // Remove header if only header present (no data)
+  if (csvRows.length === 1) {
+    alert('No translatable content found.');
+    return;
+  }
 
   // Join rows
   const csvString = csvRows.map(r => r.join(',')).join('\n');
