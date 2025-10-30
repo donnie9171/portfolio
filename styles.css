@@ -1090,3 +1090,43 @@ html::-webkit-scrollbar-track {
   font-weight: 1600 !important;
   line-height: 1.1 !important;
 }
+
+/* Add to your CSS file */
+.comic-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.comic-row img {
+  width: 50%;
+  flex: 1 1 0;
+  object-fit: cover;
+  border-radius: 8px;
+  aspect-ratio: 3.4/3;
+}
+
+.short{
+  aspect-ratio: 512/287;
+}
+
+
+@media (max-width: 600px) {
+  .comic-row {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+  .comic-row img {
+  width: 100%;
+  }
+}
+
+.center-comic{
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
