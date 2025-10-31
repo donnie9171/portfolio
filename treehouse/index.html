@@ -64,14 +64,11 @@
       align-items: center;
       box-sizing: border-box;
     }
-    #loading {
-      
-    }
       .progress-bar-outer {
         border: 4px solid #264cff;
         height: 20px;
-        width: 200px;
-        max-width: 200px;
+        width: 300px;
+        max-width: 300px;
         border-radius: 20px;
       }
       .progress-bar-inner {
@@ -91,8 +88,9 @@
       }
     .loading-text, noscript {
       font-weight: normal;
-      font-size: 36px;
-      margin: 0 0 16px;
+      font-family: inherit;
+      color: #979797;
+      margin: 16px;
     }
     .loading-image {
       margin: 0 0 16px;
@@ -172,8 +170,11 @@
   <div id="loading" class="screen">
     <noscript>Enable JavaScript</noscript>
     
-    
+    <div class="loading-text" id="loading-percentage">Loading... 20%</div>
+
     <div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>
+
+    <div class="loading-text" id="loading-text-notice">This may take a bit longer if it's your first time here!</div>
   </div>
 
   <div id="error" class="screen" hidden>
@@ -186,6 +187,23 @@
 
   <script src="script.js"></script>
   <script>
+    window.currentLanguage = 'en'; // default
+
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'set-language') {
+        window.currentLanguage = event.data.language;
+        console.log("language setting inside iframe: ", event.data.language);
+        // Translate loading texts if language is zh
+        if (window.currentLanguage === 'zh') {
+          document.getElementById('loading-percentage').textContent = '載入中... 20%';
+          document.getElementById('loading-text-notice').textContent = '如果這是你第一次來這裡，這可能會花多一點時間！';
+        } else {
+          document.getElementById('loading-percentage').textContent = 'Loading... 20%';
+          document.getElementById('loading-text-notice').textContent = "This may take a bit longer if it's your first time here!";
+        }
+      }
+    });
+
     const appElement = document.getElementById('app');
     const launchScreen = document.getElementById('launch');
     const loadingScreen = document.getElementById('loading');
@@ -193,6 +211,8 @@
     const errorScreen = document.getElementById('error');
     const errorScreenMessage = document.getElementById('error-message');
     const errorScreenStack = document.getElementById('error-stack');
+    const loadingPercentageText = document.getElementById('loading-percentage');
+
 
     const handleError = (error) => {
       console.error(error);
@@ -205,6 +225,14 @@
     };
     const setProgress = (progress) => {
       if (loadingInner) loadingInner.style.width = progress * 100 + '%';
+      if (loadingPercentageText) {
+        const percent = Math.round(progress * 100);
+        if (window.currentLanguage === 'zh') {
+          loadingPercentageText.textContent = `載入中... ${percent}%`;
+        } else {
+          loadingPercentageText.textContent = `Loading... ${percent}%`;
+        }
+      }
     };
     const interpolate = (a, b, t) => a + t * (b - a);
 
