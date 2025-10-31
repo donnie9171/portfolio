@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!-- We only include this to explicitly loosen the CSP of various packager environments. It does not provide any security. -->
   <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: blob:">
-  <title>The Dream Treehouse 2025</title>
+  <title>treehouse</title>
   <style>
     body {
       color: #ffffff;
@@ -16,7 +16,7 @@
       padding: 0;
     }
     :root, body.is-fullscreen {
-      background-color: #c7c7c7;
+      background-color: #fafafa;
     }
     [hidden] {
       display: none !important;
@@ -85,7 +85,9 @@
           #549ce8 20px
         );
         background-size: 200% 200%;
+        animation: barberpole 10s linear infinite;
         border-radius: 10px;
+        transition: width 0.5s;
       }
     .loading-text, noscript {
       font-weight: normal;
@@ -120,10 +122,10 @@
       border-radius: 4px;
     }
     .control-button-highlight:hover {
-      background: #ff7b0026;
+      background: #ffa20026;
     }
     .control-button-highlight.active {
-      background: #ff7b0059;
+      background: #ffa20059;
     }
     .fullscreen-button {
       background: white;
@@ -151,7 +153,7 @@
     }
     
   </style>
-  <meta name="theme-color" content="#c7c7c7">
+  <meta name="theme-color" content="#fafafa">
   
 </head>
 <body>
@@ -230,10 +232,10 @@
       };
 
       scaffolding.setUsername("player####".replace(/#/g, () => Math.floor(Math.random() * 10)));
-      scaffolding.setAccentColor("#ff7b00");
+      scaffolding.setAccentColor("#ffa200");
 
       try {
-        scaffolding.addCloudProvider(new Scaffolding.Cloud.WebSocketProvider(["wss://clouddata.turbowarp.org","wss://clouddata.turbowarp.xyz"], "1218825240"));
+        scaffolding.addCloudProvider(new Scaffolding.Cloud.WebSocketProvider(["wss://clouddata.turbowarp.org","wss://clouddata.turbowarp.xyz"], "p4-@The Dream Treehouse 2025.1 Mobile Support + Page Compression.sb3"));
       } catch (error) {
         console.error(error);
       }
@@ -319,7 +321,7 @@
       await scaffolding.loadProject(projectData);
       setProgress(1);
       loadingScreen.hidden = true;
-      if (false) {
+      if (true) {
         scaffolding.start();
       } else {
         launchScreen.hidden = false;
