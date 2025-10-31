@@ -1067,7 +1067,14 @@ html::-webkit-scrollbar-track {
   }
   .nav-toggle {
     display: block;
+    height: 45px;
   }
+
+  .nav-toggle,
+.hamburger-container,
+.hamburger {
+  -webkit-tap-highlight-color: transparent;
+}
 
     .view-project-button{
     display: none;
