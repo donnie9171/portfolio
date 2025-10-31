@@ -170,7 +170,7 @@
   <div id="loading" class="screen">
     <noscript>Enable JavaScript</noscript>
     
-    <div class="loading-text" id="loading-percentage">Loading... 20%</div>
+    <div class="loading-text" id="loading-percentage">Loading... 0%</div>
 
     <div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>
 
@@ -195,10 +195,10 @@
         console.log("language setting inside iframe: ", event.data.language);
         // Translate loading texts if language is zh
         if (window.currentLanguage === 'zh') {
-          document.getElementById('loading-percentage').textContent = '載入中... 20%';
+          document.getElementById('loading-percentage').textContent = '載入中... 0%';
           document.getElementById('loading-text-notice').textContent = '如果這是你第一次來這裡，這可能會花多一點時間！';
         } else {
-          document.getElementById('loading-percentage').textContent = 'Loading... 20%';
+          document.getElementById('loading-percentage').textContent = 'Loading... 0%';
           document.getElementById('loading-text-notice').textContent = "This may take a bit longer if it's your first time here!";
         }
       }
