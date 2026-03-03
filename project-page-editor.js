@@ -241,16 +241,22 @@ function renderTitleBlockEditor(data, idx) {
       <input type="text" placeholder="Subtitle" value="${data.subtitle}" data-field="subtitle" data-idx="${idx}" /><br/>
       <textarea placeholder="Overview" data-field="overview" data-idx="${idx}">${data.overview}</textarea><br/>
       <textarea placeholder="People" data-field="people" data-idx="${idx}">${data.people}</textarea><br/>
+      <input type="text" placeholder="Image 1 src" value="${data.img1.src}" data-field="img1.src" data-idx="${idx}" /><br/>
       <input type="text" placeholder="Image 1 caption" value="${data.img1.caption}" data-field="img1.caption" data-idx="${idx}" /><br/>
+      <input type="text" placeholder="Image 2 src" value="${data.img2.src}" data-field="img2.src" data-idx="${idx}" /><br/>
       <input type="text" placeholder="Image 2 caption" value="${data.img2.caption}" data-field="img2.caption" data-idx="${idx}" /><br/>
+      <input type="text" placeholder="Mobile Image src" value="${data.imgmobile.src}" data-field="imgmobile.src" data-idx="${idx}" /><br/>
       <input type="text" placeholder="Mobile Image caption" value="${data.imgmobile.caption}" data-field="imgmobile.caption" data-idx="${idx}" /><br/>`;
   } else {
     html += `<input type="text" placeholder="標題" value="${data.ZHtitle}" data-field="ZHtitle" data-idx="${idx}" /><br/>
       <input type="text" placeholder="副標題" value="${data.ZHsubtitle}" data-field="ZHsubtitle" data-idx="${idx}" /><br/>
       <textarea placeholder="簡介" data-field="ZHoverview" data-idx="${idx}">${data.ZHoverview}</textarea><br/>
       <textarea placeholder="成員" data-field="ZHpeople" data-idx="${idx}">${data.ZHpeople}</textarea><br/>
+      <input type="text" placeholder="圖片1連結" value="${data.img1.src}" data-field="img1.src" data-idx="${idx}" /><br/>
       <input type="text" placeholder="圖片1說明" value="${data.img1.ZHcaption}" data-field="img1.ZHcaption" data-idx="${idx}" /><br/>
+      <input type="text" placeholder="圖片2連結" value="${data.img2.src}" data-field="img2.src" data-idx="${idx}" /><br/>
       <input type="text" placeholder="圖片2說明" value="${data.img2.ZHcaption}" data-field="img2.ZHcaption" data-idx="${idx}" /><br/>
+      <input type="text" placeholder="手機圖片連結" value="${data.imgmobile.src}" data-field="imgmobile.src" data-idx="${idx}" /><br/>
       <input type="text" placeholder="手機圖片說明" value="${data.imgmobile.ZHcaption}" data-field="imgmobile.ZHcaption" data-idx="${idx}" /><br/>`;
   }
   html += `<input type="text" placeholder="Cards (comma separated)" value="${data.card.join(',')}" data-field="card" data-idx="${idx}" /><br/>`;

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# give execute permission if you haven't already
+# chmod +x ./convert-img.sh
+# then execute it
+# ./convert-img.sh
+
 # Check for ImageMagick installation
 if ! command -v magick &> /dev/null; then
     echo "ImageMagick could not be found. Please install it first."
