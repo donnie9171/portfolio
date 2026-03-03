@@ -108,16 +108,16 @@
     "ZHkeywords": ["2024", "作者", "插畫家", "編輯", "平面設計", "故事敘述"]
   },
   {
-    "title": "Refactorman!",
+    "title": "Refactorman Comics!",
     "description": "Comic book universe about software engineering!",
     "thumbnail": "assets/cards/refactorman_cardthumb.avif",
-    "page": "portfolio.html",
-    "dna": [35, 60, 5],
-    "highlight": false,
-    "keywords": ["2024", "Author", "Illustrator", "Comic", "Storytelling", "Graphic Design", "Silly", "Goofy"]
+    "page": "refactorman.html",
+    "dna": [15, 80, 5],
+    "highlight": true,
+    "keywords": ["2024-Present", "Author", "Illustrator", "Comic", "Storytelling", "Graphic Design", "Silly", "Goofy"]
     ,"ZHtitle": "Refactorman! 重構俠",
     "ZHdescription": "以軟體工程為主題的漫畫宇宙！",
-    "ZHkeywords": ["2024", "作者", "插畫家", "漫畫", "故事敘述", "平面設計", "搞笑", "趣味"]
+    "ZHkeywords": ["2024-今天", "作者", "插畫家", "漫畫", "故事敘述", "平面設計", "搞笑", "趣味"]
   },
   {
     "title": "Matchbox Merch",
