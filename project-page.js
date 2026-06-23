@@ -230,7 +230,7 @@ function translatePage(){
     // Update name
     const nameLink = header.querySelector('h1 a');
     if (nameLink) {
-      nameLink.textContent = lang === 'zh' ? '康以諾' : 'Enoch Kang';
+      nameLink.textContent = lang === 'zh' ? '康以諾 • 作品集' : 'Enoch Kang';
     }
     // Update nav links
     const navList = header.querySelectorAll('.nav-list li a');

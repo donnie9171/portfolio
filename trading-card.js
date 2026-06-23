@@ -51,7 +51,7 @@ const countText =
 const isMobile = window.innerWidth < 600;
 topMessage.innerHTML =
   (window.currentLanguage === 'zh'
-    ? '發現所有隱藏的卡片！'
+    ? '快去發掘所有的隱藏卡片！'
     : 'Find all the hidden cards!')
   + (isMobile ? '<br>' : ' ')
   + countText;
@@ -157,7 +157,7 @@ const countText =
 const isMobile = window.innerWidth < 600;
 topMessage.innerHTML =
   (window.currentLanguage === 'zh'
-    ? '發現所有隱藏的卡片！'
+    ? '快去發掘所有的隱藏卡片！'
     : 'Find all the hidden cards!')
   + (isMobile ? '<br>' : ' ')
   + countText;
