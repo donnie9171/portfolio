@@ -123,7 +123,7 @@ function setupBookshelf3D(root = document) {
       const rotateX = -dy * maxRotate;
 
       item.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
-      item.style.boxShadow = '0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.07)';
+      item.style.boxShadow = 'inset 4px 0 4px -3px rgba(0,0,0,0.28), -4px 4px 8px rgba(0,0,0,0.12), 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.07)';
     }, 10);
 
     const resetPointer = () => {
