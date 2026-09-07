@@ -182,6 +182,49 @@
 .project-images.no-shadow img{
 	box-shadow: none;
 }
+
+.bookshelf {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1.5em;
+	max-width: 1000px;
+	width: 100%;
+	margin: 0 auto;
+	justify-items: center;
+}
+
+.bookshelf-item {
+	display: block;
+	width: min(100%, 500px);
+	border: 1px solid lightgray;
+	border-radius: 6px;
+	box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+	overflow: hidden;
+	line-height: 0;
+	transition: transform 0.25s cubic-bezier(.25,.8,.25,1), box-shadow 0.25s cubic-bezier(.25,.8,.25,1);
+}
+
+.bookshelf-item:nth-child(odd):last-child {
+	grid-column: 1 / -1;
+}
+
+.bookshelf-item img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 6px;
+}
+
+@media (max-width: 560px) {
+	.bookshelf {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1em;
+	}
+	.bookshelf-item {
+		width: min(100%, 500px);
+	}
+}
+
 .project-images figcaption {
 	margin-top: 0.3em;
 	margin-bottom: 0.5em;

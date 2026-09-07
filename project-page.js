@@ -96,9 +96,59 @@ function updateFloatingMenu() {
 
 document.addEventListener('DOMContentLoaded', function () {
 	updateFloatingMenu();
+  setupBookshelf3D();
 });
 
 window.updateFloatingMenu = updateFloatingMenu;
+
+function setupBookshelf3D(root = document) {
+  root.querySelectorAll('.bookshelf-item').forEach(item => {
+    if (item._hasBookshelf3DEvents) return;
+    item._hasBookshelf3DEvents = true;
+
+    const handlePointer = debounceBookshelfPointer(e => {
+      const rect = item.getBoundingClientRect();
+      const x = e.touches && e.touches.length
+        ? e.touches[0].clientX - rect.left
+        : (e.clientX !== undefined ? e.clientX : 0) - rect.left;
+      const y = e.touches && e.touches.length
+        ? e.touches[0].clientY - rect.top
+        : (e.clientY !== undefined ? e.clientY : 0) - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const dx = (x - cx) / cx;
+      const dy = (y - cy) / cy;
+      const maxRotate = 5;
+      const rotateY = dx * maxRotate;
+      const rotateX = -dy * maxRotate;
+
+      item.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+      item.style.boxShadow = '0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.07)';
+    }, 10);
+
+    const resetPointer = () => {
+      item.style.transform = '';
+      item.style.boxShadow = '';
+    };
+
+    item.addEventListener('mousemove', handlePointer);
+    item.addEventListener('pointermove', handlePointer);
+    item.addEventListener('touchmove', handlePointer);
+    item.addEventListener('mouseleave', resetPointer);
+    item.addEventListener('pointerleave', resetPointer);
+    item.addEventListener('mouseout', resetPointer);
+    item.addEventListener('touchend', resetPointer);
+    item.addEventListener('touchcancel', resetPointer);
+  });
+}
+
+function debounceBookshelfPointer(fn, delay) {
+  let timer = null;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}
 
 // youtube iframe support
 

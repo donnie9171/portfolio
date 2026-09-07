@@ -41,6 +41,9 @@ const BLOCK_TYPES = {
     loop: false,
     card: []
   },
+  bookshelf: {
+    books: [""]
+  },
   custom: {
     html: ""
   }
@@ -363,6 +366,29 @@ function renderYoutubeBlockEditor(data, idx) {
   return html;
 }
 
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function renderBookshelfBlockEditor(data, idx) {
+  let html = "";
+  (data.books || []).forEach((book, bookIdx) => {
+    html += `
+      <div class="bookshelf-editor-entry">
+        <textarea placeholder="Booklet HTML (get embed directly from heyzine. expecting something like <a href.../a>)" data-field="books.${bookIdx}" data-idx="${idx}">${escapeHtml(book)}</textarea>
+        <button data-action="remove-book" data-book-idx="${bookIdx}" data-idx="${idx}" type="button">Remove booklet</button>
+      </div>
+    `;
+  });
+  html += `<button data-action="add-book" data-idx="${idx}" type="button">Add booklet</button><br/>`;
+  return html;
+}
+
 
 function renderBlockEditor(block, idx) {
   // Minimal editor for each block type
@@ -393,6 +419,9 @@ function renderBlockEditor(block, idx) {
       break;
     case "youtube":
       html += renderYoutubeBlockEditor(block.data, idx);
+      break;
+    case "bookshelf":
+      html += renderBookshelfBlockEditor(block.data, idx);
       break;
     case "custom":
       html += `<textarea placeholder="Custom HTML" data-field="html" data-idx="${idx}">${block.data.html || ""}</textarea><br/>`;
@@ -685,6 +714,79 @@ function renderYoutubeBlockPreview(data, blockId) {
   `;
 }
 
+function parseBookshelfEntry(entry) {
+  const parsed = new DOMParser().parseFromString(entry, "text/html");
+  const link = parsed.querySelector("a[href]");
+  const image = parsed.querySelector("img[src]");
+  if (!link || !image) return null;
+
+  return {
+    href: link.getAttribute("href"),
+    src: image.getAttribute("src"),
+    alt: image.getAttribute("alt") || ""
+  };
+}
+
+function renderBookshelfBlockPreview(data, blockId) {
+  const books = (data.books || [])
+    .map(parseBookshelfEntry)
+    .filter(Boolean);
+  if (books.length === 0) return "";
+
+  const items = books.map(book => `
+    <a class="bookshelf-item" href="${escapeHtml(book.href)}" target="_blank" rel="noopener noreferrer">
+      <img src="${escapeHtml(book.src)}" alt="${escapeHtml(book.alt)}" />
+    </a>
+  `).join("");
+
+  return `
+    <section id="preview-block-${blockId}" data-block-id="${blockId}" class="project-block bookshelf-block">
+      <div class="bookshelf">${items}</div>
+    </section>
+  `;
+}
+
+function setupBookshelf3D(root = document) {
+  root.querySelectorAll('.bookshelf-item').forEach(item => {
+    if (item._hasBookshelf3DEvents) return;
+    item._hasBookshelf3DEvents = true;
+
+    const handlePointer = debounce(e => {
+      const rect = item.getBoundingClientRect();
+      const x = e.touches && e.touches.length
+        ? e.touches[0].clientX - rect.left
+        : (e.clientX !== undefined ? e.clientX : 0) - rect.left;
+      const y = e.touches && e.touches.length
+        ? e.touches[0].clientY - rect.top
+        : (e.clientY !== undefined ? e.clientY : 0) - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const dx = (x - cx) / cx;
+      const dy = (y - cy) / cy;
+      const maxRotate = 5;
+      const rotateY = dx * maxRotate;
+      const rotateX = -dy * maxRotate;
+
+      item.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+      item.style.boxShadow = '0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.07)';
+    }, 10);
+
+    const resetPointer = () => {
+      item.style.transform = '';
+      item.style.boxShadow = '';
+    };
+
+    item.addEventListener('mousemove', handlePointer);
+    item.addEventListener('pointermove', handlePointer);
+    item.addEventListener('touchmove', handlePointer);
+    item.addEventListener('mouseleave', resetPointer);
+    item.addEventListener('pointerleave', resetPointer);
+    item.addEventListener('mouseout', resetPointer);
+    item.addEventListener('touchend', resetPointer);
+    item.addEventListener('touchcancel', resetPointer);
+  });
+}
+
 function renderCustomBlockPreview(data, blockId) {
   return data.html;
 }
@@ -705,6 +807,8 @@ function renderBlockPreview(block) {
       return renderCardboxBlockPreview(block.data, block.blockId);
     case "youtube":
       return renderYoutubeBlockPreview(block.data, block.blockId);
+    case "bookshelf":
+      return renderBookshelfBlockPreview(block.data, block.blockId);
     case "custom":
       return renderCustomBlockPreview(block.data, block.blockId);
     default:
@@ -715,6 +819,7 @@ function renderBlockPreview(block) {
 function renderPreview() {
   if (previewMode) {
     previewEl.innerHTML = blocks.map(renderBlockPreview).join('');
+    setupBookshelf3D(previewEl);
   } else {
     previewEl.innerHTML = `<pre style="background:#fff;padding:1em;border-radius:8px; overflow:auto; max-width: 100%">${JSON.stringify(blocks, null, 2)}</pre>`;
   }
@@ -726,6 +831,7 @@ function updateBlockPreview(idx) {
   if (previewBlock) {
     // Replace the block's outerHTML with the new preview HTML
     previewBlock.outerHTML = renderBlockPreview(block);
+    setupBookshelf3D(previewEl);
   }
 }
 
@@ -882,6 +988,20 @@ function addVideoToBlock(idx) {
   renderPreview();
 }
 
+function addBookToBlock(idx) {
+  blocks[idx].data.books.push("");
+  saveBlocks(blocks);
+  renderBlockList();
+  renderPreview();
+}
+
+function removeBookFromBlock(idx, bookIdx) {
+  blocks[idx].data.books.splice(bookIdx, 1);
+  saveBlocks(blocks);
+  renderBlockList();
+  renderPreview();
+}
+
 // --- Drag and Drop with Insert Indicator ---
 let dragSrcIdx = null;
 let dragOverIdx = null;
@@ -991,6 +1111,12 @@ blockListEl.addEventListener("click", e => {
   }
   if (action === "add-video" && !isNaN(idx)) {
     addVideoToBlock(idx);
+  }
+  if (action === "add-book" && !isNaN(idx)) {
+    addBookToBlock(idx);
+  }
+  if (action === "remove-book" && !isNaN(idx)) {
+    removeBookFromBlock(idx, parseInt(e.target.getAttribute("data-book-idx")));
   }
 });
 

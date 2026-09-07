@@ -108,10 +108,10 @@
     "ZHkeywords": ["2024", "作者", "插畫家", "編輯", "平面設計", "故事敘述"]
   },
   {
-    "title": "Refactorman Comics!",
-    "description": "Comic book universe about software engineering!",
+    "title": "Comics and Zines!",
+    "description": "I love making comics and zines whenever I have the chance to!",
     "thumbnail": "assets/cards/refactorman_cardthumb.avif",
-    "page": "refactorman.html",
+    "page": "comics-and-zines.html",
     "dna": [15, 80, 5],
     "highlight": true,
     "keywords": ["2024-Present", "Author", "Illustrator", "Comic", "Storytelling", "Graphic Design", "Silly", "Goofy"]

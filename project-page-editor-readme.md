@@ -78,3 +78,12 @@
     (no attributes it's just a separator line)
 }
 ```
+
+### Bookshelf block
+```
+{
+    books: [string array of booklet HTML entries]
+}
+```
+
+Each entry contains an anchor and thumbnail image. The page output extracts only their `href` and `src` attributes and applies the bookshelf styling.
