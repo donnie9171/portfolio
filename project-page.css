@@ -219,7 +219,7 @@
 
 .bookshelf-pages {
 	inset: 0;
-	z-index: 0;
+	z-index: 2;
 }
 
 .bookshelf-pages span {
@@ -268,7 +268,7 @@
 
 .bookshelf-item img {
 	position: relative;
-	z-index: 1;
+	z-index: 3;
 	display: block;
 	width: 100%;
 	height: auto;
@@ -284,7 +284,7 @@
 	width: 12px;
 	background: linear-gradient(to right, rgba(0,0,0,0.22), rgba(0,0,0,0));
 	border-radius: 6px 0 0 6px;
-	z-index: 2;
+	z-index: 4;
 	pointer-events: none;
 }
 
@@ -297,9 +297,10 @@
 	.bookshelf {
 		grid-template-columns: minmax(0, 1fr);
 		gap: 1em;
+		justify-items: start;
 	}
 	.bookshelf-item {
-		width: min(100%, 500px);
+		width: min(calc(100% - 10px), 500px);
 	}
 }
 

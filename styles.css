@@ -727,7 +727,7 @@ footer {
   position: fixed;
   bottom: 10px;
   left: 5px;
-  z-index: 10000;
+  z-index: 15;
   color: white;
   background-color: transparent;
   border: none;
@@ -751,7 +751,7 @@ footer {
 }
 
 .deck.trading-card-deck-pulse{
-  z-index: 1000000;
+  z-index: 15;
   transform: scale(1.15);
 }
 
