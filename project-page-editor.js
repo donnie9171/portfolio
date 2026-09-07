@@ -755,6 +755,7 @@ function setupBookshelf3D(root = document) {
     item._hasBookshelf3DEvents = true;
 
     const handlePointer = debounce(e => {
+      if (e.type === 'pointermove' && e.pointerType !== 'mouse') return;
       const rect = item.getBoundingClientRect();
       const x = e.touches && e.touches.length
         ? e.touches[0].clientX - rect.left
@@ -781,12 +782,9 @@ function setupBookshelf3D(root = document) {
 
     item.addEventListener('mousemove', handlePointer);
     item.addEventListener('pointermove', handlePointer);
-    item.addEventListener('touchmove', handlePointer);
     item.addEventListener('mouseleave', resetPointer);
     item.addEventListener('pointerleave', resetPointer);
     item.addEventListener('mouseout', resetPointer);
-    item.addEventListener('touchend', resetPointer);
-    item.addEventListener('touchcancel', resetPointer);
   });
 }
 
